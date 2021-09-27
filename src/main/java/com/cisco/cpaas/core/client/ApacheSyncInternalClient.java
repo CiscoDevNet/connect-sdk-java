@@ -3,7 +3,7 @@ package com.cisco.cpaas.core.client;
 import com.cisco.cpaas.core.WebexException;
 import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.core.parser.ObjectParser;
-import com.cisco.cpaas.core.type.ErrorStatus;
+import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.core.type.Idempotent;
 import org.apache.commons.codec.CharEncoding;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -104,8 +104,8 @@ public class ApacheSyncInternalClient implements InternalClient {
     return response.getCode() < SC_OK | response.getCode() >= SC_REDIRECTION;
   }
 
-  private ErrorStatus parseError(InputStream is) {
-    return parser.readToObject(is, ErrorStatus.class);
+  private ErrorResponse parseError(InputStream is) {
+    return parser.readToObject(is, ErrorResponse.class);
   }
 
   private void setAuthentication(HttpUriRequestBase request) {

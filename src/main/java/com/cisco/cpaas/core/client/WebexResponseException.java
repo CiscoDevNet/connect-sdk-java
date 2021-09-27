@@ -1,7 +1,7 @@
 package com.cisco.cpaas.core.client;
 
 import com.cisco.cpaas.core.WebexException;
-import com.cisco.cpaas.core.type.ErrorStatus;
+import com.cisco.cpaas.core.type.ErrorResponse;
 
 /**
  * Exception that is thrown when the request was successfully sent, but the service returned a non-
@@ -12,10 +12,10 @@ public class WebexResponseException extends WebexException {
 
   private final String requestId;
   private final int httpStatusCode;
-  private final ErrorStatus errorResponse;
+  private final ErrorResponse errorResponse;
 
   public WebexResponseException(
-      String requestId, int httpStatusCode, ErrorStatus errorResponse) {
+      String requestId, int httpStatusCode, ErrorResponse errorResponse) {
     super(errorResponse.getMessage());
     this.requestId = requestId;
     this.httpStatusCode = httpStatusCode;
