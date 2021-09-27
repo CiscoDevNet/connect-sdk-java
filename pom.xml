@@ -57,6 +57,11 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>2.12.5</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
+      <version>2.12.5</version>
+    </dependency>
     <!-- https://github.com/findbugsproject/findbugs/blob/3.0.1/findbugs/licenses/LICENSE-jsr305.txt -->
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
@@ -107,6 +112,11 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.1</version>
+          <configuration>
+            <compilerArgs>
+              <arg>-parameters</arg>
+            </compilerArgs>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
