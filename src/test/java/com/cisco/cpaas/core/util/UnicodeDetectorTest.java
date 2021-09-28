@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.stream.IntStream;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -31,5 +33,16 @@ class UnicodeDetectorTest {
   public void shouldDetectUnicode(String text) {
     assertThat(UnicodeDetector.containsUnicode(text), is(true));
     System.out.println(text);
+  }
+
+  @Test
+  public void shouldDetectAllUnicodeThatIsNotAscii() {
+    int firstNonAsciiDecimal = 128;
+    int lastUnicodeDecimal = 65535;
+    IntStream.range(firstNonAsciiDecimal, lastUnicodeDecimal + 1)
+        .forEach(
+            i ->
+                assertThat(
+                    UnicodeDetector.containsUnicode(Character.toString((char) i)), is(true)));
   }
 }

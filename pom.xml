@@ -62,6 +62,13 @@
       <artifactId>jackson-module-parameter-names</artifactId>
       <version>2.12.5</version>
     </dependency>
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>2.0.1</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
     <!-- https://github.com/findbugsproject/findbugs/blob/3.0.1/findbugs/licenses/LICENSE-jsr305.txt -->
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
