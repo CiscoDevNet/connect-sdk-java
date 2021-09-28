@@ -55,6 +55,7 @@ public interface SmsClient extends WebexClient {
 
     @Override
     public SmsClient build() {
+      baseUrl = UrlUtils.removeTrailingSlash(baseUrl);
       String smsUrl = UrlUtils.validateUrl(baseUrl + smsPath);
       return new DefaultSmsClient(new ApacheSyncInternalClient(smsUrl, apiToken, parser));
     }

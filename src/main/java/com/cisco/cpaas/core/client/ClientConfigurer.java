@@ -51,6 +51,7 @@ public class ClientConfigurer {
 
     @Override
     public ApiTokenStep<T> withBaseUrl(String baseUrl) {
+      this.baseUrl = baseUrl;
       return this;
     }
 
