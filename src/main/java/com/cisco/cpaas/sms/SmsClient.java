@@ -5,7 +5,6 @@ import com.cisco.cpaas.core.client.ApacheSyncInternalClient;
 import com.cisco.cpaas.core.client.ClientConfigurer;
 import com.cisco.cpaas.core.client.WebexClient;
 import com.cisco.cpaas.core.client.WebexResponseException;
-import com.cisco.cpaas.core.util.UrlUtils;
 import com.cisco.cpaas.sms.type.SendSmsResponse;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
@@ -51,13 +50,10 @@ public interface SmsClient extends WebexClient {
   /** SMS version of the client configurer. */
   class Configurer extends ClientConfigurer.Steps<SmsClient> {
 
-    private final String smsPath = "/v1/sms/messages";
-
     @Override
     public SmsClient build() {
-      baseUrl = UrlUtils.removeTrailingSlash(baseUrl);
-      String smsUrl = UrlUtils.validateUrl(baseUrl + smsPath);
-      return new DefaultSmsClient(new ApacheSyncInternalClient(smsUrl, apiToken, parser));
+      String url = baseUrl + "/v1/sms/messages";
+      return new DefaultSmsClient(new ApacheSyncInternalClient(url, apiToken, parser));
     }
   }
 }

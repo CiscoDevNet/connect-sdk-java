@@ -2,6 +2,7 @@ package com.cisco.cpaas.core.client;
 
 import com.cisco.cpaas.core.parser.JacksonParser;
 import com.cisco.cpaas.core.parser.ObjectParser;
+import com.cisco.cpaas.core.util.UrlUtils;
 
 /**
  * Step style builder that constructs a {@link WebexClient} using the supplied configurations. The
@@ -51,7 +52,8 @@ public class ClientConfigurer {
 
     @Override
     public ApiTokenStep<T> withBaseUrl(String baseUrl) {
-      this.baseUrl = baseUrl;
+      this.baseUrl = UrlUtils.removeTrailingSlash(baseUrl);
+      UrlUtils.validateUrl(baseUrl);
       return this;
     }
 

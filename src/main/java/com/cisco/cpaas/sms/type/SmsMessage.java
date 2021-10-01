@@ -111,8 +111,8 @@ public final class SmsMessage implements Idempotent {
     private Instant expireAt;
 
     private Builder(String content, SmsContentType contentType) {
-      this.content = content;
-      this.contentType = contentType;
+      this.content = requireNonNull(content, "'content' is required.");
+      this.contentType = requireNonNull(contentType, "contentType can not be null.");
     }
 
     @Override
@@ -162,8 +162,6 @@ public final class SmsMessage implements Idempotent {
     }
 
     public SmsMessage build() {
-      requireNonNull(content, "'content' is required.");
-      requireNonNull(contentType, "contentType can not be null.");
       validArgument(isEndpoint(from), "not a valid E.164 number");
       validArgument(isE164Endpoint(to), "not a valid E.164 number");
       Substitutions subs = substitutions == null ? null : new Substitutions(substitutions);
