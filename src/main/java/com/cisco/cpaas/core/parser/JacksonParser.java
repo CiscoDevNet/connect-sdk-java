@@ -1,12 +1,15 @@
 package com.cisco.cpaas.core.parser;
 
 import com.cisco.cpaas.core.client.WebexClient;
+import com.cisco.cpaas.whatsapp.parser.WhatsAppMsgStatusDeserializer;
+import com.cisco.cpaas.whatsapp.type.WhatsAppMsgStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
@@ -14,13 +17,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Implementation of the {@link ObjectParser} based on Jackson that will instantiate a single instance of
- * Jackson's ObjectMapper with a configuration that is used for all {@link WebexClient} types.
+ * Implementation of the {@link ObjectParser} based on Jackson that will instantiate a single
+ * instance of Jackson's ObjectMapper with a configuration that is used for all {@link WebexClient}
+ * types.
  */
 public class JacksonParser implements ObjectParser {
 
   // Jackson's object mapper is thread safe, we can use a single instance for all instantiations.
   private static final ObjectMapper MAPPER;
+
   static {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -28,6 +33,14 @@ public class JacksonParser implements ObjectParser {
     objectMapper.registerModule(new ParameterNamesModule());
     objectMapper.registerModule(new JavaTimeModule());
     objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    objectMapper.configure(SerializationFeature.FAIL_ON_UNWRAPPED_TYPE_IDENTIFIERS, false);
+
+
+    SimpleModule simpleModule = new SimpleModule();
+    simpleModule.addSerializer(new EndpointSerializer());
+    simpleModule.addDeserializer(WhatsAppMsgStatus.class, new WhatsAppMsgStatusDeserializer());
+    objectMapper.registerModule(simpleModule);
+
     MAPPER = objectMapper;
   }
 
