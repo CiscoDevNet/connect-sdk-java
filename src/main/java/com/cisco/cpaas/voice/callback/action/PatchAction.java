@@ -1,7 +1,7 @@
 package com.cisco.cpaas.voice.callback.action;
 
 import com.cisco.cpaas.core.type.PhoneNumber;
-import com.cisco.cpaas.voice.type.ExternalAudio;
+import com.cisco.cpaas.voice.type.Audio;
 import com.cisco.cpaas.voice.type.TelephoneDigit;
 import lombok.Builder;
 import lombok.NonNull;
@@ -21,12 +21,12 @@ public class PatchAction implements Action {
    * This audio clip is played to the existing call leg while the platform is connecting the new
    * call leg.
    */
-  private final ExternalAudio holdAudio;
+  private final Audio holdAudio;
 
   /**
    * This audio object is played to the new call leg before patching them to the existing call leg.
    */
-  private final ExternalAudio greetingAudio;
+  private final Audio greetingAudio;
 
   /** The calling party number when dialing the new call leg. */
   private final PhoneNumber patchCallerId;
