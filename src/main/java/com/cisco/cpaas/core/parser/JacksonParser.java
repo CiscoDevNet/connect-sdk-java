@@ -21,7 +21,7 @@ import java.io.InputStream;
  * instance of Jackson's ObjectMapper with a configuration that is used for all {@link WebexClient}
  * types.
  */
-public class JacksonParser implements ObjectParser {
+public final class JacksonParser implements ObjectParser {
 
   // Jackson's object mapper is thread safe, we can use a single instance for all instantiations.
   private static final ObjectMapper MAPPER;

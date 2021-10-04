@@ -1,6 +1,9 @@
 package com.cisco.cpaas.core.type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /** Interface defining methods used to determine the idempotency of a particular object. */
+@JsonIgnoreProperties({"idempotencyKey"})
 public interface Idempotent {
 
   /**

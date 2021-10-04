@@ -1,0 +1,11 @@
+{
+  "messageId": "messageId",
+  "acceptedTime": "2021-09-30T16:34:36.873Z",
+  "from": "+15550001234",
+  "to": "+15559994321",
+  "status": "QUEUED",
+  "statusTime": "2021-09-30T16:34:36.873Z",
+  "url": "http://example.com/audio.mp3",
+  "mimeType": "audio/mpeg",
+  "contentType": "AUDIO"
+}

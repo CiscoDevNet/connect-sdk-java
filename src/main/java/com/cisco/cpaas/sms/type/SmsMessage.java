@@ -2,7 +2,6 @@ package com.cisco.cpaas.sms.type;
 
 import com.cisco.cpaas.core.type.Idempotent;
 import com.cisco.cpaas.core.type.MessageBuilder;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -26,7 +25,7 @@ import static java.util.Objects.requireNonNull;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SmsMessage implements Idempotent {
 
-  @JsonIgnore private final transient String idempotencyKey = UUID.randomUUID().toString();
+  private final transient String idempotencyKey = UUID.randomUUID().toString();
 
   private final String from;
   private final String to;
