@@ -5,6 +5,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Optional;
 
 /**
  * Wraps the Apache CloseableHttpClient in a singleton so that instances of {@link
@@ -17,7 +18,10 @@ enum ClientFactory {
   private final CloseableHttpClient client;
 
   ClientFactory() {
-    this.client = HttpClientBuilder.create().setUserAgent("Webex SDK (Java)").build();
+    String version =
+        Optional.ofNullable(this.getClass().getPackage().getImplementationVersion()).orElse("");
+    this.client =
+        HttpClientBuilder.create().setUserAgent("Webex SDK (Java " + version + ")").build();
     registerShutdownHook();
   }
 
