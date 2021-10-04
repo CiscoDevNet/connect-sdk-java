@@ -14,10 +14,21 @@ import java.time.Instant;
 @Value
 public class SmsCallback {
 
+  /** Message's unique ID. */
   private final String messageId;
+
+  /** Timestamp reflecting when the message status was updated. */
   private final Instant statusTime;
+
+  /** The message status. */
   private final SendStatus status;
+
+  /** Additional data that was added to the original send message request. */
   private final String callbackData;
+
+  /** User defined ID that is assigned to an individual message. */
   private final String correlationId;
+
+  /** Error information that will only be populated if the status is FAILED. */
   private final ErrorResponse error;
 }

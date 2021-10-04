@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.net.URI;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public final class SmsMessage implements Idempotent {
   private final Substitutions substitutions;
   private final String correlationId;
   private final String dtlTemplateId;
-  private final String callbackUrl;
+  private final URI callbackUrl;
   private final String callbackData;
   private final Instant expireAt;
 
@@ -105,7 +106,7 @@ public final class SmsMessage implements Idempotent {
     private Map<String, String> substitutions;
     private String correlationId;
     private String dtlTemplateId;
-    private String callbackUrl;
+    private URI callbackUrl;
     private String callbackData;
     private Instant expireAt;
 
@@ -126,8 +127,8 @@ public final class SmsMessage implements Idempotent {
       return this;
     }
 
-    // TODO: We should look into adding a method to add multiple substitutions.
-    public Builder withSubstitution(Substitution substitution) {
+    // TODO: Look into adding a method to add multiple substitutions at once.
+    public Builder substitution(Substitution substitution) {
       if (substitutions == null) {
         this.substitutions = new HashMap<>();
       }
@@ -135,27 +136,27 @@ public final class SmsMessage implements Idempotent {
       return this;
     }
 
-    public Builder withCorrelationId(String correlationId) {
+    public Builder correlationId(String correlationId) {
       this.correlationId = correlationId;
       return this;
     }
 
-    public Builder withDtlTemplateId(String dtlTemplateId) {
+    public Builder dtlTemplateId(String dtlTemplateId) {
       this.dtlTemplateId = dtlTemplateId;
       return this;
     }
 
-    public Builder withCallbackUrl(String callbackUrl) {
+    public Builder callbackUrl(URI callbackUrl) {
       this.callbackUrl = callbackUrl;
       return this;
     }
 
-    public Builder withCallbackData(String callbackData) {
+    public Builder callbackData(String callbackData) {
       this.callbackData = callbackData;
       return this;
     }
 
-    public Builder withExpireAt(Instant expireAt) {
+    public Builder expireAt(Instant expireAt) {
       this.expireAt = expireAt;
       return this;
     }

@@ -19,7 +19,7 @@ public final class SmsMessageStatus {
   private final String content;
   private final SmsContentType contentType;
   private final String dltTemplateId;
-  private final String status;
+  private final SendStatus status;
   private final Instant statusTime;
   private final ErrorResponse error;
 
