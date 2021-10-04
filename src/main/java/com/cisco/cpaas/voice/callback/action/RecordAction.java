@@ -1,6 +1,6 @@
 package com.cisco.cpaas.voice.callback.action;
 
-import com.cisco.cpaas.voice.type.ExternalAudio;
+import com.cisco.cpaas.voice.type.Audio;
 import com.cisco.cpaas.voice.type.TelephoneDigit;
 import lombok.Builder;
 import lombok.Value;
@@ -18,7 +18,7 @@ public final class RecordAction implements Action {
   private final Type action = Type.RECORD;
 
   /** The sequence of audio clips to play. Array order reflects order that the clips are played. */
-  private final List<ExternalAudio> audio;
+  private final List<Audio> audio;
 
   /** The recording stops after this many seconds. */
   private final Integer timeoutSeconds;
