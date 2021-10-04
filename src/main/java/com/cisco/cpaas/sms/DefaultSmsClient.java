@@ -15,6 +15,8 @@ import static java.util.Objects.requireNonNull;
  */
 final class DefaultSmsClient implements SmsClient {
 
+  private static final String RESOURCE_PATH = "/v1/sms/messages";
+
   private final InternalClient client;
 
   public DefaultSmsClient(InternalClient client) {
@@ -28,11 +30,12 @@ final class DefaultSmsClient implements SmsClient {
 
   @Override
   public SendSmsResponse sendMessage(SmsMessage request) {
-    return client.post(request, SendSmsResponse.class);
+    return client.post(RESOURCE_PATH, request, SendSmsResponse.class);
   }
 
   @Override
   public Optional<SmsMessageStatus> getStatus(String messageId) {
-    return Optional.ofNullable(client.get(messageId, SmsMessageStatus.class));
+    String path = RESOURCE_PATH + "/" + messageId;
+    return Optional.ofNullable(client.get(path, SmsMessageStatus.class));
   }
 }

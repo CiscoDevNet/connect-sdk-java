@@ -75,7 +75,7 @@ class ApacheSyncInternalClientTest {
     MockPostRequest mockPost = new MockPostRequest();
     mockPost.put("type", "text");
 
-    Map<String, String> response = client.post(mockPost, Map.class);
+    Map<String, String> response = client.post("", mockPost, Map.class);
 
     assertThat(response, notNullValue());
     assertThat(response.get("id"), equalTo("messageId"));
@@ -132,7 +132,7 @@ class ApacheSyncInternalClientTest {
   public void shouldAppendAuthHeader() {
     stubFor(any(urlMatching(".*")).willReturn(ok("{}")));
     MockPostRequest mockPost = new MockPostRequest();
-    client.post(mockPost, Map.class);
+    client.post("", mockPost, Map.class);
     WireMock.verify(
         postRequestedFor(urlEqualTo("/"))
             .withHeader(
@@ -151,7 +151,7 @@ class ApacheSyncInternalClientTest {
   public void shouldAppendIdempotencyKeyHeaderOnPost() {
     stubFor(any(urlMatching(".*")).willReturn(ok("{}")));
     MockPostRequest mockPost = new MockPostRequest();
-    client.post(mockPost, Map.class);
+    client.post("", mockPost, Map.class);
     WireMock.verify(
         postRequestedFor(urlEqualTo("/"))
             .withHeader(HttpHeaders.IDEMPOTENCY_KEY, WireMock.equalTo(IDEMPOTENCY_KEY)));

@@ -51,8 +51,8 @@ public class ApacheSyncInternalClient implements InternalClient {
     this.apiToken = apiToken;
   }
 
-  public @Nullable <R> R get(String resourceId, Class<R> responseType) {
-    HttpGet get = new HttpGet(baseUrl + "/" + resourceId);
+  public @Nullable <R> R get(String path, Class<R> responseType) {
+    HttpGet get = new HttpGet(baseUrl + path);
     try {
       return exchange(get, responseType);
     } catch (WebexException e) {
@@ -62,8 +62,8 @@ public class ApacheSyncInternalClient implements InternalClient {
     }
   }
 
-  public <R> R post(Idempotent request, Class<R> responseType) {
-    HttpPost post = new HttpPost(baseUrl);
+  public <R> R post(String path, Idempotent request, Class<R> responseType) {
+    HttpPost post = new HttpPost(baseUrl + path);
     try {
       byte[] bytes = parser.writeValueAsBytes(request);
       post.setEntity(new ByteArrayEntity(bytes, ContentType.APPLICATION_JSON, CharEncoding.UTF_8));

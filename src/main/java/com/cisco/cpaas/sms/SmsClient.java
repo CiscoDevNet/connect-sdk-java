@@ -52,8 +52,7 @@ public interface SmsClient extends WebexClient {
 
     @Override
     public SmsClient build() {
-      String url = baseUrl + "/v1/sms/messages";
-      return new DefaultSmsClient(new ApacheSyncInternalClient(url, apiToken, parser));
+      return new DefaultSmsClient(new ApacheSyncInternalClient(baseUrl, apiToken, parser));
     }
   }
 }

@@ -14,7 +14,7 @@ public interface InternalClient extends WebexClient{
   /**
    * Send a GET request.
    *
-   * @param id The identifier of the resource to retrieve.
+   * @param path The path that is appended to the base url.
    * @param responseType The type of response.
    * @param <R> The type of response.
    * @return The response object parsed into an instance of the responseType class. null will be
@@ -25,11 +25,12 @@ public interface InternalClient extends WebexClient{
    *     non-successful (2xx) response.
    */
   @Nullable
-  <R> R get(String id, Class<R> responseType) throws WebexException;
+  <R> R get(String path, Class<R> responseType) throws WebexException;
 
   /**
    * Send a POST request.
    *
+   * @param path The path that is appended to the base url.
    * @param request The request object to serialize as json and send as the payload in the post
    *     request.
    * @param responseType The type of response.
@@ -40,6 +41,6 @@ public interface InternalClient extends WebexClient{
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  <R> R post(Idempotent request, Class<R> responseType) throws WebexException;
+  <R> R post(String path, Idempotent request, Class<R> responseType) throws WebexException;
 
 }
