@@ -3,9 +3,7 @@ package com.cisco.cpaas.core.parser;
 import com.cisco.cpaas.core.client.WebexClient;
 import com.cisco.cpaas.whatsapp.parser.WhatsAppMsgStatusDeserializer;
 import com.cisco.cpaas.whatsapp.type.WhatsAppMsgStatus;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -28,7 +26,6 @@ public final class JacksonParser implements ObjectParser {
 
   static {
     ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     objectMapper.registerModule(new ParameterNamesModule());
     objectMapper.registerModule(new JavaTimeModule());
@@ -37,7 +34,7 @@ public final class JacksonParser implements ObjectParser {
 
 
     SimpleModule simpleModule = new SimpleModule();
-    simpleModule.addSerializer(new EndpointSerializer());
+    simpleModule.addSerializer(new StringWrapperSerializer());
     simpleModule.addDeserializer(WhatsAppMsgStatus.class, new WhatsAppMsgStatusDeserializer());
     objectMapper.registerModule(simpleModule);
 

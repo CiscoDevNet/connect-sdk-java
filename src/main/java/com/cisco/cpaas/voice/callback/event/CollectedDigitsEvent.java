@@ -1,7 +1,7 @@
 package com.cisco.cpaas.voice.callback.event;
 
 import com.cisco.cpaas.core.type.ErrorResponse;
-import com.cisco.cpaas.voice.type.TelephoneDigit;
+import com.cisco.cpaas.core.type.TelephoneDigit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
