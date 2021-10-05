@@ -25,7 +25,7 @@ public interface InternalClient extends WebexClient{
    *     non-successful (2xx) response.
    */
   @Nullable
-  <R> R get(String path, Class<R> responseType) throws WebexException;
+  <R extends WebexResponse> R get(String path, Class<R> responseType) throws WebexException;
 
   /**
    * Send a POST request.
@@ -41,6 +41,6 @@ public interface InternalClient extends WebexClient{
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  <R> R post(String path, Idempotent request, Class<R> responseType) throws WebexException;
+  <R extends WebexResponse> R post(String path, Idempotent request, Class<R> responseType) throws WebexException;
 
 }

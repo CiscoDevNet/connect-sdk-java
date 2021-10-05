@@ -1,16 +1,19 @@
 package com.cisco.cpaas.sms.type;
 
+import com.cisco.cpaas.core.client.WebexResponse;
 import com.cisco.cpaas.core.type.ErrorResponse;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.Value;
-import lombok.With;
 
 import java.time.Instant;
 
 /** The status metadata of a send SMS message attempt. */
 @Value
-public final class SmsMessageStatus {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public final class SmsMessageStatus extends WebexResponse {
 
-  @With private final String requestId;
   private final String messageId;
   private final Instant acceptedTime;
   private final String from;

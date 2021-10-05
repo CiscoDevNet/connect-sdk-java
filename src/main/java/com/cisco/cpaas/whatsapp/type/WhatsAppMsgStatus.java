@@ -1,12 +1,14 @@
 package com.cisco.cpaas.whatsapp.type;
 
+import com.cisco.cpaas.core.client.WebexResponse;
 import com.cisco.cpaas.core.type.ErrorResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.Value;
-import lombok.With;
 
 import java.time.Instant;
 
@@ -14,8 +16,10 @@ import java.time.Instant;
 @Value
 @Builder(builderClassName = "Builder")
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class WhatsAppMsgStatus {
+public final class WhatsAppMsgStatus extends WebexResponse {
 
   public enum Status {
     QUEUED,
@@ -34,5 +38,4 @@ public final class WhatsAppMsgStatus {
   private final Instant statusTime;
   private final Content content;
   private final ErrorResponse error;
-  @With private final String requestId;
 }

@@ -12,7 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.any;
@@ -59,9 +58,9 @@ class ApacheSyncInternalClientTest {
   @Test
   public void shouldSendGetRequest() {
     stubFor(get("/messageId").willReturn(ok(JSON_RESPONSE)));
-    Map<String, String> response = client.get("messageId", Map.class);
+    MockResponse response = client.get("/messageId", MockResponse.class);
     assertThat(response, notNullValue());
-    assertThat(response.get("id"), equalTo("messageId"));
+    assertThat(response.getId(), equalTo("messageId"));
   }
 
   @Test
@@ -75,10 +74,10 @@ class ApacheSyncInternalClientTest {
     MockPostRequest mockPost = new MockPostRequest();
     mockPost.put("type", "text");
 
-    Map<String, String> response = client.post("", mockPost, Map.class);
+    MockResponse response = client.post("", mockPost, MockResponse.class);
 
     assertThat(response, notNullValue());
-    assertThat(response.get("id"), equalTo("messageId"));
+    assertThat(response.getId(), equalTo("messageId"));
   }
 
   @ParameterizedTest
@@ -96,19 +95,19 @@ class ApacheSyncInternalClientTest {
                               .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
                               .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
 
-              client.get("messageId", Object.class);
+              client.get("/messageId", MockResponse.class);
             });
 
     assertThat(e.getErrorCode(), equalTo("7000"));
     assertThat(e.getHttpStatusCode(), equalTo(statusCode));
     assertThat(e.getRequestId(), equalTo("requestId"));
-    assertThat(e.getMessage(), equalTo("Error Message"));
+    assertThat(e.getMessage(), equalTo("7000 - Error Message"));
   }
 
   @Test
   public void shouldReturnNullWhenGetReturns404() {
     stubFor(get("/messageId").willReturn(notFound()));
-    Map<String, String> response = client.get("messageId", Map.class);
+    MockResponse response = client.get("/messageId", MockResponse.class);
     assertThat(response, nullValue());
   }
 
@@ -124,7 +123,7 @@ class ApacheSyncInternalClientTest {
                           serviceUnavailable()
                               .withBody("<!DOCTYPE html><html><body></body></html>")));
 
-              client.get("resourceId", Object.class);
+              client.get("/resourceId", MockResponse.class);
             });
   }
 
@@ -132,16 +131,16 @@ class ApacheSyncInternalClientTest {
   public void shouldAppendAuthHeader() {
     stubFor(any(urlMatching(".*")).willReturn(ok("{}")));
     MockPostRequest mockPost = new MockPostRequest();
-    client.post("", mockPost, Map.class);
+    client.post("", mockPost, MockResponse.class);
     WireMock.verify(
         postRequestedFor(urlEqualTo("/"))
             .withHeader(
                 HttpHeaders.AUTHORIZATION,
                 WireMock.equalTo(HttpHeaders.BEARER_PREFIX + AUTH_TOKEN)));
 
-    client.get("messageId", Object.class);
+    client.get("/path", MockResponse.class);
     WireMock.verify(
-        getRequestedFor(urlEqualTo("/messageId"))
+        getRequestedFor(urlEqualTo("/path"))
             .withHeader(
                 HttpHeaders.AUTHORIZATION,
                 WireMock.equalTo(HttpHeaders.BEARER_PREFIX + AUTH_TOKEN)));
@@ -151,7 +150,7 @@ class ApacheSyncInternalClientTest {
   public void shouldAppendIdempotencyKeyHeaderOnPost() {
     stubFor(any(urlMatching(".*")).willReturn(ok("{}")));
     MockPostRequest mockPost = new MockPostRequest();
-    client.post("", mockPost, Map.class);
+    client.post("", mockPost, MockResponse.class);
     WireMock.verify(
         postRequestedFor(urlEqualTo("/"))
             .withHeader(HttpHeaders.IDEMPOTENCY_KEY, WireMock.equalTo(IDEMPOTENCY_KEY)));
@@ -163,7 +162,7 @@ class ApacheSyncInternalClientTest {
         any(urlMatching("/302"))
             .willReturn(temporaryRedirect(wireMockInfo.getHttpBaseUrl() + "/redirected")));
     stubFor(any(urlMatching("/redirected")).willReturn(ok("{}")));
-    client.get("302", Object.class);
+    client.get("/302", MockResponse.class);
 
     WireMock.verify(getRequestedFor(urlEqualTo("/302")));
     WireMock.verify(getRequestedFor(urlEqualTo("/redirected")));
@@ -171,7 +170,11 @@ class ApacheSyncInternalClientTest {
 
   @Test
   public void shouldExtractRequestIdHeaderOnResponses() {
-    // TODO: Need to implement.
+    stubFor(
+        get("/path").willReturn(ok(JSON_RESPONSE).withHeader(HttpHeaders.REQUEST_ID, "requestId")));
+    MockResponse response = client.get("/path", MockResponse.class);
+    assertThat(response, notNullValue());
+    assertThat(response.getRequestId(), equalTo("requestId"));
   }
 
   /** Simple mock request object used for testing. */
@@ -179,6 +182,16 @@ class ApacheSyncInternalClientTest {
     @Override
     public String getIdempotencyKey() {
       return IDEMPOTENCY_KEY;
+    }
+  }
+
+  /** Simple pojo to extend the response and allow integration testing of serialization. */
+  private static class MockResponse extends WebexResponse {
+
+    private String id;
+
+    public String getId() {
+      return id;
     }
   }
 }

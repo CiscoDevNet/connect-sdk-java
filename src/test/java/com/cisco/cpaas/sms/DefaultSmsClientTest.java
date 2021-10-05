@@ -39,7 +39,7 @@ class DefaultSmsClientTest {
   @Test
   public void shouldSendMessage() {
     SendSmsResponse expectedResponse =
-        new SendSmsResponse("requestId", Instant.now(), "messageId", "correlationId");
+        new SendSmsResponse(Instant.now(), "messageId", "correlationId");
     when(internalClient.post(anyString(), any(), any())).thenReturn(expectedResponse);
 
     SmsMessage msg = SmsMessage.of("text message").from("+15550001234").to("+15559994321").build();
@@ -53,7 +53,6 @@ class DefaultSmsClientTest {
   public void shouldGetStatus() {
     SmsMessageStatus expected =
         new SmsMessageStatus(
-            null,
             "messageId",
             Instant.now(),
             "+15550001234",

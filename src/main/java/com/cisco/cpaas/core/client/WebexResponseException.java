@@ -14,9 +14,8 @@ public class WebexResponseException extends WebexException {
   private final int httpStatusCode;
   private final ErrorResponse errorResponse;
 
-  public WebexResponseException(
-      String requestId, int httpStatusCode, ErrorResponse errorResponse) {
-    super(errorResponse.getMessage());
+  public WebexResponseException(String requestId, int httpStatusCode, ErrorResponse errorResponse) {
+    super(errorResponse.getCode() + " - " + errorResponse.getMessage());
     this.requestId = requestId;
     this.httpStatusCode = httpStatusCode;
     this.errorResponse = errorResponse;

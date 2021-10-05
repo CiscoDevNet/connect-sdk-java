@@ -67,8 +67,7 @@ public final class WhatsAppMsgStatusDeserializer extends StdDeserializer<WhatsAp
         status,
         statusTime,
         content,
-        errorResponse,
-        null); // request id, not part of json body
+        errorResponse); // request id, not part of json body
   }
 
   private @Nullable String asTextOrNull(JsonNode rootNode, String nodeName) {

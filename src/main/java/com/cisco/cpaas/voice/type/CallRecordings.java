@@ -1,5 +1,8 @@
 package com.cisco.cpaas.voice.type;
 
+import com.cisco.cpaas.core.client.WebexResponse;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.Value;
 
 import java.util.List;
@@ -9,7 +12,9 @@ import java.util.List;
  * call session.
  */
 @Value
-public final class CallRecordings {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public final class CallRecordings extends WebexResponse {
 
   private final String sessionId;
   private final List<Recording> recordings;

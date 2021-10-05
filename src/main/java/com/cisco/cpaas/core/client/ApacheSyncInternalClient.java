@@ -51,7 +51,7 @@ public class ApacheSyncInternalClient implements InternalClient {
     this.apiToken = apiToken;
   }
 
-  public @Nullable <R> R get(String path, Class<R> responseType) {
+  public @Nullable <R extends WebexResponse> R get(String path, Class<R> responseType) {
     HttpGet get = new HttpGet(baseUrl + path);
     try {
       return exchange(get, responseType);
@@ -62,7 +62,7 @@ public class ApacheSyncInternalClient implements InternalClient {
     }
   }
 
-  public <R> R post(String path, Idempotent request, Class<R> responseType) {
+  public <R extends WebexResponse> R post(String path, Idempotent request, Class<R> responseType) {
     HttpPost post = new HttpPost(baseUrl + path);
     try {
       byte[] bytes = parser.writeValueAsBytes(request);
@@ -81,7 +81,7 @@ public class ApacheSyncInternalClient implements InternalClient {
     }
   }
 
-  private @Nullable <R> R exchange(HttpUriRequestBase request, Class<R> responseType)
+  private @Nullable <R extends WebexResponse> R exchange(HttpUriRequestBase request, Class<R> responseType)
       throws IOException {
 
     setAuthentication(request);
@@ -90,13 +90,14 @@ public class ApacheSyncInternalClient implements InternalClient {
       if (response.getCode() == SC_NOT_FOUND && "GET".equals(request.getMethod())) {
         return null;
       }
+      String requestId = extractRequestId(response);
       if (isError(response)) {
-        throw new WebexResponseException(
-            extractRequestId(response), response.getCode(), parseError(is));
+        throw new WebexResponseException(requestId, response.getCode(), parseError(is));
       }
 
-      // TODO: append request ID to valid responses as well.
-      return parser.readToObject(is, responseType);
+      R parsedResponse = parser.readToObject(is, responseType);
+      parsedResponse.setRequestId(requestId);
+      return parsedResponse;
     }
   }
 

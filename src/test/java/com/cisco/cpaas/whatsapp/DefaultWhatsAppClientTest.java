@@ -40,7 +40,7 @@ class DefaultWhatsAppClientTest {
   @Test
   public void shouldSendMessage() {
     WhatsAppSendMsgResponse expected =
-        new WhatsAppSendMsgResponse("requestId", "messageId", "correlationId", Instant.now());
+        new WhatsAppSendMsgResponse("messageId", "correlationId", Instant.now());
     when(internalClient.post(anyString(), any(), any())).thenReturn(expected);
 
     WhatsAppMsg msg =

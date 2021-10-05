@@ -1,5 +1,6 @@
 package com.cisco.cpaas.voice.type;
 
+import com.cisco.cpaas.core.client.WebexResponse;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
@@ -8,9 +9,9 @@ import lombok.Value;
 @Value
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public final class StartCallResponse extends CallResponse {
+public final class StartCallResponse extends WebexResponse {
 
-  public StartCallResponse(String sessionId, Status status) {
-    super(sessionId, status);
-  }
+  private final String sessionId;
+  private final CallState status;
+
 }

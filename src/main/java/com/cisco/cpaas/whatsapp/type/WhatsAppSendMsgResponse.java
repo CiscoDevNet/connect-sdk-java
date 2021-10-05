@@ -1,15 +1,19 @@
 package com.cisco.cpaas.whatsapp.type;
 
+import com.cisco.cpaas.core.client.WebexResponse;
+import com.cisco.cpaas.whatsapp.WhatsAppClient;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.Value;
-import lombok.With;
 
 import java.time.Instant;
 
-/** Response to the {@link com.cisco.cpaas.whatsapp.WhatsAppClient#sendMessage(WhatsAppMsg)}. */
+/** Response to the {@link WhatsAppClient#sendMessage(WhatsAppMsg)}. */
 @Value
-public class WhatsAppSendMsgResponse {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public final class WhatsAppSendMsgResponse extends WebexResponse {
 
-  @With private final String requestId;
   private final String messageId;
   private final String correlationId;
   private final Instant acceptedTime;
