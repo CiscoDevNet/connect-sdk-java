@@ -1,11 +1,11 @@
 package com.cisco.cpaas.voice;
 
 import com.cisco.cpaas.core.client.InternalClient;
+import com.cisco.cpaas.voice.type.Call;
 import com.cisco.cpaas.voice.type.CallRecordings;
 import com.cisco.cpaas.voice.type.CallStatus;
-import com.cisco.cpaas.voice.type.PlayAndDropRequest;
+import com.cisco.cpaas.voice.type.PlayAndDrop;
 import com.cisco.cpaas.voice.type.PlayAndDropResponse;
-import com.cisco.cpaas.voice.type.StartCallRequest;
 import com.cisco.cpaas.voice.type.StartCallResponse;
 
 /**
@@ -29,12 +29,12 @@ final class DefaultVoiceClient implements VoiceClient {
   }
 
   @Override
-  public PlayAndDropResponse playAndDrop(PlayAndDropRequest request) {
+  public PlayAndDropResponse playAndDrop(PlayAndDrop request) {
     return httpClient.post(MESSAGES_PATH, request, PlayAndDropResponse.class);
   }
 
   @Override
-  public StartCallResponse startCall(StartCallRequest request) {
+  public StartCallResponse startCall(Call request) {
     return httpClient.post(CALLS_PATH, request, StartCallResponse.class);
   }
 

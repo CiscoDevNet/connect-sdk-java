@@ -5,11 +5,11 @@ import com.cisco.cpaas.core.client.ApacheSyncInternalClient;
 import com.cisco.cpaas.core.client.ClientConfigurer;
 import com.cisco.cpaas.core.client.WebexClient;
 import com.cisco.cpaas.core.client.WebexResponseException;
+import com.cisco.cpaas.voice.type.Call;
 import com.cisco.cpaas.voice.type.CallRecordings;
 import com.cisco.cpaas.voice.type.CallStatus;
-import com.cisco.cpaas.voice.type.PlayAndDropRequest;
+import com.cisco.cpaas.voice.type.PlayAndDrop;
 import com.cisco.cpaas.voice.type.PlayAndDropResponse;
-import com.cisco.cpaas.voice.type.StartCallRequest;
 import com.cisco.cpaas.voice.type.StartCallResponse;
 
 /** Interface defining the methods to interact with the Webex Voice API. */
@@ -25,7 +25,7 @@ public interface VoiceClient extends WebexClient {
    * @throws WebexResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
-  PlayAndDropResponse playAndDrop(PlayAndDropRequest request);
+  PlayAndDropResponse playAndDrop(PlayAndDrop request);
 
   /**
    * Places a new call to a telephone number.
@@ -36,7 +36,7 @@ public interface VoiceClient extends WebexClient {
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   //TODO: Make this take a request since Call can be of the wrong type.
-  StartCallResponse startCall(StartCallRequest request);
+  StartCallResponse startCall(Call request);
 
   /**
    * Retrieves the status of a previously placed call.

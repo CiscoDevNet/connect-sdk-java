@@ -1,11 +1,15 @@
 package com.cisco.cpaas.core.client;
 
 import com.cisco.cpaas.core.annotation.Nullable;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Base api response object that contains only the requestId that would come in as a header on the
  * http response.
  */
+@ToString
+@EqualsAndHashCode
 public abstract class WebexResponse {
 
   private String requestId;

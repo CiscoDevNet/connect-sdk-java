@@ -3,14 +3,14 @@ package com.cisco.cpaas.voice;
 import com.cisco.cpaas.core.client.InternalClient;
 import com.cisco.cpaas.core.type.PhoneNumber;
 import com.cisco.cpaas.voice.type.Call;
-import com.cisco.cpaas.voice.type.CallResponse;
-import com.cisco.cpaas.voice.type.CallStatus;
 import com.cisco.cpaas.voice.type.CallRecordings;
-import com.cisco.cpaas.voice.type.StartCallRequest;
-import com.cisco.cpaas.voice.type.StartCallResponse;
+import com.cisco.cpaas.voice.type.CallState;
+import com.cisco.cpaas.voice.type.CallStatus;
 import com.cisco.cpaas.voice.type.PlayAndDropRequest;
 import com.cisco.cpaas.voice.type.PlayAndDropResponse;
 import com.cisco.cpaas.voice.type.Recording;
+import com.cisco.cpaas.voice.type.StartCallRequest;
+import com.cisco.cpaas.voice.type.StartCallResponse;
 import com.cisco.cpaas.voice.type.UrlAudio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,13 +45,13 @@ class DefaultVoiceClientTest {
 
   @Test
   public void shouldSendPlayAndDropMessage() {
-    PlayAndDropResponse expected = new PlayAndDropResponse("sessionId", CallResponse.Status.QUEUED);
+    PlayAndDropResponse expected = new PlayAndDropResponse("sessionId", CallState.QUEUED);
     when(internalClient.post(anyString(), any(), any())).thenReturn(expected);
 
     PlayAndDropRequest msg =
-        Call.asMessage()
-            .from(PhoneNumber.of("+15550001234"))
-            .to(PhoneNumber.of("+15559994321"))
+        PlayAndDropRequest
+            .from("+15550001234")
+            .to("+15559994321")
             .audio(UrlAudio.of(URI.create("http://bucket.example.com/audio.mp3")))
             .build();
     PlayAndDropResponse actual = client.playAndDrop(msg);
@@ -62,11 +62,10 @@ class DefaultVoiceClientTest {
 
   @Test
   public void shouldStartCallSession() {
-    StartCallResponse expected = new StartCallResponse("sessionId", CallResponse.Status.QUEUED);
+    StartCallResponse expected = new StartCallResponse("sessionId", CallState.QUEUED);
     when(internalClient.post(anyString(), any(), any())).thenReturn(expected);
 
-    StartCallRequest msg =
-        Call.from(PhoneNumber.of("+15550001234")).to(PhoneNumber.of("+15559994321")).build();
+    StartCallRequest msg = Call.from("+15550001234").to("+15559994321").build();
     StartCallResponse actual = client.startCall(msg);
 
     verify(internalClient).post("/v1/voice/calls", msg, StartCallResponse.class);
@@ -80,7 +79,7 @@ class DefaultVoiceClientTest {
             "sessionId",
             PhoneNumber.of("+15550001234"),
             PhoneNumber.of("+15559994321"),
-            CallResponse.Status.QUEUED,
+            CallState.QUEUED,
             "correlationId",
             500,
             Instant.now(),
@@ -104,5 +103,4 @@ class DefaultVoiceClientTest {
     verify(internalClient).get("/v1/voice/calls/sessionId/recordings", CallRecordings.class);
     assertThat(actual, equalTo(expected));
   }
-
 }

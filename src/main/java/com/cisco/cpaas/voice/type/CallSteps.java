@@ -1,7 +1,5 @@
 package com.cisco.cpaas.voice.type;
 
-import com.cisco.cpaas.core.type.PhoneNumber;
-
 /**
  * Collection of interfaces that are used to define the sequence of steps for creating a new {@link
  * Call}.
@@ -16,7 +14,7 @@ public interface CallSteps {
      * @param from The endpoint that the message will be sent from.
      * @return Step 2
      */
-    To<R> from(PhoneNumber from);
+    To<R> from(String from);
   }
 
   /** Step 2 add a send-to phone number. */
@@ -27,7 +25,7 @@ public interface CallSteps {
      * @param to the send-to endpoint.
      * @return Options
      */
-    R to(PhoneNumber to);
+    R to(String to);
   }
 
 }

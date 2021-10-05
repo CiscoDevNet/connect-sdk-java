@@ -23,9 +23,8 @@ public final class TtsAudio implements Audio {
   private final Type type = Type.TTS;
   private final String text;
   private final TextFormat textFormat;
-  private final String engine;
   private final Integer loop;
-  @JsonUnwrapped private final Voice voiceObj;
+  @JsonUnwrapped private final Voice voice;
 
   /**
    * Create a new text to speech audio message with default values.
@@ -34,8 +33,8 @@ public final class TtsAudio implements Audio {
    * @param voice The voice that will dictate the dialog to the callee.
    * @return The new audio object.
    */
-  public TtsAudio of(String text, Voice voice) {
-    return new TtsAudio(text, TextFormat.TEXT, null, null, voice);
+  public static TtsAudio of(String text, Voice voice) {
+    return new TtsAudio(text, TextFormat.TEXT, null, voice);
   }
 
   /**
@@ -45,8 +44,8 @@ public final class TtsAudio implements Audio {
    * @param voice The voice that will dictate the dialog to the callee.
    * @return The new audio object.
    */
-  public TtsAudio ofSsml(String ssml, Voice voice) {
-    return new TtsAudio(ssml, TextFormat.SSML, null, null, voice);
+  public static TtsAudio ofSsml(String ssml, Voice voice) {
+    return new TtsAudio(ssml, TextFormat.SSML, null, voice);
   }
 
 }
