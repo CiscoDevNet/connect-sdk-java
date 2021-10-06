@@ -7,6 +7,7 @@ import com.cisco.cpaas.whatsapp.type.WhatsAppSendMsgResponse;
 
 import java.util.Optional;
 
+import static com.cisco.cpaas.core.util.Preconditions.notNullOrBlank;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -25,17 +26,20 @@ final class DefaultWhatsAppClient implements WhatsAppClient {
 
   @Override
   public WhatsAppSendMsgResponse sendMessage(WhatsAppMsg message) {
+    requireNonNull(message, "WhatsApp send message request can not be null");
     return httpClient.post(RESOURCE_PATH, message, WhatsAppSendMsgResponse.class);
   }
 
   @Override
   public Optional<WhatsAppMsgStatus> getStatus(String messageId) {
+    notNullOrBlank(messageId, "messageId");
     String path = RESOURCE_PATH + "/" + messageId;
     return Optional.ofNullable(httpClient.get(path, WhatsAppMsgStatus.class));
   }
 
   @Override
   public void refreshToken(String apiToken) {
+    notNullOrBlank(apiToken, "api token");
     httpClient.refreshToken(apiToken);
   }
 }

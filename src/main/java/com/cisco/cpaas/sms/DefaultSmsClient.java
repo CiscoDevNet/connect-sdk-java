@@ -7,6 +7,7 @@ import com.cisco.cpaas.sms.type.SmsMessageStatus;
 
 import java.util.Optional;
 
+import static com.cisco.cpaas.core.util.Preconditions.notNullOrBlank;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -25,16 +26,19 @@ final class DefaultSmsClient implements SmsClient {
 
   @Override
   public void refreshToken(String apiToken) {
+    notNullOrBlank(apiToken, "api token");
     client.refreshToken(apiToken);
   }
 
   @Override
   public SendSmsResponse sendMessage(SmsMessage request) {
+    requireNonNull(request, "send sms request can not be null.");
     return client.post(RESOURCE_PATH, request, SendSmsResponse.class);
   }
 
   @Override
   public Optional<SmsMessageStatus> getStatus(String messageId) {
+    notNullOrBlank(messageId, "messageId");
     String path = RESOURCE_PATH + "/" + messageId;
     return Optional.ofNullable(client.get(path, SmsMessageStatus.class));
   }
