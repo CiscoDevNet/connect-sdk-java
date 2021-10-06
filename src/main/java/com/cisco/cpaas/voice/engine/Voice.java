@@ -1,25 +1,22 @@
 package com.cisco.cpaas.voice.engine;
 
-import com.cisco.cpaas.voice.engine.azure.AzureBuilder;
 import com.cisco.cpaas.voice.engine.azure.AzureVoice;
 import com.cisco.cpaas.voice.type.TtsAudio;
 
 /** Definition for a type of voice to be played with a {@link TtsAudio} message. */
 public interface Voice {
 
-  public static final Voice DEFAULT = AzureVoice.builder().voice("Aria").build();
-
   public enum Engine {
     AZURE
   }
 
-  /** Starts the creation of a new Azure based voice. */
-  public static AzureBuilder.BaseStep azure() {
-    return new AzureBuilder.Builder();
-  }
+  public static final Voice DEFAULT =
+      AzureVoice.builder().voice("Aria").style(Style.NEURAL).build();
 
-  /** Gets the gender of the voice. */
-  public Gender getGender();
+  /** Starts the creation of a new Azure based voice. */
+  public static AzureVoice.Builder azure() {
+    return AzureVoice.builder();
+  }
 
   /** Gets the name of the voice. */
   public String getVoice();
@@ -27,7 +24,10 @@ public interface Voice {
   /** Gets the style of the voice. */
   public Style getStyle();
 
-  /** Gets the Language of the voice. */
+  /**
+   * Gets the language of the voice specified as a locale such as <b>en_US</b> for United States
+   * (English).
+   */
   public String getLanguage();
 
   /** Gets the voice engine that will handle the TTS content */
