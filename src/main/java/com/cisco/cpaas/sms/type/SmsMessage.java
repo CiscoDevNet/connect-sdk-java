@@ -1,7 +1,10 @@
 package com.cisco.cpaas.sms.type;
 
+import com.cisco.cpaas.core.type.ContactEndpoint;
+import com.cisco.cpaas.core.type.Endpoint;
 import com.cisco.cpaas.core.type.Idempotent;
 import com.cisco.cpaas.core.type.MessageBuilder;
+import com.cisco.cpaas.core.type.PhoneNumber;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -12,9 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.cisco.cpaas.core.util.Preconditions.isE164Endpoint;
-import static com.cisco.cpaas.core.util.Preconditions.isEndpoint;
-import static com.cisco.cpaas.core.util.Preconditions.validArgument;
 import static com.cisco.cpaas.core.util.UnicodeDetector.containsUnicode;
 import static com.cisco.cpaas.sms.type.SmsContentType.TEMPLATE;
 import static com.cisco.cpaas.sms.type.SmsContentType.TEXT;
@@ -28,13 +28,13 @@ public final class SmsMessage implements Idempotent {
 
   private final transient String idempotencyKey = UUID.randomUUID().toString();
 
-  private final String from;
-  private final String to;
+  private final Endpoint from;
+  private final PhoneNumber to;
   private final String content;
   private final SmsContentType contentType;
   private final Substitutions substitutions;
   private final String correlationId;
-  private final String dtlTemplateId;
+  private final String dltTemplateId;
   private final URI callbackUrl;
   private final String callbackData;
   private final Instant expireAt;
@@ -99,13 +99,13 @@ public final class SmsMessage implements Idempotent {
   /** Inner builder to construct a new {@link SmsMessage}. */
   public static final class Builder
       implements MessageBuilder.From<Builder>, MessageBuilder.To<Builder> {
-    private String from;
-    private String to;
+    private Endpoint from;
+    private PhoneNumber to;
     private String content;
     private SmsContentType contentType;
     private Map<String, String> substitutions;
     private String correlationId;
-    private String dtlTemplateId;
+    private String dltTemplateId;
     private URI callbackUrl;
     private String callbackData;
     private Instant expireAt;
@@ -117,13 +117,13 @@ public final class SmsMessage implements Idempotent {
 
     @Override
     public MessageBuilder.To<Builder> from(String from) {
-      this.from = from;
+      this.from = ContactEndpoint.of(from);
       return this;
     }
 
     @Override
     public Builder to(String to) {
-      this.to = to;
+      this.to = PhoneNumber.of(to);
       return this;
     }
 
@@ -141,8 +141,8 @@ public final class SmsMessage implements Idempotent {
       return this;
     }
 
-    public Builder dtlTemplateId(String dtlTemplateId) {
-      this.dtlTemplateId = dtlTemplateId;
+    public Builder dltTemplateId(String dltTemplateId) {
+      this.dltTemplateId = dltTemplateId;
       return this;
     }
 
@@ -162,8 +162,6 @@ public final class SmsMessage implements Idempotent {
     }
 
     public SmsMessage build() {
-      validArgument(isEndpoint(from), "not a valid E.164 number");
-      validArgument(isE164Endpoint(to), "not a valid E.164 number");
       Substitutions subs = substitutions == null ? null : new Substitutions(substitutions);
       return new SmsMessage(
           from,
@@ -172,7 +170,7 @@ public final class SmsMessage implements Idempotent {
           contentType,
           subs,
           correlationId,
-          dtlTemplateId,
+          dltTemplateId,
           callbackUrl,
           callbackData,
           expireAt);

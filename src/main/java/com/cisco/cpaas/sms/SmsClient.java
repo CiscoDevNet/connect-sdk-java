@@ -17,7 +17,7 @@ public interface SmsClient extends WebexClient {
   /**
    * Sends an SMS message.
    *
-   * <P>The SMS message includes an idempotency key that will prevent the same message from being
+   * <p>The SMS message includes an idempotency key that will prevent the same message from being
    * processed multiple times on the server. If sending the same message more than once is
    * intentional, a copy should be made.
    *
