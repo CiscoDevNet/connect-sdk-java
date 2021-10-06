@@ -19,4 +19,9 @@ public final class CallRecordings extends WebexResponse {
   private final String sessionId;
   private final List<Recording> recordings;
 
+  public CallRecordings(String requestId, String sessionId, List<Recording> recordings) {
+    super(requestId);
+    this.sessionId = sessionId;
+    this.recordings = recordings;
+  }
 }

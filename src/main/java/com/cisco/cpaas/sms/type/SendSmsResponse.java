@@ -17,4 +17,11 @@ public class SendSmsResponse extends WebexResponse {
   private final String messageId;
   private final String correlationId;
 
+  public SendSmsResponse(
+      String requestId, Instant acceptedTime, String messageId, String correlationId) {
+    super(requestId);
+    this.acceptedTime = acceptedTime;
+    this.messageId = messageId;
+    this.correlationId = correlationId;
+  }
 }

@@ -1,10 +1,7 @@
 package com.cisco.cpaas.sms;
 
 import com.cisco.cpaas.core.client.InternalClient;
-import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.sms.type.SendSmsResponse;
-import com.cisco.cpaas.sms.type.SendStatus;
-import com.cisco.cpaas.sms.type.SmsContentType;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +36,7 @@ class DefaultSmsClientTest {
   @Test
   public void shouldSendMessage() {
     SendSmsResponse expectedResponse =
-        new SendSmsResponse(Instant.now(), "messageId", "correlationId");
+        new SendSmsResponse("requestId", Instant.now(), "messageId", "correlationId");
     when(internalClient.post(anyString(), any(), any())).thenReturn(expectedResponse);
 
     SmsMessage msg = SmsMessage.of("text message").from("+15550001234").to("+15559994321").build();
@@ -51,19 +48,7 @@ class DefaultSmsClientTest {
 
   @Test
   public void shouldGetStatus() {
-    SmsMessageStatus expected =
-        new SmsMessageStatus(
-            "messageId",
-            Instant.now(),
-            "+15550001234",
-            "+15559994321",
-            "correlationId",
-            "content",
-            SmsContentType.TEXT,
-            "dtlTempalteId",
-            SendStatus.QUEUED,
-            Instant.now(),
-            new ErrorResponse("7000", "error message"));
+    SmsMessageStatus expected = SmsMessageStatus.builder().build();
     when(internalClient.get("/v1/sms/messages/messageId", SmsMessageStatus.class))
         .thenReturn(expected);
 

@@ -54,7 +54,8 @@ public class ApacheSyncInternalClient implements InternalClient {
   public @Nullable <R extends WebexResponse> R get(String path, Class<R> responseType) {
     HttpGet get = new HttpGet(baseUrl + path);
     try {
-      return exchange(get, responseType);
+      R response = exchange(get, responseType);
+      return response;
     } catch (WebexException e) {
       throw e;
     } catch (Exception e) {

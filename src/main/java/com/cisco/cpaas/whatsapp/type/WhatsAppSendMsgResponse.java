@@ -17,4 +17,12 @@ public final class WhatsAppSendMsgResponse extends WebexResponse {
   private final String messageId;
   private final String correlationId;
   private final Instant acceptedTime;
+
+  public WhatsAppSendMsgResponse(
+      String requestId, String messageId, String correlationId, Instant acceptedTime) {
+    super(requestId);
+    this.messageId = messageId;
+    this.correlationId = correlationId;
+    this.acceptedTime = acceptedTime;
+  }
 }

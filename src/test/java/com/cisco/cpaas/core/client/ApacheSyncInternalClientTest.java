@@ -190,6 +190,11 @@ class ApacheSyncInternalClientTest {
 
     private String id;
 
+    public MockResponse(String requestId, String id) {
+      super(requestId);
+      this.id = id;
+    }
+
     public String getId() {
       return id;
     }

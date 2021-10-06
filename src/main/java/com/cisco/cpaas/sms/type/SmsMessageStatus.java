@@ -26,4 +26,31 @@ public final class SmsMessageStatus extends WebexResponse {
   private final Instant statusTime;
   private final ErrorResponse error;
 
+  @lombok.Builder(builderClassName = "Builder")
+  public SmsMessageStatus(
+      String requestId,
+      String messageId,
+      Instant acceptedTime,
+      String from,
+      String to,
+      String correlationId,
+      String content,
+      SmsContentType contentType,
+      String dltTemplateId,
+      SendStatus status,
+      Instant statusTime,
+      ErrorResponse error) {
+    super(requestId);
+    this.messageId = messageId;
+    this.acceptedTime = acceptedTime;
+    this.from = from;
+    this.to = to;
+    this.correlationId = correlationId;
+    this.content = content;
+    this.contentType = contentType;
+    this.dltTemplateId = dltTemplateId;
+    this.status = status;
+    this.statusTime = statusTime;
+    this.error = error;
+  }
 }

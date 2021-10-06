@@ -14,4 +14,10 @@ public final class StartCallResponse extends WebexResponse {
   private final String sessionId;
   private final CallState status;
 
+  public StartCallResponse(String requestId, String sessionId, CallState status) {
+    super(requestId);
+    this.sessionId = sessionId;
+    this.status = status;
+  }
+
 }

@@ -14,4 +14,9 @@ public final class PlayAndDropResponse extends WebexResponse {
   private final String sessionId;
   private final CallState status;
 
+  public PlayAndDropResponse(String requestId, String sessionId, CallState status) {
+    super(requestId);
+    this.sessionId = sessionId;
+    this.status = status;
+  }
 }

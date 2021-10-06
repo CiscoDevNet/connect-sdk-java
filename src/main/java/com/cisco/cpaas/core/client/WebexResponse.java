@@ -14,6 +14,10 @@ public abstract class WebexResponse {
 
   private String requestId;
 
+  protected WebexResponse(String requestId) {
+    this.requestId = requestId;
+  }
+
   /**
    * Sets the request ID. This is intended to be used only by the internal http client.
    */
