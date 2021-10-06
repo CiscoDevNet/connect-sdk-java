@@ -35,7 +35,7 @@ public interface VoiceClient extends WebexClient {
    * @throws WebexResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
-  //TODO: Make this take a request since Call can be of the wrong type.
+  // TODO: Make this take a request since Call can be of the wrong type.
   StartCallResponse startCall(Call request);
 
   /**

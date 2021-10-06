@@ -1,0 +1,14 @@
+{
+  "sessionId": "sessionId",
+  "callerId": "+15550001234",
+  "dialedNumber": "+15559994321",
+  "status": "COMPLETED",
+  "correlationId": "correlationId",
+  "durationSeconds": 305,
+  "offeredTime": "2021-06-01T12:30:13.495Z",
+  "answeredTime": "2021-06-01T12:30:16.950Z",
+  "error": {
+    "code": "7000",
+    "message": "error"
+  }
+}

@@ -17,5 +17,4 @@ public final class MediaAudio implements Audio {
     this.mediaId = mediaId;
     this.loop = loop;
   }
-
 }

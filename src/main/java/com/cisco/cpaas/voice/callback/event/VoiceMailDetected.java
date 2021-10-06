@@ -21,7 +21,13 @@ public final class VoiceMailDetected extends CallbackEvent {
   /** Phone number of the called party. */
   private final PhoneNumber dialedNumber;
 
-  public VoiceMailDetected(Instant eventTime, String sessionId, String transactionId, String correlationId, PhoneNumber callerId, PhoneNumber dialedNumber) {
+  public VoiceMailDetected(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      PhoneNumber callerId,
+      PhoneNumber dialedNumber) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.callerId = callerId;
     this.dialedNumber = dialedNumber;

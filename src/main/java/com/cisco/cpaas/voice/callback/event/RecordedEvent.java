@@ -27,7 +27,15 @@ public final class RecordedEvent extends CallbackEvent {
   /** Error information that will only be populated if the status is FAILURE. */
   private final ErrorResponse error;
 
-  public RecordedEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, String recordingFileName, Integer recordingLength, Status status, ErrorResponse error) {
+  public RecordedEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      String recordingFileName,
+      Integer recordingLength,
+      Status status,
+      ErrorResponse error) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.recordingFileName = recordingFileName;
     this.recordingLength = recordingLength;

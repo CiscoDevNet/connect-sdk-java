@@ -34,7 +34,17 @@ public final class CollectedDigitsEvent extends CallbackEvent {
   /** Error information that will only be populated if the status is FAILURE. */
   private final ErrorResponse error;
 
-  public CollectedDigitsEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, Integer numOfDigits, String digitsReceived, TelephoneDigit terminationDigit, Integer duration, Status status, ErrorResponse error) {
+  public CollectedDigitsEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      Integer numOfDigits,
+      String digitsReceived,
+      TelephoneDigit terminationDigit,
+      Integer duration,
+      Status status,
+      ErrorResponse error) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.numOfDigits = numOfDigits;
     this.digitsReceived = digitsReceived;

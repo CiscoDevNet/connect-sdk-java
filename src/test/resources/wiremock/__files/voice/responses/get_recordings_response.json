@@ -1,0 +1,9 @@
+{
+  "sessionId": "sessionId",
+  "recordings": [
+    {
+      "durationSeconds": 609,
+      "url": "https://webex.com/v1/voice/calls/sessionId/recordings/file_123.wav"
+    }
+  ]
+}

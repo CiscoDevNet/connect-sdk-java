@@ -5,9 +5,7 @@ import com.cisco.cpaas.voice.engine.Voice;
 import lombok.Builder;
 import lombok.Value;
 
-/**
- * Implementation of voice that is specific to Azure's text to speech engine.
- */
+/** Implementation of voice that is specific to Azure's text to speech engine. */
 @Value
 @Builder(builderClassName = "Builder")
 public final class AzureVoice implements Voice {
@@ -17,5 +15,4 @@ public final class AzureVoice implements Voice {
   private final String voice;
   private final Style style;
   private final String language;
-
 }

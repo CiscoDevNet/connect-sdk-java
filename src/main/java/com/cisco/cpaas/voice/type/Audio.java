@@ -37,8 +37,8 @@ public interface Audio {
 
   /**
    * Creates a new {@link MediaAudio} message of the given ID and default values.
-   * @param mediaId The ID specifying which media file to play.
    *
+   * @param mediaId The ID specifying which media file to play.
    * @return The new MediaAudio object.
    */
   public static MediaAudio ofMediaId(String mediaId) {

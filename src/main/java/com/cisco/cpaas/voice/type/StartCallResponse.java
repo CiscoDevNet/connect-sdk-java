@@ -19,5 +19,4 @@ public final class StartCallResponse extends WebexResponse {
     this.sessionId = sessionId;
     this.status = status;
   }
-
 }

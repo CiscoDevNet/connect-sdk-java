@@ -32,5 +32,4 @@ public final class TtsAudio implements Audio {
     this.loop = loop;
     this.voice = voice;
   }
-
 }

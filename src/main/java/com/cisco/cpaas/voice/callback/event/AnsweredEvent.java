@@ -27,7 +27,15 @@ public final class AnsweredEvent extends CallbackEvent {
   /** Time when the call was answered. */
   private final Instant answeredTime;
 
-  public AnsweredEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, PhoneNumber callerId, PhoneNumber dialedNumber, Instant offeredTime, Instant answeredTime) {
+  public AnsweredEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      PhoneNumber callerId,
+      PhoneNumber dialedNumber,
+      Instant offeredTime,
+      Instant answeredTime) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.callerId = callerId;
     this.dialedNumber = dialedNumber;

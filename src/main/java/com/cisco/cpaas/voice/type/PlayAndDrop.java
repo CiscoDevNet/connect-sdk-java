@@ -6,15 +6,19 @@ import com.cisco.cpaas.core.type.PhoneNumber;
 
 import java.net.URI;
 
-/**
- * Voice call that will play a specified message and then drop the call.
- */
+/** Voice call that will play a specified message and then drop the call. */
 public interface PlayAndDrop extends Idempotent {
 
   PhoneNumber getCallerId();
+
   PhoneNumber getDialedNumber();
-  @Nullable URI getCallbackUrl();
-  @Nullable String getCorrelationId();
+
+  @Nullable
+  URI getCallbackUrl();
+
+  @Nullable
+  String getCorrelationId();
+
   Audio getAudio();
 
   /**
@@ -40,12 +44,12 @@ public interface PlayAndDrop extends Idempotent {
     PlayAndDropOptions correlationId(String correlationId);
 
     /**
-     * An instance of one of the {@link Audio} objects that will be played before the call is dropped.
+     * An instance of one of the {@link Audio} objects that will be played before the call is
+     * dropped.
      */
     PlayAndDropOptions audio(Audio audio);
 
     /** Creates the request. */
     PlayAndDropRequest build();
-
   }
 }

@@ -24,7 +24,14 @@ public final class AcceptedEvent extends CallbackEvent {
   /** Time when the call was placed. */
   private final Instant offeredTime;
 
-  public AcceptedEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, PhoneNumber callerId, PhoneNumber dialedNumber, Instant offeredTime) {
+  public AcceptedEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      PhoneNumber callerId,
+      PhoneNumber dialedNumber,
+      Instant offeredTime) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.callerId = callerId;
     this.dialedNumber = dialedNumber;

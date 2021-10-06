@@ -24,7 +24,14 @@ public final class PlayedEvent extends CallbackEvent {
   /** Error information that will only be populated if the status is FAILURE. */
   private final ErrorResponse error;
 
-  public PlayedEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, Integer playedDuration, Status status, ErrorResponse error) {
+  public PlayedEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      Integer playedDuration,
+      Status status,
+      ErrorResponse error) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.playedDuration = playedDuration;
     this.status = status;

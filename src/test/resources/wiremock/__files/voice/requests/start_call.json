@@ -1,0 +1,8 @@
+{
+  "callerId": "+15550001234",
+  "dialedNumber": "+15559994321",
+  "callbackUrl": "https://webhook.example.com",
+  "correlationId": "correlationId",
+  "recordCallSeconds": 10,
+  "detectVoiceMail": false
+}

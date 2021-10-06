@@ -24,7 +24,14 @@ public final class DroppedEvent extends CallbackEvent {
   /** Error information that will only be populated if the status is FAILURE. */
   private final ErrorResponse error;
 
-  public DroppedEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, UserType droppedBy, Status status, ErrorResponse error) {
+  public DroppedEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      UserType droppedBy,
+      Status status,
+      ErrorResponse error) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.droppedBy = droppedBy;
     this.status = status;

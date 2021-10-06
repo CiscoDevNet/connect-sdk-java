@@ -31,7 +31,16 @@ public final class PatchedEvent extends CallbackEvent {
   /** Error information that will only be populated if the status is FAILURE. */
   private final ErrorResponse error;
 
-  public PatchedEvent(Instant eventTime, String sessionId, String transactionId, String correlationId, Instant connectedOn, List<String> recordingFileName, UserType droppedBy, Status status, ErrorResponse error) {
+  public PatchedEvent(
+      Instant eventTime,
+      String sessionId,
+      String transactionId,
+      String correlationId,
+      Instant connectedOn,
+      List<String> recordingFileName,
+      UserType droppedBy,
+      Status status,
+      ErrorResponse error) {
     super(eventTime, sessionId, transactionId, correlationId);
     this.connectedOn = connectedOn;
     this.recordingFileName = recordingFileName;
