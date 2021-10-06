@@ -1,6 +1,5 @@
 package com.cisco.cpaas.voice.type;
 
-import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -8,20 +7,15 @@ import lombok.Value;
  * considered local to the webex platform.
  */
 @Value
-@Builder(builderClassName = "Builder")
 public final class MediaAudio implements Audio {
 
   private final Type type = Type.MEDIA;
   private final String mediaId;
   private final Integer loop;
 
-  /**
-   * Creates a new Media audio file of the given ID and default values.
-   * @param mediaId The ID specifying which media file to play.
-   * @return The new MediaAudio object.
-   */
-  public static MediaAudio of(String mediaId) {
-    return new MediaAudio(mediaId, null);
+  public MediaAudio(String mediaId, Integer loop) {
+    this.mediaId = mediaId;
+    this.loop = loop;
   }
 
 }

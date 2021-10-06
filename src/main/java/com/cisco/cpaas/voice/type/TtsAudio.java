@@ -1,5 +1,6 @@
 package com.cisco.cpaas.voice.type;
 
+import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.voice.engine.Voice;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Builder;
@@ -18,34 +19,18 @@ public final class TtsAudio implements Audio {
     SSML
   }
 
-  private static final String TYPE = "TTS";
-
   private final Type type = Type.TTS;
   private final String text;
   private final TextFormat textFormat;
   private final Integer loop;
   @JsonUnwrapped private final Voice voice;
 
-  /**
-   * Create a new text to speech audio message with default values.
-   *
-   * @param text The dialog that will be spoken.
-   * @param voice The voice that will dictate the dialog to the callee.
-   * @return The new audio object.
-   */
-  public static TtsAudio of(String text, Voice voice) {
-    return new TtsAudio(text, TextFormat.TEXT, null, voice);
-  }
-
-  /**
-   * Create a new text to speech audio message using SSML formatted text and default values.
-   *
-   * @param ssml The SSML that will be used to dictate the message.
-   * @param voice The voice that will dictate the dialog to the callee.
-   * @return The new audio object.
-   */
-  public static TtsAudio ofSsml(String ssml, Voice voice) {
-    return new TtsAudio(ssml, TextFormat.SSML, null, voice);
+  TtsAudio(
+      String text, @Nullable TextFormat textFormat, @Nullable Integer loop, @Nullable Voice voice) {
+    this.text = text;
+    this.textFormat = textFormat;
+    this.loop = loop;
+    this.voice = voice;
   }
 
 }
