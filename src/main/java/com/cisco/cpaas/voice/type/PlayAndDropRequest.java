@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 
 /** Request for dialing a phone number, playing a message, and dropping the call. */
 @Value
-class PlayAndDropRequest implements PlayAndDrop {
+public class PlayAndDropRequest implements PlayAndDrop {
 
   private final String idempotencyKey = UUID.randomUUID().toString();
   private final PhoneNumber callerId;

@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 
 /** Request object starting a new call session. */
 @Value
-final class StartCallRequest implements Call {
+public final class StartCallRequest implements Call {
 
   private final String idempotencyKey = UUID.randomUUID().toString();
   private final PhoneNumber callerId;

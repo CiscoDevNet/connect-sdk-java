@@ -1,6 +1,7 @@
 package com.cisco.cpaas.voice.type;
 
 import com.cisco.cpaas.core.client.WebexResponse;
+import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.core.type.PhoneNumber;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,5 +23,6 @@ public final class CallStatus extends WebexResponse {
   private final Integer durationSeconds;
   private final Instant offeredTime;
   private final Instant answeredTime;
+  private final ErrorResponse error;
 
 }
