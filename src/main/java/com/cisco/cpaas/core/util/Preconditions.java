@@ -1,5 +1,7 @@
 package com.cisco.cpaas.core.util;
 
+import com.cisco.cpaas.core.annotation.Nullable;
+
 import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
@@ -43,9 +45,29 @@ public class Preconditions {
     return isShortcodeEndpoint(number) || isE164Endpoint(number);
   }
 
+  /**
+   * Ensures the given boolean argument evaluates to true.
+   *
+   * @param argument The argument to test.
+   * @param errorMsg The error message to be thrown when the test argument is false.
+   * @throws IllegalArgumentException when the test argument evaluates to false.
+   */
   public static void validArgument(boolean argument, String errorMsg) {
     if (!argument) {
       throw new IllegalArgumentException(errorMsg);
+    }
+  }
+
+  /**
+   * Ensures that the string value is not null and has at least 1 character.
+   *
+   * @param value The string to test.
+   * @param name THe name of the property being tested. Used to construct the exception message.
+   * @throws IllegalArgumentException when the value is null or blank.
+   */
+  public static void notNullOrBlank(@Nullable String value, String name) {
+    if (value == null || value.length() < 1) {
+      throw new IllegalArgumentException(name + " can not be null or blank.");
     }
   }
 }
