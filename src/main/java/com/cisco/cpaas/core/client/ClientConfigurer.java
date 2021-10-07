@@ -26,10 +26,10 @@ public class ClientConfigurer {
   public interface ApiTokenStep<T> {
 
     /**
-     * Specify the API token to use for authentication. This value can be found in the Connect
+     * Specify the API key to use for authentication. This value can be found in the Connect
      * platform's web interface.
      */
-    OptionalStep<T> withApiToken(String apiToken);
+    OptionalStep<T> withApiKey(String apiKey);
   }
 
   /** Defines the methods that can be used to set the optional properties. */
@@ -58,7 +58,7 @@ public class ClientConfigurer {
     }
 
     @Override
-    public OptionalStep<T> withApiToken(String apiToken) {
+    public OptionalStep<T> withApiKey(String apiToken) {
       this.apiToken = apiToken;
       return this;
     }
