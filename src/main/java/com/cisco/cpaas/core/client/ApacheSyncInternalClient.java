@@ -1,8 +1,8 @@
 package com.cisco.cpaas.core.client;
 
 import com.cisco.cpaas.core.WebexException;
-import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.core.parser.ObjectParser;
+import com.cisco.cpaas.core.parser.WebexParseException;
 import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.core.type.Idempotent;
 import org.apache.commons.codec.CharEncoding;
@@ -24,9 +24,11 @@ import static com.cisco.cpaas.core.client.HttpHeaders.BEARER_PREFIX;
 import static com.cisco.cpaas.core.client.HttpHeaders.IDEMPOTENCY_KEY;
 import static com.cisco.cpaas.core.client.HttpHeaders.REQUEST_ID;
 import static java.util.Objects.requireNonNull;
+import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_OK;
 import static org.apache.hc.core5.http.HttpStatus.SC_REDIRECTION;
+import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 
 /**
  * Synchronous Apache HTTP Client version of the {@link InternalClient} intended to be used
@@ -51,7 +53,7 @@ public class ApacheSyncInternalClient implements InternalClient {
     this.apiToken = apiToken;
   }
 
-  public @Nullable <R extends WebexResponse> R get(String path, Class<R> responseType) {
+  public <R extends WebexResponse> R get(String path, Class<R> responseType) {
     HttpGet get = new HttpGet(baseUrl + path);
     try {
       R response = exchange(get, responseType);
@@ -82,16 +84,20 @@ public class ApacheSyncInternalClient implements InternalClient {
     }
   }
 
-  private @Nullable <R extends WebexResponse> R exchange(
-      HttpUriRequestBase request, Class<R> responseType) throws IOException {
+  private <R extends WebexResponse> R exchange(HttpUriRequestBase request, Class<R> responseType)
+      throws IOException {
 
     setAuthentication(request);
     try (CloseableHttpResponse response = httpClient.execute(request)) {
       InputStream is = response.getEntity().getContent();
-      if (response.getCode() == SC_NOT_FOUND && "GET".equals(request.getMethod())) {
-        return null;
-      }
+
       String requestId = extractRequestId(response);
+      if (response.getCode() == SC_UNAUTHORIZED || response.getCode() == SC_FORBIDDEN) {
+        throw new WebexAuthenticationException(requestId, response.getCode(), parseError(is));
+      }
+      if (response.getCode() == SC_NOT_FOUND) {
+        throwOnNotFound(is, requestId);
+      }
       if (isError(response)) {
         throw new WebexResponseException(requestId, response.getCode(), parseError(is));
       }
@@ -103,7 +109,7 @@ public class ApacheSyncInternalClient implements InternalClient {
   }
 
   private boolean isError(HttpResponse response) {
-    return response.getCode() < SC_OK | response.getCode() >= SC_REDIRECTION;
+    return response.getCode() < SC_OK || response.getCode() >= SC_REDIRECTION;
   }
 
   private ErrorResponse parseError(InputStream is) {
@@ -114,8 +120,27 @@ public class ApacheSyncInternalClient implements InternalClient {
     request.setHeader(AUTHORIZATION, BEARER_PREFIX + apiToken);
   }
 
-  private @Nullable String extractRequestId(HttpResponse response) {
+  private String extractRequestId(HttpResponse response) {
     Header requestId = response.getLastHeader(REQUEST_ID);
     return requestId != null ? requestId.getValue() : null;
+  }
+
+  /**
+   * Some of the 404 responses may not contain a request body causing jackson to throw an exception.
+   * Since its not easily possible to check if the input stream is empty or not, this is a work
+   * around to only catch the parse exception when the HTTP status code is 404 and handle it that
+   * way.
+   *
+   * @param is The response input stream.
+   * @param requestId the request id associated with the response.
+   */
+  private void throwOnNotFound(InputStream is, String requestId) {
+    ErrorResponse response = null;
+    try {
+      response = parseError(is);
+    } catch (WebexParseException e) {
+      // Do nothing. This is for the case when there is no response body on 404's
+    }
+    throw new WebexNotFoundException(requestId, response);
   }
 }

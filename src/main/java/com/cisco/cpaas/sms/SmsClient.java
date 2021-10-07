@@ -9,8 +9,6 @@ import com.cisco.cpaas.sms.type.SendSmsResponse;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
 
-import java.util.Optional;
-
 /** Interface defining the methods to interact with the Webex SMS Messaging API. */
 public interface SmsClient extends WebexClient {
 
@@ -31,12 +29,11 @@ public interface SmsClient extends WebexClient {
    * Retrieves the status of an SMS send message attempt.
    *
    * @param messageId The messageId returned from the {{@link #sendMessage(SmsMessage)}} method.
-   * @return An optional containing the metadata describing the send message attempt. Empty if the
-   *     service returned a 404.
+   * @return The metadata describing the send message attempt.
    * @throws WebexResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
-  Optional<SmsMessageStatus> getStatus(String messageId);
+  SmsMessageStatus getStatus(String messageId);
 
   /**
    * Entry point for creating a new instance of the SmsClient using the available configurers.

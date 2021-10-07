@@ -5,8 +5,6 @@ import com.cisco.cpaas.sms.type.SendSmsResponse;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
 
-import java.util.Optional;
-
 import static com.cisco.cpaas.core.util.Preconditions.notNullOrBlank;
 import static java.util.Objects.requireNonNull;
 
@@ -25,7 +23,7 @@ final class DefaultSmsClient implements SmsClient {
   }
 
   @Override
-  public void refreshToken(String apiToken) {
+  public synchronized void refreshToken(String apiToken) {
     notNullOrBlank(apiToken, "api token");
     client.refreshToken(apiToken);
   }
@@ -37,9 +35,9 @@ final class DefaultSmsClient implements SmsClient {
   }
 
   @Override
-  public Optional<SmsMessageStatus> getStatus(String messageId) {
+  public SmsMessageStatus getStatus(String messageId) {
     notNullOrBlank(messageId, "messageId");
     String path = RESOURCE_PATH + "/" + messageId;
-    return Optional.ofNullable(client.get(path, SmsMessageStatus.class));
+    return client.get(path, SmsMessageStatus.class);
   }
 }

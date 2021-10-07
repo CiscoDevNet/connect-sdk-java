@@ -18,7 +18,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.any;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.notFound;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
@@ -30,7 +29,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -39,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * apache http client.
  */
 @WireMockTest
-@SuppressWarnings("unchecked")
 class ApacheSyncInternalClientTest {
 
   private static final String JSON_REQUEST = "{ \"type\": \"text\" }";
@@ -83,20 +80,17 @@ class ApacheSyncInternalClientTest {
   @ParameterizedTest
   @ValueSource(ints = {400, 499, 500, 599})
   public void shouldThrowExceptionOnNonSuccessResponseCode(int statusCode) {
+    stubFor(
+        get("/messageId")
+            .willReturn(
+                aResponse()
+                    .withStatus(statusCode)
+                    .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
+                    .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
+
     WebexResponseException e =
         assertThrows(
-            WebexResponseException.class,
-            () -> {
-              stubFor(
-                  get("/messageId")
-                      .willReturn(
-                          aResponse()
-                              .withStatus(statusCode)
-                              .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
-                              .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
-
-              client.get("/messageId", MockResponse.class);
-            });
+            WebexResponseException.class, () -> client.get("/messageId", MockResponse.class));
 
     assertThat(e.getErrorCode(), equalTo("7000"));
     assertThat(e.getHttpStatusCode(), equalTo(statusCode));
@@ -105,26 +99,52 @@ class ApacheSyncInternalClientTest {
   }
 
   @Test
-  public void shouldReturnNullWhenGetReturns404() {
-    stubFor(get("/messageId").willReturn(notFound()));
-    MockResponse response = client.get("/messageId", MockResponse.class);
-    assertThat(response, nullValue());
+  public void shouldThrowNotFoundWhenStatus404() {
+    stubFor(
+        get("/messageId")
+            .willReturn(
+                aResponse()
+                    .withStatus(404)
+                    .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
+                    .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
+
+    assertThrows(WebexNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
+  }
+
+  @Test
+  public void shouldHandleEmptyResponseBodyOn404() {
+    stubFor(
+        get("/messageId")
+            .willReturn(
+                aResponse().withStatus(404).withHeader(HttpHeaders.REQUEST_ID, "requestId")));
+    WebexNotFoundException e =
+        assertThrows(
+            WebexNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
+    assertThat(e.getErrorCode(), equalTo(null));
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {401, 403})
+  public void shouldThrowAuthExceptionWhenStatus401Or403() {
+    stubFor(
+        get("/messageId")
+            .willReturn(
+                aResponse()
+                    .withStatus(401)
+                    .withBody("{ \"code\": \"7000\", \"message\": \"Auth\" }")
+                    .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
+
+    assertThrows(
+        WebexAuthenticationException.class, () -> client.get("/messageId", MockResponse.class));
   }
 
   @Test
   public void shouldHandleErrorNotConformingToStandardErrorResponse() {
-    WebexParseException e =
-        assertThrows(
-            WebexParseException.class,
-            () -> {
-              stubFor(
-                  get("/resourceId")
-                      .willReturn(
-                          serviceUnavailable()
-                              .withBody("<!DOCTYPE html><html><body></body></html>")));
-
-              client.get("/resourceId", MockResponse.class);
-            });
+    stubFor(
+        get("/resourceId")
+            .willReturn(
+                serviceUnavailable().withBody("<!DOCTYPE html><html><body></body></html>")));
+    assertThrows(WebexParseException.class, () -> client.get("/resourceId", MockResponse.class));
   }
 
   @Test

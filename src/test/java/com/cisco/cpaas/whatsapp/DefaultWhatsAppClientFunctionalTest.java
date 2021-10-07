@@ -117,7 +117,7 @@ public class DefaultWhatsAppClientFunctionalTest {
             .error(new ErrorResponse("7777", "Error"))
             .build();
 
-    WhatsAppMsgStatus actual = client.getStatus("messageId").get();
+    WhatsAppMsgStatus actual = client.getStatus("messageId");
     assertThat(actual, Matchers.equalTo(expected));
     verify(withCommonHeaders(getRequestedFor(urlEqualTo(MESSAGES_PATH + "/messageId"))));
   }

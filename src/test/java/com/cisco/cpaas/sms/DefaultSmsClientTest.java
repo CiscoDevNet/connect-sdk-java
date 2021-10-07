@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -52,7 +51,7 @@ class DefaultSmsClientTest {
     when(internalClient.get("/v1/sms/messages/messageId", SmsMessageStatus.class))
         .thenReturn(expected);
 
-    Optional<SmsMessageStatus> actual = client.getStatus("messageId");
-    assertThat(expected, equalTo(actual.get()));
+    SmsMessageStatus actual = client.getStatus("messageId");
+    assertThat(expected, equalTo(actual));
   }
 }

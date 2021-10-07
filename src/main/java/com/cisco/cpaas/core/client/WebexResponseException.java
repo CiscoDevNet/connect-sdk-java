@@ -1,7 +1,10 @@
 package com.cisco.cpaas.core.client;
 
 import com.cisco.cpaas.core.WebexException;
+import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.core.type.ErrorResponse;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Exception that is thrown when the request was successfully sent, but the service returned a non-
@@ -12,21 +15,30 @@ public class WebexResponseException extends WebexException {
 
   private final String requestId;
   private final int httpStatusCode;
-  private final ErrorResponse errorResponse;
+  private final String errorCode;
 
-  public WebexResponseException(String requestId, int httpStatusCode, ErrorResponse errorResponse) {
-    super(errorResponse.getCode() + " - " + errorResponse.getMessage());
+  public WebexResponseException(
+      String requestId, int httpStatusCode, @Nullable ErrorResponse errorResponse) {
+    super(constructMessage(httpStatusCode, errorResponse));
     this.requestId = requestId;
     this.httpStatusCode = httpStatusCode;
-    this.errorResponse = errorResponse;
+    this.errorCode = nonNull(errorResponse) ? errorResponse.getCode() : null;
+  }
+
+  private static String constructMessage(int httpStatusCode, ErrorResponse errorResponse) {
+    if (errorResponse == null) {
+      return "Non successful HTTP status: " + httpStatusCode;
+    }
+    return errorResponse.getCode() + " - " + errorResponse.getMessage();
   }
 
   /**
    * The unique request ID that identifies the specific request that was sent. This is typically
    * used for support and debugging purposes.
    *
-   * @return the request's ID.
+   * @return the request's ID, may be null.
    */
+  @Nullable
   public String getRequestId() {
     return requestId;
   }
@@ -44,9 +56,10 @@ public class WebexResponseException extends WebexException {
    * The domain specific error code associated with the error response. See the webex API
    * documentation for more information.
    *
-   * @return the error code.
+   * @return the error code, may be null.
    */
+  @Nullable
   public String getErrorCode() {
-    return errorResponse.getCode();
+    return errorCode;
   }
 }

@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -57,7 +56,7 @@ class DefaultWhatsAppClientTest {
     WhatsAppMsgStatus expected = WhatsAppMsgStatus.builder().build();
     when(internalClient.get("/v1/whatsapp/messages/messageId", WhatsAppMsgStatus.class))
         .thenReturn(expected);
-    Optional<WhatsAppMsgStatus> actual = client.getStatus("messageId");
-    assertThat(expected, is(actual.get()));
+    WhatsAppMsgStatus actual = client.getStatus("messageId");
+    assertThat(expected, is(actual));
   }
 }

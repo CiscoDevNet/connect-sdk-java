@@ -1,7 +1,6 @@
 package com.cisco.cpaas.core.client;
 
 import com.cisco.cpaas.core.WebexException;
-import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.core.type.Idempotent;
 
 /**
@@ -16,14 +15,12 @@ public interface InternalClient extends WebexClient {
    * @param path The path that is appended to the base url.
    * @param responseType The type of response.
    * @param <R> The type of response.
-   * @return The response object parsed into an instance of the responseType class. null will be
-   *     returned in cases where the API returns a 404.
+   * @return The response object parsed into an instance of the responseType class.
    * @throws WebexException When there is any issue communicating with API or (de)serializing the
    *     entities. Specific subtypes of the exception may be returned such as a
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  @Nullable
   <R extends WebexResponse> R get(String path, Class<R> responseType) throws WebexException;
 
   /**

@@ -114,7 +114,7 @@ public class DefaultSmsClientFunctionalTest {
             .requestId(REQUEST_ID)
             .build();
 
-    SmsMessageStatus actual = client.getStatus("messageId").get();
+    SmsMessageStatus actual = client.getStatus("messageId");
     assertThat(actual, Matchers.equalTo(expected));
 
     verify(withCommonHeaders(getRequestedFor(urlEqualTo(MESSAGES_PATH + "/messageId"))));
