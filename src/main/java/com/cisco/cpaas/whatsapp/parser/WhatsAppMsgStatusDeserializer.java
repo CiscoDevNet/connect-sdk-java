@@ -59,7 +59,7 @@ public final class WhatsAppMsgStatusDeserializer extends StdDeserializer<WhatsAp
     }
 
     return new WhatsAppMsgStatus(
-        null,  // request id, not part of json body
+        null, // request id, not part of json body
         messageId,
         acceptedTime,
         from,

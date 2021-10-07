@@ -4,12 +4,11 @@ import com.cisco.cpaas.core.WebexException;
 import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.core.type.Idempotent;
 
-
 /**
  * Defines the methods that are used to interact with all API services. The implementations of this
  * interface are intended to be for internal SDK use only. The contract may change at any time.
  */
-public interface InternalClient extends WebexClient{
+public interface InternalClient extends WebexClient {
 
   /**
    * Send a GET request.
@@ -41,6 +40,6 @@ public interface InternalClient extends WebexClient{
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  <R extends WebexResponse> R post(String path, Idempotent request, Class<R> responseType) throws WebexException;
-
+  <R extends WebexResponse> R post(String path, Idempotent request, Class<R> responseType)
+      throws WebexException;
 }

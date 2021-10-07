@@ -6,8 +6,8 @@ import lombok.Value;
 import java.util.Map;
 
 /**
- * Parameters associated with a WhatsApp {@link TemplateContent} message.
- * TODO: Waiting on API contract to be finished.
+ * Parameters associated with a WhatsApp {@link TemplateContent} message. TODO: Waiting on API
+ * contract to be finished.
  */
 @Value
 public class TemplateParams {

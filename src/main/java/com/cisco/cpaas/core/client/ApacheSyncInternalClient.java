@@ -82,8 +82,8 @@ public class ApacheSyncInternalClient implements InternalClient {
     }
   }
 
-  private @Nullable <R extends WebexResponse> R exchange(HttpUriRequestBase request, Class<R> responseType)
-      throws IOException {
+  private @Nullable <R extends WebexResponse> R exchange(
+      HttpUriRequestBase request, Class<R> responseType) throws IOException {
 
     setAuthentication(request);
     try (CloseableHttpResponse response = httpClient.execute(request)) {

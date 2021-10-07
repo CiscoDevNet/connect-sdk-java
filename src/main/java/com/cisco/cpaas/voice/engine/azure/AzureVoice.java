@@ -17,5 +17,4 @@ public final class AzureVoice implements Voice {
   private final String language;
 
   public static class Builder {}
-
 }

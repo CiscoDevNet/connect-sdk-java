@@ -11,5 +11,4 @@ public final class ErrorResponse {
 
   /** A short description of the error. */
   private final String message;
-
 }

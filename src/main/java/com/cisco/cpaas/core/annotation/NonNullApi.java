@@ -1,13 +1,13 @@
 package com.cisco.cpaas.core.annotation;
 
-import com.cisco.cpaas.core.annotation.Nullable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.meta.TypeQualifierDefault;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PACKAGE;
+import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**

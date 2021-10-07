@@ -49,5 +49,4 @@ public class WebexResponseException extends WebexException {
   public String getErrorCode() {
     return errorResponse.getCode();
   }
-
 }

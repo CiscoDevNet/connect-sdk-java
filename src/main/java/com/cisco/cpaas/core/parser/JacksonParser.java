@@ -32,7 +32,6 @@ public final class JacksonParser implements ObjectParser {
     objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     objectMapper.configure(SerializationFeature.FAIL_ON_UNWRAPPED_TYPE_IDENTIFIERS, false);
 
-
     SimpleModule simpleModule = new SimpleModule();
     simpleModule.addSerializer(new StringWrapperSerializer());
     simpleModule.addDeserializer(WhatsAppMsgStatus.class, new WhatsAppMsgStatusDeserializer());

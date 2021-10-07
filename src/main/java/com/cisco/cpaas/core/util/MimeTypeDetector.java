@@ -24,10 +24,10 @@ public class MimeTypeDetector {
    * the string. Some examples:
    *
    * <ul>
-   *   <li>http://files.exampel.com/file.jpg</li>
-   *   <li>/path/to/file/file.mp3</li>
-   *   <li>file.txt</li>
-   *   <li>.csv</li>
+   *   <li>http://files.exampel.com/file.jpg
+   *   <li>/path/to/file/file.mp3
+   *   <li>file.txt
+   *   <li>.csv
    * </ul>
    *
    * @param filename The text with file extension to be checked.

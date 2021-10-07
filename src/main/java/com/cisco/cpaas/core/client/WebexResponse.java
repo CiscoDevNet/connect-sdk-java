@@ -18,9 +18,7 @@ public abstract class WebexResponse {
     this.requestId = requestId;
   }
 
-  /**
-   * Sets the request ID. This is intended to be used only by the internal http client.
-   */
+  /** Sets the request ID. This is intended to be used only by the internal http client. */
   void setRequestId(@Nullable String requestId) {
     this.requestId = requestId;
   }
@@ -28,10 +26,10 @@ public abstract class WebexResponse {
   /**
    * Gets the request ID that is unique to the specific request /response exchange that resulted in
    * this object. Generally useful for debugging purposes or technical support requests.
+   *
    * @return The request ID.
    */
   public String getRequestId() {
     return requestId;
   }
-
 }

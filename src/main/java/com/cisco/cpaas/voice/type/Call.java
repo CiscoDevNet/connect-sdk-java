@@ -62,6 +62,5 @@ public interface Call extends Idempotent {
 
     /** URL for event callbacks that will provide the next actions for the call */
     CallOptions callbackUrl(URI url);
-
   }
 }

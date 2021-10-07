@@ -1,6 +1,5 @@
 package com.cisco.cpaas.core;
 
-
 import com.cisco.cpaas.core.annotation.Nullable;
 
 /**

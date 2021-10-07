@@ -26,8 +26,7 @@ public final class TelephoneDigit implements StringWrapper {
   private TelephoneDigit(String digit) {
     this.digit = requireNonNull(digit, "digit can not be null");
     validArgument(
-        ALLOWED_CHAR_SET.contains(digit),
-        "Invalid DTMF digit. Must be a single digit, '*' or '#'");
+        ALLOWED_CHAR_SET.contains(digit), "Invalid DTMF digit. Must be a single digit, '*' or '#'");
   }
 
   public static TelephoneDigit of(String digit) {

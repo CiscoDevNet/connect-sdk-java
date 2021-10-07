@@ -33,7 +33,8 @@ public interface WhatsAppClient extends WebexClient {
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   Optional<WhatsAppMsgStatus> getStatus(String messageId);
-  //TODO: Instead of an optional,  we should always return a response object so the end user has the request id.
+  // TODO: Instead of an optional,  we should always return a response object so the end user has
+  // the request id.
 
   /**
    * Entry point for creating a new instance of the WhatsAppClient using the available configurers.

@@ -124,9 +124,7 @@ public final class SmsMessage implements Idempotent {
       return this;
     }
 
-    /**
-     * Adds a single template substitution as a key value pair. A message can be templated by
-     */
+    /** Adds a single template substitution as a key value pair. A message can be templated by */
     public Builder substitution(String key, String value) {
       if (substitutions == null) {
         this.substitutions = new HashMap<>();
@@ -137,6 +135,7 @@ public final class SmsMessage implements Idempotent {
 
     /**
      * Adds all substitutions in the map with any existing substitutions.
+     *
      * @param substitutions The map of all desired substitutions.
      */
     public Builder substitutions(Map<String, String> substitutions) {
@@ -170,7 +169,7 @@ public final class SmsMessage implements Idempotent {
 
     public SmsMessage build() {
       Map<String, String> subs =
-        substitutions == null ? null : Collections.unmodifiableMap(substitutions);
+          substitutions == null ? null : Collections.unmodifiableMap(substitutions);
       notNullOrBlank(from, "from");
       return new SmsMessage(
           from,

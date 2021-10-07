@@ -11,5 +11,4 @@ public class TemplateContent implements Content {
   private final WhatsAppContentType contentType = WhatsAppContentType.TEMPLATE;
   @NonNull private final String templateId;
   @NonNull private final TemplateParams parameters;
-
 }

@@ -18,7 +18,8 @@ class StringWrapperSerializer extends StdSerializer<StringWrapper> {
   }
 
   @Override
-  public void serialize(StringWrapper value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+  public void serialize(StringWrapper value, JsonGenerator gen, SerializerProvider provider)
+      throws IOException {
     gen.writeString(value.get());
   }
 }
