@@ -1,6 +1,5 @@
 package com.cisco.cpaas.voice.type;
 
-import com.cisco.cpaas.core.annotation.Nullable;
 import lombok.Value;
 
 import java.net.URI;
@@ -13,10 +12,8 @@ public class UrlAudio implements Audio {
 
   private final Type type = Type.URL;
   private final URI location;
-  private final Integer loop;
 
-  public UrlAudio(URI location, @Nullable Integer loop) {
+  public UrlAudio(URI location) {
     this.location = requireNonNull(location, "location URL can not be null.");
-    this.loop = loop;
   }
 }

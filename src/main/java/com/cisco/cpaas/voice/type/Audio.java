@@ -1,7 +1,6 @@
 package com.cisco.cpaas.voice.type;
 
 import com.cisco.cpaas.core.annotation.Nullable;
-import com.cisco.cpaas.voice.callback.action.PatchAction;
 import com.cisco.cpaas.voice.engine.Voice;
 
 import java.net.URI;
@@ -20,19 +19,13 @@ public interface Audio {
   public Type getType();
 
   /**
-   * Repeat the audio this many times, this parameter is used for the greeting audio in a {@link
-   * PatchAction}.
-   */
-  public Integer getLoop();
-
-  /**
    * Create a new {@link UrlAudio} message with default values.
    *
    * @param location The url where the audio file is located.
    * @return The new audio object.
    */
   public static UrlAudio ofUrl(URI location) {
-    return new UrlAudio(location, null);
+    return new UrlAudio(location);
   }
 
   /**
@@ -42,7 +35,7 @@ public interface Audio {
    * @return The new MediaAudio object.
    */
   public static MediaAudio ofMediaId(String mediaId) {
-    return new MediaAudio(mediaId, null);
+    return new MediaAudio(mediaId);
   }
 
   /**
@@ -53,7 +46,7 @@ public interface Audio {
    * @return The new audio object.
    */
   public static TtsAudio ofTtsText(String text, @Nullable Voice voice) {
-    return new TtsAudio(text, TtsAudio.TextFormat.TEXT, null, voice);
+    return new TtsAudio(text, TtsAudio.TextFormat.TEXT, voice);
   }
 
   /**
@@ -64,6 +57,6 @@ public interface Audio {
    * @return The new audio object.
    */
   public static TtsAudio ofTtsSsml(String ssml, @Nullable Voice voice) {
-    return new TtsAudio(ssml, TtsAudio.TextFormat.SSML, null, voice);
+    return new TtsAudio(ssml, TtsAudio.TextFormat.SSML, voice);
   }
 }

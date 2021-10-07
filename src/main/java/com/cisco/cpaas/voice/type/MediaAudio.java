@@ -11,10 +11,8 @@ public final class MediaAudio implements Audio {
 
   private final Type type = Type.MEDIA;
   private final String mediaId;
-  private final Integer loop;
 
-  public MediaAudio(String mediaId, Integer loop) {
+  public MediaAudio(String mediaId) {
     this.mediaId = mediaId;
-    this.loop = loop;
   }
 }

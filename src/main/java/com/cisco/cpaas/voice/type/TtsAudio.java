@@ -22,14 +22,11 @@ public final class TtsAudio implements Audio {
   private final Type type = Type.TTS;
   private final String text;
   private final TextFormat textFormat;
-  private final Integer loop;
   @JsonUnwrapped private final Voice voice;
 
-  TtsAudio(
-      String text, @Nullable TextFormat textFormat, @Nullable Integer loop, @Nullable Voice voice) {
+  TtsAudio(String text, @Nullable TextFormat textFormat, @Nullable Voice voice) {
     this.text = text;
     this.textFormat = textFormat;
-    this.loop = loop;
     this.voice = voice;
   }
 }

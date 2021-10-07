@@ -44,4 +44,10 @@ public class PatchAction implements Action {
    * If enabled, DTMF signalling will be passed between the two patched call legs. Default to true.
    */
   private final Boolean passDtmf;
+
+  /**
+   * Specifies how many times the greeting message will be played to the called party. Default value
+   * is <code>0</code> meaning the message will be played one time.
+   */
+  private final Integer greetingRepeatCount;
 }
