@@ -1,7 +1,5 @@
 package com.cisco.cpaas.sms.type;
 
-import com.cisco.cpaas.core.type.ContactEndpoint;
-import com.cisco.cpaas.core.type.Endpoint;
 import com.cisco.cpaas.core.type.Idempotent;
 import com.cisco.cpaas.core.type.MessageBuilder;
 import com.cisco.cpaas.core.type.PhoneNumber;
@@ -10,10 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.cisco.cpaas.core.util.Preconditions.notNullOrBlank;
 import static com.cisco.cpaas.core.util.UnicodeDetector.containsUnicode;
 import static com.cisco.cpaas.sms.type.SmsContentType.TEMPLATE;
 import static com.cisco.cpaas.sms.type.SmsContentType.TEXT;
@@ -27,11 +27,11 @@ public final class SmsMessage implements Idempotent {
 
   private final transient String idempotencyKey = UUID.randomUUID().toString();
 
-  private final Endpoint from;
+  private final String from;
   private final PhoneNumber to;
   private final String content;
   private final SmsContentType contentType;
-  private final Substitutions substitutions;
+  private final Map<String, String> substitutions;
   private final String correlationId;
   private final String dltTemplateId;
   private final URI callbackUrl;
@@ -97,7 +97,7 @@ public final class SmsMessage implements Idempotent {
   /** Inner builder to construct a new {@link SmsMessage}. */
   public static final class Builder
       implements MessageBuilder.From<Builder>, MessageBuilder.To<Builder> {
-    private Endpoint from;
+    private String from;
     private PhoneNumber to;
     private String content;
     private SmsContentType contentType;
@@ -114,7 +114,7 @@ public final class SmsMessage implements Idempotent {
 
     @Override
     public MessageBuilder.To<Builder> from(String from) {
-      this.from = ContactEndpoint.of(from);
+      this.from = from;
       return this;
     }
 
@@ -124,12 +124,27 @@ public final class SmsMessage implements Idempotent {
       return this;
     }
 
-    // TODO: Look into adding a method to add multiple substitutions at once.
-    public Builder substitution(Substitution substitution) {
+    /**
+     * Adds a single template substitution as a key value pair. A message can be templated by
+     */
+    public Builder substitution(String key, String value) {
       if (substitutions == null) {
         this.substitutions = new HashMap<>();
       }
-      this.substitutions.put(substitution.getKey(), substitution.getValue());
+      this.substitutions.put(key, value);
+      return this;
+    }
+
+    /**
+     * Adds all substitutions in the map with any existing substitutions.
+     * @param substitutions The map of all desired substitutions.
+     */
+    public Builder substitutions(Map<String, String> substitutions) {
+      if (this.substitutions == null) {
+        this.substitutions = substitutions;
+      } else {
+        this.substitutions.putAll(substitutions);
+      }
       return this;
     }
 
@@ -154,7 +169,9 @@ public final class SmsMessage implements Idempotent {
     }
 
     public SmsMessage build() {
-      Substitutions subs = substitutions == null ? null : new Substitutions(substitutions);
+      Map<String, String> subs =
+        substitutions == null ? null : Collections.unmodifiableMap(substitutions);
+      notNullOrBlank(from, "from");
       return new SmsMessage(
           from,
           to,

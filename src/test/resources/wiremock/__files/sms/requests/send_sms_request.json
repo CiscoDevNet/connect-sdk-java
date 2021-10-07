@@ -10,6 +10,5 @@
   "correlationId": "correlationId",
   "dltTemplateId": "dltTemplateId",
   "callbackUrl": "https://webhook.example.com",
-  "callbackData": "customerID123|1234|new_sale",
-  "expireAt": "2021-08-01T14:24:33Z"
+  "callbackData": "customerID123|1234|new_sale"
 }

@@ -65,9 +65,10 @@ public class Preconditions {
    * @param name THe name of the property being tested. Used to construct the exception message.
    * @throws IllegalArgumentException when the value is null or blank.
    */
-  public static void notNullOrBlank(@Nullable String value, String name) {
+  public static String notNullOrBlank(@Nullable String value, String name) {
     if (value == null || value.length() < 1) {
       throw new IllegalArgumentException(name + " can not be null or blank.");
     }
+    return value;
   }
 }

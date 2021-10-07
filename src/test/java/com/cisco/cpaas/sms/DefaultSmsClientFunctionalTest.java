@@ -10,7 +10,6 @@ import com.cisco.cpaas.sms.type.SendStatus;
 import com.cisco.cpaas.sms.type.SmsContentType;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
-import com.cisco.cpaas.sms.type.Substitution;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -79,8 +78,8 @@ public class DefaultSmsClientFunctionalTest {
                 .callbackUrl(URI.create("https://webhook.example.com"))
                 .dltTemplateId("dltTemplateId")
                 .correlationId("correlationId")
-                .substitution(Substitution.of("key1", "value1"))
-                .substitution(Substitution.of("key2", "value2"))
+                .substitution("key1", "value1")
+                .substitution("key2", "value2")
                 .build());
 
     SendSmsResponse expected =
