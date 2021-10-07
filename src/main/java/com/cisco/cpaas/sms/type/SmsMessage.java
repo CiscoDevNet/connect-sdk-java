@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 
 import java.net.URI;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -37,7 +36,6 @@ public final class SmsMessage implements Idempotent {
   private final String dltTemplateId;
   private final URI callbackUrl;
   private final String callbackData;
-  private final Instant expireAt;
 
   /**
    * Starts building a new message that is based off of a template ID. The content type will
@@ -108,7 +106,6 @@ public final class SmsMessage implements Idempotent {
     private String dltTemplateId;
     private URI callbackUrl;
     private String callbackData;
-    private Instant expireAt;
 
     private Builder(String content, SmsContentType contentType) {
       this.content = requireNonNull(content, "'content' is required.");
@@ -156,11 +153,6 @@ public final class SmsMessage implements Idempotent {
       return this;
     }
 
-    public Builder expireAt(Instant expireAt) {
-      this.expireAt = expireAt;
-      return this;
-    }
-
     public SmsMessage build() {
       Substitutions subs = substitutions == null ? null : new Substitutions(substitutions);
       return new SmsMessage(
@@ -172,8 +164,7 @@ public final class SmsMessage implements Idempotent {
           correlationId,
           dltTemplateId,
           callbackUrl,
-          callbackData,
-          expireAt);
+          callbackData);
     }
   }
 }

@@ -1,5 +1,7 @@
 package com.cisco.cpaas.whatsapp.type;
 
+import com.cisco.cpaas.core.type.PhoneNumber;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Value;
 
@@ -8,18 +10,24 @@ import java.util.UUID;
 
 /** Default implementation of the {@link WhatsAppMsg}. */
 @Value
-public final class SendMessageRequest implements WhatsAppMsg {
+public final class WhatsAppSendMsgRequest implements WhatsAppMsg {
 
-  // TODO: Make from and to into entities.
   private final String idempotencyKey = UUID.randomUUID().toString();
   private final String from;
-  private final String to;
+  private final PhoneNumber to;
   private final URI callbackUrl;
   private final String callbackData;
   private final String correlationId;
   private final Substitutions substitutions;
   @JsonUnwrapped private final Content content;
 
+  /**
+   * Getter for the {@link Content} object that will cast the content to the specific type for
+   * convenience.
+   * @param <T> The type to cast to.
+   * @return The cast instance of content.
+   */
+  @JsonIgnore
   @Override
   @SuppressWarnings("unchecked")
   public <T extends Content> T getCastContent() {
@@ -37,12 +45,13 @@ public final class SendMessageRequest implements WhatsAppMsg {
           MessageSteps.ContentCreator {
 
     private String from;
-    private String to;
+    private PhoneNumber to;
     private URI callbackUrl;
     private String callbackData;
     private String correlationId;
     private Substitutions substitutions;
     private Content content;
+    private TemplateParams parameters;
 
     @Override
     public MessageSteps.From content(Content content) {
@@ -58,7 +67,7 @@ public final class SendMessageRequest implements WhatsAppMsg {
 
     @Override
     public MessageSteps.Options to(String to) {
-      this.to = to;
+      this.to = PhoneNumber.of(to);
       return this;
     }
 
@@ -93,8 +102,14 @@ public final class SendMessageRequest implements WhatsAppMsg {
     }
 
     @Override
-    public SendMessageRequest build() {
-      return new SendMessageRequest(
+    public MessageSteps.Options parameters(TemplateParams parameters) {
+      this.parameters = parameters;
+      return this;
+    }
+
+    @Override
+    public WhatsAppSendMsgRequest build() {
+      return new WhatsAppSendMsgRequest(
           from, to, callbackUrl, callbackData, correlationId, substitutions, content);
     }
   }

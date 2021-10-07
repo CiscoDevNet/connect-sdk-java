@@ -2,6 +2,7 @@ package com.cisco.cpaas.whatsapp.type;
 
 import com.cisco.cpaas.core.annotation.Nullable;
 import com.cisco.cpaas.core.type.Idempotent;
+import com.cisco.cpaas.core.type.PhoneNumber;
 
 import java.net.URI;
 
@@ -12,7 +13,7 @@ public interface WhatsAppMsg extends Idempotent {
 
   public String getFrom();
 
-  public String getTo();
+  public PhoneNumber getTo();
 
   public @Nullable URI getCallbackUrl();
 
@@ -41,7 +42,7 @@ public interface WhatsAppMsg extends Idempotent {
    * @return A builder to generate the rest of the message parameters.
    */
   public static MessageSteps.From ofText(String textMessage) {
-    return new SendMessageRequest.Builder().content(Text.of(textMessage));
+    return new WhatsAppSendMsgRequest.Builder().content(Text.of(textMessage));
   }
 
   /**
@@ -52,6 +53,6 @@ public interface WhatsAppMsg extends Idempotent {
    */
   public static MessageSteps.From of(Content content) {
     requireNonNull(content, "content can not be null");
-    return new SendMessageRequest.Builder().content(content);
+    return new WhatsAppSendMsgRequest.Builder().content(content);
   }
 }

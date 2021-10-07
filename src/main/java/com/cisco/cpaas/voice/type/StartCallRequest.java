@@ -24,25 +24,28 @@ public final class StartCallRequest implements Call {
   private StartCallRequest(
       PhoneNumber callerId,
       PhoneNumber dialedNumber,
-      @Nullable URI callbackUrl,
+      URI callbackUrl,
       @Nullable String correlationId,
       @Nullable Integer recordCallSeconds,
       @Nullable Boolean detectVoiceMail) {
     this.callerId = requireNonNull(callerId, "callerId (from) can not be null.");
     this.dialedNumber = requireNonNull(dialedNumber, "dialedNumber (to) can not be null.");
-    this.callbackUrl = callbackUrl;
+    this.callbackUrl = requireNonNull(callbackUrl, "callbackUrl can not be null.");
     this.correlationId = correlationId;
     this.recordCallSeconds = recordCallSeconds;
     this.detectVoiceMail = detectVoiceMail;
   }
 
-  public static CallSteps.From<CallOptions> builder() {
+  public static CallSteps.From builder() {
     return new Builder();
   }
 
   /** Inner builder for creating a new request. */
   static final class Builder
-      implements CallSteps.From<CallOptions>, CallSteps.To<CallOptions>, CallOptions {
+      implements CallSteps.From<CallbackUrlStep>,
+          CallSteps.To<CallbackUrlStep>,
+          CallbackUrlStep,
+          CallOptions {
 
     private PhoneNumber callerId;
     private PhoneNumber dialedNumber;
@@ -52,13 +55,13 @@ public final class StartCallRequest implements Call {
     private Boolean detectVoiceMail;
 
     @Override
-    public CallSteps.To<CallOptions> from(String callerId) {
+    public CallSteps.To<CallbackUrlStep> from(String callerId) {
       this.callerId = PhoneNumber.of(callerId);
       return this;
     }
 
     @Override
-    public CallOptions to(String dialedNumber) {
+    public CallbackUrlStep to(String dialedNumber) {
       this.dialedNumber = PhoneNumber.of(dialedNumber);
       return this;
     }
@@ -66,6 +69,12 @@ public final class StartCallRequest implements Call {
     @Override
     public CallOptions callbackUrl(URI callbackUrl) {
       this.callbackUrl = callbackUrl;
+      return this;
+    }
+
+    @Override
+    public CallOptions callbackUrl(String callbackUrl) {
+      this.callbackUrl = URI.create(callbackUrl);
       return this;
     }
 

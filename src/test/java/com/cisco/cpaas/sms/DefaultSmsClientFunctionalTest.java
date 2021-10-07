@@ -81,7 +81,6 @@ public class DefaultSmsClientFunctionalTest {
                 .correlationId("correlationId")
                 .substitution(Substitution.of("key1", "value1"))
                 .substitution(Substitution.of("key2", "value2"))
-                .expireAt(Instant.parse("2021-08-01T14:24:33.000Z"))
                 .build());
 
     SendSmsResponse expected =

@@ -48,8 +48,7 @@ class DefaultVoiceClientTest {
     when(internalClient.post(anyString(), any(), any())).thenReturn(expected);
 
     PlayAndDrop msg =
-        PlayAndDrop
-            .from("+15550001234")
+        PlayAndDrop.from("+15550001234")
             .to("+15559994321")
             .audio(Audio.ofUrl(URI.create("http://bucket.example.com/audio.mp3")))
             .build();
@@ -64,7 +63,11 @@ class DefaultVoiceClientTest {
     StartCallResponse expected = new StartCallResponse(null, "sessionId", CallState.QUEUED);
     when(internalClient.post(anyString(), any(), any())).thenReturn(expected);
 
-    Call msg = Call.from("+15550001234").to("+15559994321").build();
+    Call msg =
+        Call.from("+15550001234")
+            .to("+15559994321")
+            .callbackUrl("http://webhook.example.com")
+            .build();
     StartCallResponse actual = client.startCall(msg);
 
     verify(internalClient).post("/v1/voice/calls", msg, StartCallResponse.class);
@@ -73,16 +76,17 @@ class DefaultVoiceClientTest {
 
   @Test
   public void shouldGetCallStatus() {
-    CallStatus expected = CallStatus.builder()
-      .callerId(PhoneNumber.of("+15550001234"))
-      .dialedNumber(PhoneNumber.of("+15559994321"))
-      .status(CallState.QUEUED)
-      .correlationId("correlationId")
-      .durationSeconds(500)
-      .offeredTime(Instant.now())
-      .answeredTime(Instant.now())
-      .sessionId("sessionId")
-      .build();
+    CallStatus expected =
+        CallStatus.builder()
+            .callerId(PhoneNumber.of("+15550001234"))
+            .dialedNumber(PhoneNumber.of("+15559994321"))
+            .status(CallState.QUEUED)
+            .correlationId("correlationId")
+            .durationSeconds(500)
+            .offeredTime(Instant.now())
+            .answeredTime(Instant.now())
+            .sessionId("sessionId")
+            .build();
     when(internalClient.get(anyString(), any())).thenReturn(expected);
     CallStatus actual = client.getCallStatus("sessionId");
 

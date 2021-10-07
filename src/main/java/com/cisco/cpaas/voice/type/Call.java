@@ -26,15 +26,12 @@ public interface Call extends Idempotent {
    * @param callerId the number that is dialing out.
    * @return The next step.
    */
-  static CallSteps.To<CallOptions> from(String callerId) {
+  static CallSteps.To<CallbackUrlStep> from(String callerId) {
     return new StartCallRequest.Builder().from(callerId);
   }
 
   /** Defines the optional values that can be set on a call session. */
   interface CallOptions {
-
-    /** URL for event callbacks that will provide the next actions for the call */
-    CallOptions callbackUrl(URI callbackUrl);
 
     /**
      * A user-provided arbitrary string value that will be stored with the call status and sent in
@@ -56,5 +53,15 @@ public interface Call extends Idempotent {
 
     /** Creates the call request. */
     Call build();
+  }
+
+  interface CallbackUrlStep {
+
+    /** URL for event callbacks that will provide the next actions for the call */
+    CallOptions callbackUrl(String url);
+
+    /** URL for event callbacks that will provide the next actions for the call */
+    CallOptions callbackUrl(URI url);
+
   }
 }

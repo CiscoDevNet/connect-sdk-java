@@ -16,7 +16,7 @@ import static java.util.Objects.requireNonNull;
  */
 @ToString
 @EqualsAndHashCode
-public final class PhoneNumber implements Endpoint {
+public final class PhoneNumber implements StringWrapper {
 
   static final transient Pattern E164_VALIDATOR = Pattern.compile("^\\+[1-9]\\d{6,14}$");
 
