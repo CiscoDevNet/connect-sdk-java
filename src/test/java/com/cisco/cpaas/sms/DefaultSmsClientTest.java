@@ -2,7 +2,7 @@ package com.cisco.cpaas.sms;
 
 import com.cisco.cpaas.core.client.InternalClient;
 import com.cisco.cpaas.sms.type.SendSmsResponse;
-import com.cisco.cpaas.sms.type.SmsMessageRequest;
+import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class DefaultSmsClientTest {
         new SendSmsResponse("requestId", Instant.now(), "messageId", "correlationId");
     when(internalClient.post(anyString(), any(), any())).thenReturn(expectedResponse);
 
-    SmsMessageRequest msg = SmsMessageRequest.of("text message").from("+15550001234").to("+15559994321").build();
+    SmsMessage msg = SmsMessage.of("text message").from("+15550001234").to("+15559994321").build();
     SendSmsResponse actualResponse = client.sendMessage(msg);
 
     verify(internalClient).post("/v1/sms/messages", msg, SendSmsResponse.class);

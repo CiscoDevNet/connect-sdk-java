@@ -8,7 +8,7 @@ import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.sms.type.SendSmsResponse;
 import com.cisco.cpaas.sms.type.SendStatus;
 import com.cisco.cpaas.sms.type.SmsContentType;
-import com.cisco.cpaas.sms.type.SmsMessageRequest;
+import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -71,7 +71,7 @@ public class DefaultSmsClientFunctionalTest {
 
     SendSmsResponse actual =
         client.sendMessage(
-            SmsMessageRequest.of("Hello world!")
+            SmsMessage.of("Hello world!")
                 .from(FROM)
                 .to(TO)
                 .callbackData("customerID123|1234|new_sale")

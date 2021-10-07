@@ -27,7 +27,7 @@ public class WebexResponseException extends WebexException {
 
   private static String constructMessage(int httpStatusCode, ErrorResponse errorResponse) {
     if (errorResponse == null) {
-      return "Non successful HTTP status: " + httpStatusCode;
+      return "HTTP status: " + httpStatusCode;
     }
     return errorResponse.getCode() + " - " + errorResponse.getMessage();
   }

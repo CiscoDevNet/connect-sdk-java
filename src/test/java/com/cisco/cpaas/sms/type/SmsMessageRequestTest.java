@@ -14,20 +14,20 @@ class SmsMessageRequestTest {
 
   @Test
   public void shouldSetTextTypeWhenNoUnicodePresent() {
-    SmsMessageRequest msg = SmsMessageRequest.of("normal text").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessage msg = SmsMessage.of("normal text").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(SmsContentType.TEXT));
   }
 
   @Test
   public void shouldSetUnicodeTypeWhenUnicodePresent() {
     String input = "text \uD801";
-    SmsMessageRequest msg = SmsMessageRequest.of(input).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessage msg = SmsMessage.of(input).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(UNICODE));
   }
 
   @Test
   public void shouldSetTemplateTypeWhenUsingFromTemplate() {
-    SmsMessageRequest msg = SmsMessageRequest.fromTemplate("id").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessage msg = SmsMessage.fromTemplate("id").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(SmsContentType.TEMPLATE));
   }
 
@@ -43,7 +43,7 @@ class SmsMessageRequestTest {
     byte b7 = 0b1011;
     byte[] bytes = new byte[] {b0, b1, b2, b3, b4, b5, b6, b7};
     String binaryAsHex = "475a9d6b";
-    SmsMessageRequest msg = SmsMessageRequest.of(bytes).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessage msg = SmsMessage.of(bytes).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(SmsContentType.BINARY));
     assertThat(msg.getContent(), is(binaryAsHex));
   }
@@ -56,7 +56,7 @@ class SmsMessageRequestTest {
     }
     assertThrows(
         IllegalArgumentException.class,
-        () -> SmsMessageRequest.of(sb.toString()).from(PHONE_NUMBER).to(PHONE_NUMBER).build());
+        () -> SmsMessage.of(sb.toString()).from(PHONE_NUMBER).to(PHONE_NUMBER).build());
   }
 
 }

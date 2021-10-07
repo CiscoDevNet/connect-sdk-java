@@ -13,10 +13,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import static com.cisco.cpaas.core.util.Preconditions.notNullOrBlank;
-import static com.cisco.cpaas.core.util.UnicodeDetector.containsUnicode;
-import static com.cisco.cpaas.sms.type.SmsContentType.TEMPLATE;
-import static com.cisco.cpaas.sms.type.SmsContentType.TEXT;
-import static com.cisco.cpaas.sms.type.SmsContentType.UNICODE;
 import static java.util.Objects.requireNonNull;
 
 /** Request object used to send a new SMS message. */
@@ -36,65 +32,8 @@ public final class SmsMessageRequest implements SmsMessage {
   private final URI callbackUrl;
   private final String callbackData;
 
-  /**
-   * Starts building a new message that is based off of a template ID. The content type will
-   * automatically be set to {@link SmsContentType#TEMPLATE}.
-   *
-   * @param templateId The message template to use.
-   */
-  public static MessageBuilder.From<Options> fromTemplate(String templateId) {
-    requireNonNull(templateId, "templateId can not be null.");
-    return new Builder(templateId, TEMPLATE);
-  }
-
-  /**
-   * Starts building a new message consisting of text or unicode content. This method will attempt
-   * to determine if the string contains unicode literal characters and will set the content type to
-   * either {@link SmsContentType#TEXT} or {@link SmsContentType#UNICODE} appropriately.
-   *
-   * <p>The unicode detection can be bypassed by using the overloaded factory method {@link
-   * #of(String, SmsContentType)}. This may slightly improve performance or may be needed if
-   * detection is not working as expected.
-   *
-   * @param content The content to send as the SMS message.
-   */
-  // TODO: Update docs for links to content detection etc.
-  public static MessageBuilder.From<Options> of(String content) {
-    SmsContentType contentType = containsUnicode(content) ? UNICODE : TEXT;
-    return SmsMessageRequest.of(content, contentType);
-  }
-
-  /**
-   * Starts building a new message of the specified content type.
-   *
-   * @param content the content to be used as the message.
-   * @param type The type of message content. Typically this would be one of {@link
-   *     SmsContentType#UNICODE}, {@link SmsContentType#TEXT}, or {@link SmsContentType#TEMPLATE}
-   *     with this method.
-   */
-  public static MessageBuilder.From<Options> of(String content, SmsContentType type) {
-    if (content.length() > 1024) {
-      throw new IllegalArgumentException("message content can not have more than 1024 characters.");
-    }
-    return new Builder(content, type);
-  }
-
-  /**
-   * Starts building a new message consisting of binary content represented as a byte array. The
-   * content type will automatically be set to {@link SmsContentType#BINARY}.
-   *
-   * @param content The binary data to send
-   */
-  public static MessageBuilder.From<Options> of(byte[] content) {
-    StringBuilder sb = new StringBuilder();
-    for (byte b : content) {
-      sb.append(Integer.toHexString(b));
-    }
-    return new Builder(sb.toString(), SmsContentType.BINARY);
-  }
-
   /** Inner builder to construct a new {@link SmsMessageRequest}. */
-  public static final class Builder
+  static final class Builder
       implements MessageBuilder.From<Options>, MessageBuilder.To<Options>, SmsMessage.Options {
     private String from;
     private PhoneNumber to;
@@ -106,7 +45,7 @@ public final class SmsMessageRequest implements SmsMessage {
     private URI callbackUrl;
     private String callbackData;
 
-    private Builder(String content, SmsContentType contentType) {
+    Builder(String content, SmsContentType contentType) {
       this.content = requireNonNull(content, "'content' is required.");
       this.contentType = requireNonNull(contentType, "contentType can not be null.");
     }
