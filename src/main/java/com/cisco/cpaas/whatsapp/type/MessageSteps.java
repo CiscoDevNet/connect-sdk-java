@@ -71,9 +71,6 @@ public interface MessageSteps {
      */
     Options correlationId(String correlationId);
 
-    // TODO: Substitutions are still being defined.
-    Options substitutions(Substitutions substitutions);
-
     WhatsAppMsg build();
   }
 

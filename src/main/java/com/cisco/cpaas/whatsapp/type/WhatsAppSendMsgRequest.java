@@ -18,12 +18,12 @@ public final class WhatsAppSendMsgRequest implements WhatsAppMsg {
   private final URI callbackUrl;
   private final String callbackData;
   private final String correlationId;
-  private final Substitutions substitutions;
   @JsonUnwrapped private final Content content;
 
   /**
    * Getter for the {@link Content} object that will cast the content to the specific type for
    * convenience.
+   *
    * @param <T> The type to cast to.
    * @return The cast instance of content.
    */
@@ -49,9 +49,7 @@ public final class WhatsAppSendMsgRequest implements WhatsAppMsg {
     private URI callbackUrl;
     private String callbackData;
     private String correlationId;
-    private Substitutions substitutions;
     private Content content;
-    private TemplateParams parameters;
 
     @Override
     public MessageSteps.From content(Content content) {
@@ -96,21 +94,9 @@ public final class WhatsAppSendMsgRequest implements WhatsAppMsg {
     }
 
     @Override
-    public MessageSteps.Options substitutions(Substitutions substitutions) {
-      this.substitutions = substitutions;
-      return this;
-    }
-
-    @Override
-    public MessageSteps.Options parameters(TemplateParams parameters) {
-      this.parameters = parameters;
-      return this;
-    }
-
-    @Override
     public WhatsAppSendMsgRequest build() {
       return new WhatsAppSendMsgRequest(
-          from, to, callbackUrl, callbackData, correlationId, substitutions, content);
+          from, to, callbackUrl, callbackData, correlationId, content);
     }
   }
 }

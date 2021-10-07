@@ -21,8 +21,6 @@ public interface WhatsAppMsg extends Idempotent {
 
   public @Nullable String getCorrelationId();
 
-  public @Nullable Substitutions getSubstitutions();
-
   public Content getContent();
 
   /**

@@ -1,5 +1,6 @@
 package com.cisco.cpaas.whatsapp.parser;
 
+import com.cisco.cpaas.TestUtils;
 import com.cisco.cpaas.core.parser.JacksonParser;
 import com.cisco.cpaas.core.parser.ObjectParser;
 import com.cisco.cpaas.core.type.ErrorResponse;
@@ -15,11 +16,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.ByteArrayInputStream;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.stream.Stream;
 
@@ -60,7 +57,7 @@ class WhatsAppMsgStatusDeserializerTest {
   }
 
   @Test
-  public void shouldDeserializeMinJson() throws Exception {
+  public void shouldDeserializeMinJson() {
     WhatsAppMsgStatus actual = getActual("status_min_audio.json");
     WhatsAppMsgStatus expected =
         getExpected(Audio.of("http://example.com/audio.mp3"))
@@ -70,8 +67,8 @@ class WhatsAppMsgStatusDeserializerTest {
     assertThat(actual, Matchers.is(expected));
   }
 
-  private WhatsAppMsgStatus getActual(String fileName) throws Exception {
-    String json = getFile("/responses/whatsapp/" + fileName);
+  private WhatsAppMsgStatus getActual(String fileName) {
+    String json = TestUtils.getFile("/responses/whatsapp/" + fileName);
     return parser.readToObject(
         new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)), WhatsAppMsgStatus.class);
   }
@@ -89,9 +86,4 @@ class WhatsAppMsgStatusDeserializerTest {
         .statusTime(Instant.parse("2021-09-30T16:34:36.873Z"));
   }
 
-  private String getFile(String fileLocation) throws Exception {
-    URL url = this.getClass().getResource(fileLocation);
-    Path path = Paths.get(url.toURI());
-    return new String(Files.readAllBytes(path), StandardCharsets.UTF_8.toString());
-  }
 }

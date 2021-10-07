@@ -5,5 +5,9 @@
   "callbackData": "customerID123|1234|new_sale",
   "correlationId": "correlationId",
   "contentType": "TEXT",
-  "content": "Hello World!"
+  "content": "Hello World!",
+  "substitutions" : {
+    "firstName" : "John",
+    "lastName" : "Doe"
+  }
 }
