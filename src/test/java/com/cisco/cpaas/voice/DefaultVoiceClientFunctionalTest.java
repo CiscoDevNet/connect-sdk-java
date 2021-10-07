@@ -55,7 +55,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * requests and responses found in the test resources folder.
  */
 @WireMockTest
-public class DefaultVoiceClientFunctionalTestIT {
+public class DefaultVoiceClientFunctionalTest {
 
   private static final String REQUESTS_PATH = "/wiremock/__files/voice/requests/";
   private static final String RESPONSES_PATH = "/wiremock/__files/voice/responses/";

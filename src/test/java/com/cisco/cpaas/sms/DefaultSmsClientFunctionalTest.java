@@ -50,7 +50,7 @@ public class DefaultSmsClientFunctionalTest {
 
   private static final String MESSAGES_PATH = "/v1/sms/messages";
 
-  private static final String FROM = "+15550001234";
+  private static final String FROM = "34343";
   private static final String TO = "+15559994321";
   private static final String AUTH_TOKEN = "authToken";
   private static final String REQUEST_ID = "requestId";
@@ -70,7 +70,7 @@ public class DefaultSmsClientFunctionalTest {
     String jsonResponse = TestUtils.getFile(RESPONSES_PATH + "post_response.json");
     stubWithCommonHeaders(post(MESSAGES_PATH), aResponse().withStatus(202).withBody(jsonResponse));
 
-    SendSmsResponse response =
+    SendSmsResponse actual =
         client.sendMessage(
             SmsMessage.of("Hello world!")
                 .from(FROM)
@@ -84,11 +84,10 @@ public class DefaultSmsClientFunctionalTest {
                 .expireAt(Instant.parse("2021-08-01T14:24:33.000Z"))
                 .build());
 
-    assertThat(response.getMessageId(), Matchers.equalTo("messageId"));
-    assertThat(response.getRequestId(), Matchers.equalTo(REQUEST_ID));
-    assertThat(
-        response.getAcceptedTime(), Matchers.equalTo(Instant.parse("2021-07-29T13:45:33.404Z")));
-    assertThat(response.getCorrelationId(), Matchers.equalTo("correlationId"));
+    SendSmsResponse expected =
+        new SendSmsResponse(
+            "requestId", Instant.parse("2021-07-29T13:45:33.404Z"), "messageId", "correlationId");
+    assertThat(actual, Matchers.equalTo(expected));
 
     String jsonRequest = TestUtils.getFile(REQUESTS_PATH + "send_sms_request.json");
     verify(
@@ -105,8 +104,8 @@ public class DefaultSmsClientFunctionalTest {
         SmsMessageStatus.builder()
             .messageId("messageId")
             .acceptedTime(Instant.parse("2021-07-29T13:45:33.404Z"))
-            .from("+15550001234")
-            .to("+15559994321")
+            .from(FROM)
+            .to(TO)
             .correlationId("correlationId")
             .content("Hello world!")
             .contentType(SmsContentType.TEXT)
@@ -114,7 +113,7 @@ public class DefaultSmsClientFunctionalTest {
             .status(SendStatus.QUEUED)
             .statusTime(Instant.parse("2021-07-29T13:45:33.404Z"))
             .error(new ErrorResponse("7000", "error"))
-            .requestId("requestId")
+            .requestId(REQUEST_ID)
             .build();
 
     SmsMessageStatus actual = client.getStatus("messageId").get();
