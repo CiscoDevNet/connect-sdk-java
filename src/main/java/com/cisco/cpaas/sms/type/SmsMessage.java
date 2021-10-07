@@ -1,186 +1,94 @@
 package com.cisco.cpaas.sms.type;
 
 import com.cisco.cpaas.core.type.Idempotent;
-import com.cisco.cpaas.core.type.MessageBuilder;
 import com.cisco.cpaas.core.type.PhoneNumber;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Value;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-import static com.cisco.cpaas.core.util.Preconditions.notNullOrBlank;
-import static com.cisco.cpaas.core.util.UnicodeDetector.containsUnicode;
-import static com.cisco.cpaas.sms.type.SmsContentType.TEMPLATE;
-import static com.cisco.cpaas.sms.type.SmsContentType.TEXT;
-import static com.cisco.cpaas.sms.type.SmsContentType.UNICODE;
-import static java.util.Objects.requireNonNull;
+/** API to interact with SMS message requests. */
+public interface SmsMessage extends Idempotent {
 
-/** Request object used to send a new SMS message. */
-@Value
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class SmsMessage implements Idempotent {
+  String getFrom();
 
-  private final transient String idempotencyKey = UUID.randomUUID().toString();
+  PhoneNumber getTo();
 
-  private final String from;
-  private final PhoneNumber to;
-  private final String content;
-  private final SmsContentType contentType;
-  private final Map<String, String> substitutions;
-  private final String correlationId;
-  private final String dltTemplateId;
-  private final URI callbackUrl;
-  private final String callbackData;
+  String getContent();
 
-  /**
-   * Starts building a new message that is based off of a template ID. The content type will
-   * automatically be set to {@link SmsContentType#TEMPLATE}.
-   *
-   * @param templateId The message template to use.
-   */
-  public static MessageBuilder.From<Builder> fromTemplate(String templateId) {
-    requireNonNull(templateId, "templateId can not be null.");
-    return new Builder(templateId, TEMPLATE);
-  }
+  SmsContentType getContentType();
 
-  /**
-   * Starts building a new message consisting of text or unicode content. This method will attempt
-   * to determine if the string contains unicode literal characters and will set the content type to
-   * either {@link SmsContentType#TEXT} or {@link SmsContentType#UNICODE} appropriately.
-   *
-   * <p>The unicode detection can be bypassed by using the overloaded factory method {@link
-   * #of(String, SmsContentType)}. This may slightly improve performance or may be needed if
-   * detection is not working as expected.
-   *
-   * @param content The content to send as the SMS message.
-   */
-  // TODO: Update docs for links to content detection etc.
-  public static MessageBuilder.From<Builder> of(String content) {
-    SmsContentType contentType = containsUnicode(content) ? UNICODE : TEXT;
-    return SmsMessage.of(content, contentType);
-  }
+  Map<String, String> getSubstitutions();
 
-  /**
-   * Starts building a new message of the specified content type.
-   *
-   * @param content the content to be used as the message.
-   * @param type The type of message content. Typically this would be one of {@link
-   *     SmsContentType#UNICODE}, {@link SmsContentType#TEXT}, or {@link SmsContentType#TEMPLATE}
-   *     with this method.
-   */
-  public static MessageBuilder.From<Builder> of(String content, SmsContentType type) {
-    if (content.length() > 1024) {
-      throw new IllegalArgumentException("message content can not have more than 1024 characters.");
-    }
-    return new Builder(content, type);
-  }
+  String getCorrelationId();
 
-  /**
-   * Starts building a new message consisting of binary content represented as a byte array. The
-   * content type will automatically be set to {@link SmsContentType#BINARY}.
-   *
-   * @param content The binary data to send
-   */
-  public static MessageBuilder.From<Builder> of(byte[] content) {
-    StringBuilder sb = new StringBuilder();
-    for (byte b : content) {
-      sb.append(Integer.toHexString(b));
-    }
-    return new Builder(sb.toString(), SmsContentType.BINARY);
-  }
+  String getDltTemplateId();
 
-  /** Inner builder to construct a new {@link SmsMessage}. */
-  public static final class Builder
-      implements MessageBuilder.From<Builder>, MessageBuilder.To<Builder> {
-    private String from;
-    private PhoneNumber to;
-    private String content;
-    private SmsContentType contentType;
-    private Map<String, String> substitutions;
-    private String correlationId;
-    private String dltTemplateId;
-    private URI callbackUrl;
-    private String callbackData;
+  URI getCallbackUrl();
 
-    private Builder(String content, SmsContentType contentType) {
-      this.content = requireNonNull(content, "'content' is required.");
-      this.contentType = requireNonNull(contentType, "contentType can not be null.");
-    }
+  String getCallbackData();
 
-    @Override
-    public MessageBuilder.To<Builder> from(String from) {
-      this.from = from;
-      return this;
-    }
-
-    @Override
-    public Builder to(String to) {
-      this.to = PhoneNumber.of(to);
-      return this;
-    }
-
-    /** Adds a single template substitution as a key value pair. A message can be templated by */
-    public Builder substitution(String key, String value) {
-      if (substitutions == null) {
-        this.substitutions = new HashMap<>();
-      }
-      this.substitutions.put(key, value);
-      return this;
-    }
+  /** Defines the optional values that can be set on a sms message. */
+  interface Options {
 
     /**
-     * Adds all substitutions in the map with any existing substitutions.
+     * Optional URL where a notification callback can be received.
      *
-     * @param substitutions The map of all desired substitutions.
+     * @param callbackUrl The URL specifying where the callback webhook can be accessed.
+     * @return Options
      */
-    public Builder substitutions(Map<String, String> substitutions) {
-      if (this.substitutions == null) {
-        this.substitutions = substitutions;
-      } else {
-        this.substitutions.putAll(substitutions);
-      }
-      return this;
-    }
+    Options callbackUrl(String callbackUrl);
 
-    public Builder correlationId(String correlationId) {
-      this.correlationId = correlationId;
-      return this;
-    }
+    /**
+     * Optional URL where a notification callback can be received.
+     *
+     * @param callbackUrl The URL specifying where the callback webhook can be accessed.
+     * @return Options
+     */
+    Options callbackUrl(URI callbackUrl);
 
-    public Builder dltTemplateId(String dltTemplateId) {
-      this.dltTemplateId = dltTemplateId;
-      return this;
-    }
+    /**
+     * Optional data that can be included in the callback request. This field is ignored if no
+     * {@link #callbackUrl(URI)} is specified.
+     *
+     * @param callbackData The data to include in the callback.
+     * @return Options
+     */
+    Options callbackData(String callbackData);
 
-    public Builder callbackUrl(URI callbackUrl) {
-      this.callbackUrl = callbackUrl;
-      return this;
-    }
+    /**
+     * An optional, arbitrary identifier to track the message.
+     *
+     * @param correlationId The identifier.
+     * @return Options
+     */
+    Options correlationId(String correlationId);
 
-    public Builder callbackData(String callbackData) {
-      this.callbackData = callbackData;
-      return this;
-    }
+    /**
+     * Specifies the DLT template ID used for this message. This is only used in certain regions.
+     *
+     * @param dltTemplateId The id.
+     * @return Options
+     */
+    Options dltTemplateId(String dltTemplateId);
 
-    public SmsMessage build() {
-      Map<String, String> subs =
-          substitutions == null ? null : Collections.unmodifiableMap(substitutions);
-      notNullOrBlank(from, "from");
-      return new SmsMessage(
-          from,
-          to,
-          content,
-          contentType,
-          subs,
-          correlationId,
-          dltTemplateId,
-          callbackUrl,
-          callbackData);
-    }
+    /**
+     * a substitution is used to replace placeholders within the content or template specified.
+     *
+     * @param key The templated key.
+     * @param val The replacement value.
+     * @return Options
+     */
+    Options substitution(String key, String val);
+
+    /**
+     * Adds all substitutions in the specified map with any existing substitutions, where a
+     * substitution is used to replace placeholders within the content or template specified.
+     *
+     * @param substitutions The map of key - value pairs.
+     * @return Options
+     */
+    Options substitutions(Map<String, String> substitutions);
+
+    SmsMessageRequest build();
   }
 }

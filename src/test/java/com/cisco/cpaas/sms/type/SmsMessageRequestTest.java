@@ -7,27 +7,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-/** Unit tests for the construction and validation of an {@link SmsMessage}. */
-class SmsMessageTest {
+/** Unit tests for the construction and validation of an {@link SmsMessageRequest}. */
+class SmsMessageRequestTest {
 
   private static final String PHONE_NUMBER = "+15551112222";
 
   @Test
   public void shouldSetTextTypeWhenNoUnicodePresent() {
-    SmsMessage msg = SmsMessage.of("normal text").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessageRequest msg = SmsMessageRequest.of("normal text").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(SmsContentType.TEXT));
   }
 
   @Test
   public void shouldSetUnicodeTypeWhenUnicodePresent() {
     String input = "text \uD801";
-    SmsMessage msg = SmsMessage.of(input).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessageRequest msg = SmsMessageRequest.of(input).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(UNICODE));
   }
 
   @Test
   public void shouldSetTemplateTypeWhenUsingFromTemplate() {
-    SmsMessage msg = SmsMessage.fromTemplate("id").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessageRequest msg = SmsMessageRequest.fromTemplate("id").from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(SmsContentType.TEMPLATE));
   }
 
@@ -43,7 +43,7 @@ class SmsMessageTest {
     byte b7 = 0b1011;
     byte[] bytes = new byte[] {b0, b1, b2, b3, b4, b5, b6, b7};
     String binaryAsHex = "475a9d6b";
-    SmsMessage msg = SmsMessage.of(bytes).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
+    SmsMessageRequest msg = SmsMessageRequest.of(bytes).from(PHONE_NUMBER).to(PHONE_NUMBER).build();
     assertThat(msg.getContentType(), is(SmsContentType.BINARY));
     assertThat(msg.getContent(), is(binaryAsHex));
   }
@@ -56,7 +56,7 @@ class SmsMessageTest {
     }
     assertThrows(
         IllegalArgumentException.class,
-        () -> SmsMessage.of(sb.toString()).from(PHONE_NUMBER).to(PHONE_NUMBER).build());
+        () -> SmsMessageRequest.of(sb.toString()).from(PHONE_NUMBER).to(PHONE_NUMBER).build());
   }
 
 }
