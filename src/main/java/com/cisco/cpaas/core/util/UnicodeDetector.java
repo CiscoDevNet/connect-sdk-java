@@ -9,9 +9,9 @@ import static java.util.Objects.requireNonNull;
  * <p>Some examples of properly detected unicode strings:
  *
  * <pre>
- *   My text! \u00A9 <-copyright sign as hex sequence
- *   My text! © <-literal copyright sign
- *   My text! \uD83D\uDE00 <-This is a smiley emoji using a surrogate pair
+ *   My text! \u00A9 --copyright sign as hex sequence
+ *   My text! © --literal copyright sign
+ *   My text! \uD83D\uDE00 --This is a smiley emoji using a surrogate pair
  * </pre>
  */
 public class UnicodeDetector {

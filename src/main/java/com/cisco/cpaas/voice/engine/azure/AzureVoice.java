@@ -15,4 +15,7 @@ public final class AzureVoice implements Voice {
   private final String voice;
   private final Style style;
   private final String language;
+
+  public static class Builder {}
+
 }

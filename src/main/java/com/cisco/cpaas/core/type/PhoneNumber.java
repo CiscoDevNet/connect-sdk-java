@@ -9,8 +9,8 @@ import static com.cisco.cpaas.core.util.Preconditions.validArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Contact {@link ContactEndpoint} that requires the value to be in E.164 format. i.e. +15557891234.
- * Leading zeros on the country code are not accepted and should be removed.
+ * Phone number that requires the value to be in E.164 format. i.e. +15557891234. Leading zeros on
+ * the country code are not accepted and should be removed.
  *
  * @see <a href="https://www.itu.int/rec/T-REC-E.164/en">ITU E164 documentation</a>
  */
@@ -24,8 +24,8 @@ public final class PhoneNumber implements StringWrapper {
 
   private PhoneNumber(String number) {
     this.number = requireNonNull(number, "phone number can not be null.");
-    validArgument(E164_VALIDATOR.matcher(number).matches(),
-      number + " is not a valid E.164 phone number.");
+    validArgument(
+        E164_VALIDATOR.matcher(number).matches(), number + " is not a valid E.164 phone number.");
   }
 
   public static PhoneNumber of(String number) {
@@ -34,6 +34,7 @@ public final class PhoneNumber implements StringWrapper {
 
   /**
    * Gets the phone number as a plain string.
+   *
    * @return The phone number, never null.
    */
   @Override
