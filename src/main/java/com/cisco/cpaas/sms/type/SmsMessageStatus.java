@@ -22,7 +22,7 @@ public final class SmsMessageStatus extends WebexResponse {
   private final String content;
   private final SmsContentType contentType;
   private final String dltTemplateId;
-  private final SendStatus status;
+  private final SmsStatus status;
   private final Instant statusTime;
   private final ErrorResponse error;
 
@@ -37,7 +37,7 @@ public final class SmsMessageStatus extends WebexResponse {
       String content,
       SmsContentType contentType,
       String dltTemplateId,
-      SendStatus status,
+      SmsStatus status,
       Instant statusTime,
       ErrorResponse error) {
     super(requestId);

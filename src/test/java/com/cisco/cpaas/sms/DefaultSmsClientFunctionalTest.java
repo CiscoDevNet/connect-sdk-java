@@ -6,7 +6,7 @@ import com.cisco.cpaas.core.client.InternalClient;
 import com.cisco.cpaas.core.parser.JacksonParser;
 import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.sms.type.SendSmsResponse;
-import com.cisco.cpaas.sms.type.SendStatus;
+import com.cisco.cpaas.sms.type.SmsStatus;
 import com.cisco.cpaas.sms.type.SmsContentType;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
@@ -108,7 +108,7 @@ public class DefaultSmsClientFunctionalTest {
             .content("Hello world!")
             .contentType(SmsContentType.TEXT)
             .dltTemplateId("dltTemplateId")
-            .status(SendStatus.QUEUED)
+            .status(SmsStatus.QUEUED)
             .statusTime(Instant.parse("2021-07-29T13:45:33.404Z"))
             .error(new ErrorResponse("7000", "error"))
             .requestId(REQUEST_ID)

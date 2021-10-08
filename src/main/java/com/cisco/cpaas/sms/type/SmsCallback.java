@@ -21,7 +21,7 @@ public class SmsCallback {
   private final Instant statusTime;
 
   /** The message status. */
-  private final SendStatus status;
+  private final SmsStatus status;
 
   /** Additional data that was added to the original send message request. */
   private final String callbackData;
