@@ -67,7 +67,7 @@ public class ContentSerializationTest {
         .email(Contacts.Email.builder().address("employee@cisco.com").type(WORK).build())
         .phone(
           Contacts.ContactNumber.builder()
-            .phoneNumber("+15550001234")
+            .number("+15550001234")
             .whatsAppId("id123")
             .type(Contacts.ContactNumber.Type.WORK)
             .build())
