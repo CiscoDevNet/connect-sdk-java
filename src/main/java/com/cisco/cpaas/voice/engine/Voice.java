@@ -10,9 +10,6 @@ public interface Voice {
     AZURE
   }
 
-  public static final Voice DEFAULT =
-      AzureVoice.builder().voice("Aria").style(Style.NEURAL).build();
-
   /** Starts the creation of a new Azure based voice. */
   public static AzureVoice.Builder azure() {
     return AzureVoice.builder();
@@ -20,9 +17,6 @@ public interface Voice {
 
   /** Gets the name of the voice. */
   public String getVoice();
-
-  /** Gets the style of the voice. */
-  public Style getStyle();
 
   /**
    * Gets the language of the voice specified as a locale such as <b>en_US</b> for United States
