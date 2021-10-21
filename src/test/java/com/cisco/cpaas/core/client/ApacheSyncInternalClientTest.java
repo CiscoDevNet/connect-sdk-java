@@ -88,9 +88,9 @@ class ApacheSyncInternalClientTest {
                     .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
                     .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
 
-    WebexResponseException e =
+    HttpResponseException e =
         assertThrows(
-            WebexResponseException.class, () -> client.get("/messageId", MockResponse.class));
+            HttpResponseException.class, () -> client.get("/messageId", MockResponse.class));
 
     assertThat(e.getErrorCode(), equalTo("7000"));
     assertThat(e.getHttpStatusCode(), equalTo(statusCode));
@@ -108,7 +108,7 @@ class ApacheSyncInternalClientTest {
                     .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
                     .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
 
-    assertThrows(WebexNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
+    assertThrows(ResourceNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
   }
 
   @Test
@@ -117,9 +117,9 @@ class ApacheSyncInternalClientTest {
         get("/messageId")
             .willReturn(
                 aResponse().withStatus(404).withHeader(HttpHeaders.REQUEST_ID, "requestId")));
-    WebexNotFoundException e =
+    ResourceNotFoundException e =
         assertThrows(
-            WebexNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
+            ResourceNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
     assertThat(e.getErrorCode(), equalTo(null));
   }
 
@@ -135,7 +135,7 @@ class ApacheSyncInternalClientTest {
                     .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
 
     assertThrows(
-        WebexAuthenticationException.class, () -> client.get("/messageId", MockResponse.class));
+        AuthenticationException.class, () -> client.get("/messageId", MockResponse.class));
   }
 
   @Test

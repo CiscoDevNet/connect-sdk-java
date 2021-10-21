@@ -11,13 +11,13 @@ import static java.util.Objects.nonNull;
  * successful http status response. In some cases, a 404 response may not produce this exception.
  * See the webex client interfaces for more information.
  */
-public class WebexResponseException extends WebexException {
+public class HttpResponseException extends WebexException {
 
   private final String requestId;
   private final int httpStatusCode;
   private final String errorCode;
 
-  public WebexResponseException(
+  public HttpResponseException(
       String requestId, int httpStatusCode, @Nullable ErrorResponse errorResponse) {
     super(constructMessage(httpStatusCode, errorResponse));
     this.requestId = requestId;
@@ -25,11 +25,12 @@ public class WebexResponseException extends WebexException {
     this.errorCode = nonNull(errorResponse) ? errorResponse.getCode() : null;
   }
 
-  private static String constructMessage(int httpStatusCode, ErrorResponse errorResponse) {
-    if (errorResponse == null) {
+  private static String constructMessage(int httpStatusCode, ErrorResponse error) {
+    if (error == null) {
       return "HTTP status: " + httpStatusCode;
     }
-    return errorResponse.getCode() + " - " + errorResponse.getMessage();
+    return String.format("%s - %s", error.getCode(), error.getMessage());
+//    return String.format("%d: %s - %s", httpStatusCode, error.getCode(), error.getMessage());
   }
 
   /**

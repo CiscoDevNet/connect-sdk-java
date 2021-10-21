@@ -119,7 +119,7 @@ public final class Contacts implements Content {
     }
 
     private Type type;
-    private String phoneNumber; // TODO, make this an e164 endpoint object
+    private String number; // TODO, make this an e164 endpoint object
     private String whatsAppId;
   }
 

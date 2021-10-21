@@ -6,7 +6,6 @@ import com.cisco.cpaas.core.client.InternalClient;
 import com.cisco.cpaas.core.parser.JacksonParser;
 import com.cisco.cpaas.core.type.ErrorResponse;
 import com.cisco.cpaas.core.type.PhoneNumber;
-import com.cisco.cpaas.voice.engine.Style;
 import com.cisco.cpaas.voice.engine.Voice;
 import com.cisco.cpaas.voice.engine.azure.Gender;
 import com.cisco.cpaas.voice.type.Audio;
@@ -115,10 +114,9 @@ public class DefaultVoiceClientFunctionalTest {
             Audio.ofTtsText(
                 "Hello World!",
                 Voice.azure()
-                    .voice("Aria")
+                    .voice("AriaNeural")
                     .gender(Gender.FEMALE)
-                    .style(Style.STANDARD)
-                    .language("en_US")
+                    .language("en-US")
                     .build())),
         Arguments.of("play_and_drop_media.json", Audio.ofMediaId("mediaId")));
   }

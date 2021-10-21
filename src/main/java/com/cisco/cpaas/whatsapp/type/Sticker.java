@@ -6,6 +6,11 @@ import lombok.ToString;
 import lombok.Value;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.cisco.cpaas.core.util.Preconditions.validArgument;
 
 /** Defines whatsapp {@link Content} that represents a sticker image. */
 @Value
@@ -13,11 +18,17 @@ import java.net.URI;
 @EqualsAndHashCode(callSuper = true)
 public final class Sticker extends MediaContent {
 
+  private static final Set<String> ALLOWED_MIME_TYPES =
+    Collections.unmodifiableSet(new HashSet<>(Collections.singletonList("image/webp")));
+
   private final WhatsAppContentType contentType = WhatsAppContentType.STICKER;
 
   @lombok.Builder(builderClassName = "Builder")
   private Sticker(URI url, @Nullable String mimeType) {
     super(url, mimeType);
+    validArgument(
+      ALLOWED_MIME_TYPES.contains(this.getMimeType()),
+      "Invalid MIME type " + this.getMimeType() + " for whatsapp sticker.");
   }
 
   /**

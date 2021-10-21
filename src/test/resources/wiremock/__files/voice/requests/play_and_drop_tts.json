@@ -5,9 +5,9 @@
   "correlationId": "correlationId",
   "audio": {
     "type": "TTS",
-    "style": "STANDARD",
-    "language": "en_US",
-    "voice": "Aria",
+    "style": "NEURAL",
+    "language": "en-US",
+    "voice": "AriaNeural",
     "gender": "FEMALE",
     "engine": "AZURE",
     "text": "Hello World!",

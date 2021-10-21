@@ -4,7 +4,7 @@ import com.cisco.cpaas.core.WebexException;
 import com.cisco.cpaas.core.client.ApacheSyncInternalClient;
 import com.cisco.cpaas.core.client.ClientConfigurer;
 import com.cisco.cpaas.core.client.WebexClient;
-import com.cisco.cpaas.core.client.WebexResponseException;
+import com.cisco.cpaas.core.client.HttpResponseException;
 import com.cisco.cpaas.voice.type.Call;
 import com.cisco.cpaas.voice.type.CallRecordings;
 import com.cisco.cpaas.voice.type.CallStatus;
@@ -22,7 +22,7 @@ public interface VoiceClient extends WebexClient {
    *
    * @param request The request defining the parameters of the call and message to be played.
    * @return The response object containing the session ID referencing this call.
-   * @throws WebexResponseException when the service returns a non-successful response.
+   * @throws HttpResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   PlayAndDropResponse playAndDrop(PlayAndDrop request);
@@ -32,7 +32,7 @@ public interface VoiceClient extends WebexClient {
    *
    * @param request The request defining the parameters of the call and message to be played.
    * @return The response object containing the session ID referencing this call.
-   * @throws WebexResponseException when the service returns a non-successful response.
+   * @throws HttpResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   // TODO: Make this take a request since Call can be of the wrong type.
@@ -43,7 +43,7 @@ public interface VoiceClient extends WebexClient {
    *
    * @param sessionId The session ID retrieved from a previously placed call.
    * @return The status of the call.
-   * @throws WebexResponseException when the service returns a non-successful response.
+   * @throws HttpResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   CallStatus getCallStatus(String sessionId);
@@ -53,7 +53,7 @@ public interface VoiceClient extends WebexClient {
    *
    * @param sessionId The session ID retrieved from a previously placed call.
    * @return A list of recordings.
-   * @throws WebexResponseException when the service returns a non-successful response.
+   * @throws HttpResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   CallRecordings getCallRecordings(String sessionId);

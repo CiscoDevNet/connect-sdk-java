@@ -4,7 +4,7 @@ import com.cisco.cpaas.core.WebexException;
 import com.cisco.cpaas.core.client.ApacheSyncInternalClient;
 import com.cisco.cpaas.core.client.ClientConfigurer;
 import com.cisco.cpaas.core.client.WebexClient;
-import com.cisco.cpaas.core.client.WebexResponseException;
+import com.cisco.cpaas.core.client.HttpResponseException;
 import com.cisco.cpaas.sms.type.SendSmsResponse;
 import com.cisco.cpaas.sms.type.SmsMessage;
 import com.cisco.cpaas.sms.type.SmsMessageStatus;
@@ -20,7 +20,7 @@ public interface SmsClient extends WebexClient {
    * intentional, a copy should be made.
    *
    * @return The messageId representing the message.
-   * @throws WebexResponseException when the service returns a non-successful response.
+   * @throws HttpResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   SendSmsResponse sendMessage(SmsMessage request);
@@ -30,7 +30,7 @@ public interface SmsClient extends WebexClient {
    *
    * @param messageId The messageId returned from the {{@link #sendMessage(SmsMessage)}} method.
    * @return The metadata describing the send message attempt.
-   * @throws WebexResponseException when the service returns a non-successful response.
+   * @throws HttpResponseException when the service returns a non-successful response.
    * @throws WebexException when any error occurs that is not related to the http response status.
    */
   SmsMessageStatus getStatus(String messageId);

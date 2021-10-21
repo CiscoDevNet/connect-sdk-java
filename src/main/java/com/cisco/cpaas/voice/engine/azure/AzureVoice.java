@@ -1,6 +1,5 @@
 package com.cisco.cpaas.voice.engine.azure;
 
-import com.cisco.cpaas.voice.engine.Style;
 import com.cisco.cpaas.voice.engine.Voice;
 import lombok.Builder;
 import lombok.Value;
@@ -11,9 +10,9 @@ import lombok.Value;
 public final class AzureVoice implements Voice {
 
   private final Engine engine = Engine.AZURE;
+  private final String style = "NEURAL";
   private final Gender gender;
   private final String voice;
-  private final Style style;
   private final String language;
 
   /** Fluent BUILDER for the AzureVoice. */

@@ -93,13 +93,13 @@ public class ApacheSyncInternalClient implements InternalClient {
 
       String requestId = extractRequestId(response);
       if (response.getCode() == SC_UNAUTHORIZED || response.getCode() == SC_FORBIDDEN) {
-        throw new WebexAuthenticationException(requestId, response.getCode(), parseError(is));
+        throw new AuthenticationException(requestId, response.getCode(), parseError(is));
       }
       if (response.getCode() == SC_NOT_FOUND) {
         throwOnNotFound(is, requestId);
       }
       if (isError(response)) {
-        throw new WebexResponseException(requestId, response.getCode(), parseError(is));
+        throw new HttpResponseException(requestId, response.getCode(), parseError(is));
       }
 
       R parsedResponse = parser.readToObject(is, responseType);
@@ -141,6 +141,6 @@ public class ApacheSyncInternalClient implements InternalClient {
     } catch (WebexParseException e) {
       // Do nothing. This is for the case when there is no response body on 404's
     }
-    throw new WebexNotFoundException(requestId, response);
+    throw new ResourceNotFoundException(requestId, response);
   }
 }
