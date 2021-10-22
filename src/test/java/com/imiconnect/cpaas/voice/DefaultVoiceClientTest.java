@@ -50,7 +50,7 @@ class DefaultVoiceClientTest {
     PlayAndDrop msg =
         PlayAndDrop.from("+15550001234")
             .to("+15559994321")
-            .audio(Audio.ofUrl(URI.create("http://bucket.example.com/audio.mp3")))
+            .audio(Audio.ofUrl("http://bucket.example.com/audio.mp3"))
             .build();
     PlayAndDropResponse actual = client.playAndDrop(msg);
 

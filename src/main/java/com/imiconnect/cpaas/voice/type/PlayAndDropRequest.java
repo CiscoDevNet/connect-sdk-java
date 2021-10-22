@@ -68,6 +68,12 @@ public class PlayAndDropRequest implements PlayAndDrop {
     }
 
     @Override
+    public PlayAndDropOptions callbackUrl(String callbackUrl) {
+      this.callbackUrl = URI.create(callbackUrl);
+      return this;
+    }
+
+    @Override
     public PlayAndDropOptions correlationId(String correlationId) {
       this.correlationId = correlationId;
       return this;

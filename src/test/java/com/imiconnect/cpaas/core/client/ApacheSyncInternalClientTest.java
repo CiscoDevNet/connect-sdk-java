@@ -208,7 +208,7 @@ class ApacheSyncInternalClientTest {
   /** Simple pojo to extend the response and allow integration testing of serialization. */
   private static class MockResponse extends WebexResponse {
 
-    private String id;
+    private final String id;
 
     public MockResponse(String requestId, String id) {
       super(requestId);

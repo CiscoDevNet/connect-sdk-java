@@ -37,6 +37,9 @@ public interface PlayAndDrop extends Idempotent {
     /** URL for event callbacks that will provide the next actions for the call */
     PlayAndDropOptions callbackUrl(URI callbackUrl);
 
+    /** URL for event callbacks that will provide the next actions for the call */
+    PlayAndDropOptions callbackUrl(String callbackUrl);
+
     /**
      * A user-provided arbitrary string value that will be stored with the call status and sent in
      * all callback events.

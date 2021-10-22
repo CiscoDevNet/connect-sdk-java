@@ -11,7 +11,7 @@ import java.time.Instant;
 @Value
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class SendSmsResponse extends WebexResponse {
+public final class SendSmsResponse extends WebexResponse {
 
   private final Instant acceptedTime;
   private final String messageId;
