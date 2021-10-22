@@ -67,14 +67,14 @@ public class DefaultVoiceClientFunctionalTest {
   private static final String AUTH_TOKEN = "authToken";
   private static final String REQUEST_ID = "requestId";
 
-  private com.imiconnect.cpaas.voice.DefaultVoiceClient client;
+  private DefaultVoiceClient client;
 
   @BeforeEach
   public void init(WireMockRuntimeInfo wireMockRuntimeInfo) {
     String baseUrl = wireMockRuntimeInfo.getHttpBaseUrl();
     InternalClient internalClient =
         new ApacheSyncInternalClient(baseUrl, AUTH_TOKEN, new JacksonParser());
-    client = new com.imiconnect.cpaas.voice.DefaultVoiceClient(internalClient);
+    client = new DefaultVoiceClient(internalClient);
   }
 
   @ParameterizedTest
@@ -87,7 +87,7 @@ public class DefaultVoiceClientFunctionalTest {
         client.playAndDrop(
             PlayAndDrop.from(CALLER_ID)
                 .to(DIAL_TO)
-                .callbackUrl(URI.create("https://webhook.example.com"))
+                .callbackUrl("https://webhook.example.com")
                 .correlationId("correlationId")
                 .audio(audio)
                 .build());
@@ -108,7 +108,7 @@ public class DefaultVoiceClientFunctionalTest {
     return Stream.of(
         Arguments.of(
             "play_and_drop_url.json",
-            Audio.ofUrl(URI.create("https://bucket.example.com/audio.mp3"))),
+            Audio.ofUrl("https://bucket.example.com/audio.mp3")),
         Arguments.of(
             "play_and_drop_tts.json",
             Audio.ofTtsText(
@@ -130,7 +130,7 @@ public class DefaultVoiceClientFunctionalTest {
         client.startCall(
             Call.from(CALLER_ID)
                 .to(DIAL_TO)
-                .callbackUrl(URI.create("https://webhook.example.com"))
+                .callbackUrl("https://webhook.example.com")
                 .correlationId("correlationId")
                 .detectVoiceMail(false)
                 .recordCallSeconds(10)

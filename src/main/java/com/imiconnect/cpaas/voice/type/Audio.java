@@ -29,6 +29,16 @@ public interface Audio {
   }
 
   /**
+   * Create a new {@link UrlAudio} message with default values.
+   *
+   * @param location The url where the audio file is located.
+   * @return The new audio object.
+   */
+  public static UrlAudio ofUrl(String location) {
+    return new UrlAudio(URI.create(location));
+  }
+
+  /**
    * Creates a new {@link MediaAudio} message of the given ID and default values.
    *
    * @param mediaId The ID specifying which media file to play.
