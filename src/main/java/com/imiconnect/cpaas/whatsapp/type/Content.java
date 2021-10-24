@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * Defines the objects that can be used as content in a {@link WhatsAppSendMsgRequest}.
  *
  * <p>Unknown properties are ignored during deserialization to account for the flattened response
- * object received from the webex service.
+ * object received from the Connect service.
  *
  * @see com.imiconnect.cpaas.whatsapp.parser.WhatsAppMsgStatusDeserializer for more info.
  */

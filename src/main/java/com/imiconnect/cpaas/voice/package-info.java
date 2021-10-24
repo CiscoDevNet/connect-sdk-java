@@ -1,4 +1,4 @@
-/** Root package for interacting with the Webex Voice messaging API. */
+/** Root package for interacting with the Connect Voice messaging API. */
 @NonNullApi
 package com.imiconnect.cpaas.voice;
 

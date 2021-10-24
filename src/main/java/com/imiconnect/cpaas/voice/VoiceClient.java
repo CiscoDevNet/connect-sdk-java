@@ -1,9 +1,9 @@
 package com.imiconnect.cpaas.voice;
 
-import com.imiconnect.cpaas.core.WebexException;
+import com.imiconnect.cpaas.core.ConnectException;
 import com.imiconnect.cpaas.core.client.ApacheSyncInternalClient;
 import com.imiconnect.cpaas.core.client.ClientConfigurer;
-import com.imiconnect.cpaas.core.client.WebexClient;
+import com.imiconnect.cpaas.core.client.ConnectClient;
 import com.imiconnect.cpaas.core.client.HttpResponseException;
 import com.imiconnect.cpaas.voice.type.Call;
 import com.imiconnect.cpaas.voice.type.CallRecordings;
@@ -12,9 +12,9 @@ import com.imiconnect.cpaas.voice.type.PlayAndDrop;
 import com.imiconnect.cpaas.voice.type.PlayAndDropResponse;
 import com.imiconnect.cpaas.voice.type.StartCallResponse;
 
-/** Interface defining the methods to interact with the Webex Voice API. */
+/** Interface defining the methods to interact with the Connect platform Voice API. */
 // TODO: Expand on all javadocs...
-public interface VoiceClient extends WebexClient {
+public interface VoiceClient extends ConnectClient {
 
   /**
    * Places a new voice call to telephone number, plays a voice message and then disconnects the
@@ -23,7 +23,7 @@ public interface VoiceClient extends WebexClient {
    * @param request The request defining the parameters of the call and message to be played.
    * @return The response object containing the session ID referencing this call.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   PlayAndDropResponse playAndDrop(PlayAndDrop request);
 
@@ -33,7 +33,7 @@ public interface VoiceClient extends WebexClient {
    * @param request The request defining the parameters of the call and message to be played.
    * @return The response object containing the session ID referencing this call.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   // TODO: Make this take a request since Call can be of the wrong type.
   StartCallResponse startCall(Call request);
@@ -44,7 +44,7 @@ public interface VoiceClient extends WebexClient {
    * @param sessionId The session ID retrieved from a previously placed call.
    * @return The status of the call.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   CallStatus getCallStatus(String sessionId);
 
@@ -54,7 +54,7 @@ public interface VoiceClient extends WebexClient {
    * @param sessionId The session ID retrieved from a previously placed call.
    * @return A list of recordings.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   CallRecordings getCallRecordings(String sessionId);
 

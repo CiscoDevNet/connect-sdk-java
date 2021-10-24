@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.voice.type;
 
-import com.imiconnect.cpaas.core.client.WebexResponse;
+import com.imiconnect.cpaas.core.client.ConnectResponse;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
@@ -9,7 +9,7 @@ import lombok.Value;
 @Value
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public final class PlayAndDropResponse extends WebexResponse {
+public final class PlayAndDropResponse extends ConnectResponse {
 
   private final String sessionId;
   private final CallState status;

@@ -1,21 +1,21 @@
 package com.imiconnect.cpaas.sms;
 
-import com.imiconnect.cpaas.TestUtils;
-import com.imiconnect.cpaas.core.client.ApacheSyncInternalClient;
-import com.imiconnect.cpaas.core.client.InternalClient;
-import com.imiconnect.cpaas.core.parser.JacksonParser;
-import com.imiconnect.cpaas.core.type.ErrorResponse;
-import com.imiconnect.cpaas.sms.type.SendSmsResponse;
-import com.imiconnect.cpaas.sms.type.SmsStatus;
-import com.imiconnect.cpaas.sms.type.SmsContentType;
-import com.imiconnect.cpaas.sms.type.SmsMessage;
-import com.imiconnect.cpaas.sms.type.SmsMessageStatus;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
+import com.imiconnect.cpaas.TestUtils;
+import com.imiconnect.cpaas.core.client.ApacheSyncInternalClient;
+import com.imiconnect.cpaas.core.client.InternalClient;
+import com.imiconnect.cpaas.core.parser.JacksonParser;
+import com.imiconnect.cpaas.core.type.ErrorResponse;
+import com.imiconnect.cpaas.sms.type.SendSmsResponse;
+import com.imiconnect.cpaas.sms.type.SmsContentType;
+import com.imiconnect.cpaas.sms.type.SmsMessage;
+import com.imiconnect.cpaas.sms.type.SmsMessageStatus;
+import com.imiconnect.cpaas.sms.type.SmsStatus;
 import org.apache.hc.core5.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,8 +38,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Tests the full integration of the {@link DefaultSmsClient} within the bounds of the SDK. This is
- * done by starting up a wiremock server to mock the Webex REST API and matching predefined requests
- * and responses found in the test resources folder.
+ * done by starting up a wiremock server to mock the Connect REST API and matching predefined
+ * requests and responses found in the test resources folder.
  */
 @WireMockTest
 public class DefaultSmsClientFunctionalTest {

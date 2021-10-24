@@ -1,8 +1,8 @@
 package com.imiconnect.cpaas.core.client;
 
-import com.imiconnect.cpaas.core.WebexException;
+import com.imiconnect.cpaas.core.ConnectException;
 import com.imiconnect.cpaas.core.parser.ObjectParser;
-import com.imiconnect.cpaas.core.parser.WebexParseException;
+import com.imiconnect.cpaas.core.parser.ParseException;
 import com.imiconnect.cpaas.core.type.ErrorResponse;
 import com.imiconnect.cpaas.core.type.Idempotent;
 import org.apache.commons.codec.CharEncoding;
@@ -53,19 +53,19 @@ public class ApacheSyncInternalClient implements InternalClient {
     this.apiToken = apiToken;
   }
 
-  public <R extends WebexResponse> R get(String path, Class<R> responseType) {
+  public <R extends ConnectResponse> R get(String path, Class<R> responseType) {
     HttpGet get = new HttpGet(baseUrl + path);
     try {
       R response = exchange(get, responseType);
       return response;
-    } catch (WebexException e) {
+    } catch (ConnectException e) {
       throw e;
     } catch (Exception e) {
-      throw new WebexException(e);
+      throw new ConnectException(e);
     }
   }
 
-  public <R extends WebexResponse> R post(String path, Idempotent request, Class<R> responseType) {
+  public <R extends ConnectResponse> R post(String path, Idempotent request, Class<R> responseType) {
     HttpPost post = new HttpPost(baseUrl + path);
     try {
       byte[] bytes = parser.writeValueAsBytes(request);
@@ -74,17 +74,17 @@ public class ApacheSyncInternalClient implements InternalClient {
 
       R response = exchange(post, responseType);
       if (response == null) {
-        throw new WebexException("Unknown error getting response from webex");
+        throw new ConnectException("Unknown error getting response from connect");
       }
       return response;
-    } catch (WebexException e) {
+    } catch (ConnectException e) {
       throw e;
     } catch (Exception e) {
-      throw new WebexException(e);
+      throw new ConnectException(e);
     }
   }
 
-  private <R extends WebexResponse> R exchange(HttpUriRequestBase request, Class<R> responseType)
+  private <R extends ConnectResponse> R exchange(HttpUriRequestBase request, Class<R> responseType)
       throws IOException {
 
     setAuthentication(request);
@@ -138,7 +138,7 @@ public class ApacheSyncInternalClient implements InternalClient {
     ErrorResponse response = null;
     try {
       response = parseError(is);
-    } catch (WebexParseException e) {
+    } catch (ParseException e) {
       // Do nothing. This is for the case when there is no response body on 404's
     }
     throw new ResourceNotFoundException(requestId, response);

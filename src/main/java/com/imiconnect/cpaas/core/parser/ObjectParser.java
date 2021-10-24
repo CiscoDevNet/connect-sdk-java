@@ -14,7 +14,7 @@ public interface ObjectParser {
    *
    * @param object The object to serialize.
    * @return The serialized byte array.
-   * @throws WebexParseException when there is an issue serializing the object.
+   * @throws ParseException when there is an issue serializing the object.
    */
   byte[] writeValueAsBytes(Object object);
 
@@ -25,7 +25,7 @@ public interface ObjectParser {
    * @param clazz The type of object to attempt to deserialize into.
    * @param <T> The type of object to attempt to deserialize into.
    * @return The deserialized object.
-   * @throws WebexParseException when there is an issue reading the input stream.
+   * @throws ParseException when there is an issue reading the input stream.
    */
   <T> T readToObject(InputStream is, Class<T> clazz);
 }

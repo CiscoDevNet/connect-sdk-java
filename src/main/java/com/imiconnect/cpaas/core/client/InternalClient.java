@@ -1,13 +1,13 @@
 package com.imiconnect.cpaas.core.client;
 
-import com.imiconnect.cpaas.core.WebexException;
+import com.imiconnect.cpaas.core.ConnectException;
 import com.imiconnect.cpaas.core.type.Idempotent;
 
 /**
  * Defines the methods that are used to interact with all API services. The implementations of this
  * interface are intended to be for internal SDK use only. The contract may change at any time.
  */
-public interface InternalClient extends WebexClient {
+public interface InternalClient extends ConnectClient {
 
   /**
    * Send a GET request.
@@ -16,12 +16,12 @@ public interface InternalClient extends WebexClient {
    * @param responseType The type of response.
    * @param <R> The type of response.
    * @return The response object parsed into an instance of the responseType class.
-   * @throws WebexException When there is any issue communicating with API or (de)serializing the
+   * @throws ConnectException When there is any issue communicating with API or (de)serializing the
    *     entities. Specific subtypes of the exception may be returned such as a
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  <R extends WebexResponse> R get(String path, Class<R> responseType) throws WebexException;
+  <R extends ConnectResponse> R get(String path, Class<R> responseType) throws ConnectException;
 
   /**
    * Send a POST request.
@@ -32,11 +32,11 @@ public interface InternalClient extends WebexClient {
    * @param responseType The type of response.
    * @param <R> The type of response.
    * @return The response object.
-   * @throws WebexException When there is any issue communicating with API or (de)serializing the
+   * @throws ConnectException When there is any issue communicating with API or (de)serializing the
    *     entities. Specific subtypes of the exception may be returned such as a
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  <R extends WebexResponse> R post(String path, Idempotent request, Class<R> responseType)
-      throws WebexException;
+  <R extends ConnectResponse> R post(String path, Idempotent request, Class<R> responseType)
+      throws ConnectException;
 }

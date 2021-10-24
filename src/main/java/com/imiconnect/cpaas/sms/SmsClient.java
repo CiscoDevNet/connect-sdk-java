@@ -1,16 +1,16 @@
 package com.imiconnect.cpaas.sms;
 
-import com.imiconnect.cpaas.core.WebexException;
+import com.imiconnect.cpaas.core.ConnectException;
 import com.imiconnect.cpaas.core.client.ApacheSyncInternalClient;
 import com.imiconnect.cpaas.core.client.ClientConfigurer;
-import com.imiconnect.cpaas.core.client.WebexClient;
+import com.imiconnect.cpaas.core.client.ConnectClient;
 import com.imiconnect.cpaas.core.client.HttpResponseException;
 import com.imiconnect.cpaas.sms.type.SendSmsResponse;
 import com.imiconnect.cpaas.sms.type.SmsMessage;
 import com.imiconnect.cpaas.sms.type.SmsMessageStatus;
 
-/** Interface defining the methods to interact with the Webex SMS Messaging API. */
-public interface SmsClient extends WebexClient {
+/** Interface defining the methods to interact with the Connect platform SMS Messaging API. */
+public interface SmsClient extends ConnectClient {
 
   /**
    * Sends an SMS message.
@@ -21,7 +21,7 @@ public interface SmsClient extends WebexClient {
    *
    * @return The messageId representing the message.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   SendSmsResponse sendMessage(SmsMessage request);
 
@@ -31,7 +31,7 @@ public interface SmsClient extends WebexClient {
    * @param messageId The messageId returned from the {{@link #sendMessage(SmsMessage)}} method.
    * @return The metadata describing the send message attempt.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   SmsMessageStatus getStatus(String messageId);
 

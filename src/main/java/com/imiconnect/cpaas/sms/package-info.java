@@ -1,4 +1,4 @@
-/** Root package for interacting with the Webex SMS API. */
+/** Root package for interacting with the Connect SMS API. */
 @NonNullApi
 package com.imiconnect.cpaas.sms;
 

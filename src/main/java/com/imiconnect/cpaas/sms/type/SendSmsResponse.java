@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.sms.type;
 
-import com.imiconnect.cpaas.core.client.WebexResponse;
+import com.imiconnect.cpaas.core.client.ConnectResponse;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
@@ -11,7 +11,7 @@ import java.time.Instant;
 @Value
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public final class SendSmsResponse extends WebexResponse {
+public final class SendSmsResponse extends ConnectResponse {
 
   private final Instant acceptedTime;
   private final String messageId;

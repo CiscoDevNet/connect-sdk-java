@@ -21,7 +21,7 @@ enum ClientFactory {
     String version =
         Optional.ofNullable(this.getClass().getPackage().getImplementationVersion()).orElse("");
     this.client =
-        HttpClientBuilder.create().setUserAgent("Webex SDK (Java " + version + ")").build();
+        HttpClientBuilder.create().setUserAgent("Connect SDK (Java " + version + ")").build();
     registerShutdownHook();
   }
 

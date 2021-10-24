@@ -58,7 +58,7 @@ class JacksonParserTest {
   @Test
   public void shouldThrowDomainExceptionOnError() {
     InputStream is = new ByteArrayInputStream("non json string".getBytes(StandardCharsets.UTF_8));
-    assertThrows(WebexParseException.class, () -> parser.readToObject(is, Map.class));
+    assertThrows(ParseException.class, () -> parser.readToObject(is, Map.class));
   }
 
   @Test

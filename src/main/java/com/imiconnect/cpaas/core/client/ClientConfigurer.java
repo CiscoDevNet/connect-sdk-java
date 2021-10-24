@@ -5,7 +5,7 @@ import com.imiconnect.cpaas.core.parser.ObjectParser;
 import com.imiconnect.cpaas.core.util.UrlUtils;
 
 /**
- * Step style builder that constructs a {@link WebexClient} using the supplied configurations. The
+ * Step style builder that constructs a {@link ConnectClient} using the supplied configurations. The
  * required properties are defined using separate interfaces that chain together to ensure that they
  * are set at compile time. The remaining optional properties have default values set which can be
  * overridden as needed.
@@ -16,8 +16,8 @@ public class ClientConfigurer {
   public interface UrlStep<T> {
 
     /**
-     * Specify the root URL that points to the webex API without the API version part. i.e. <code>
-     * https://mycompany.webex.com</code>
+     * Specify the root URL that points to the Connect API without the API version part. i.e. <code>
+     * https://mycompany.connect.com</code>
      */
     ApiTokenStep<T> withBaseUrl(String url);
   }
@@ -43,7 +43,7 @@ public class ClientConfigurer {
     T build();
   }
 
-  /** Base implementation of the step interfaces that to construct a new {@link WebexClient}. */
+  /** Base implementation of the step interfaces that to construct a new {@link ConnectClient}. */
   public abstract static class Steps<T> implements UrlStep<T>, ApiTokenStep<T>, OptionalStep<T> {
 
     protected String apiToken;

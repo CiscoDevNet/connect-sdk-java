@@ -3,7 +3,7 @@
   "recordings": [
     {
       "durationSeconds": 609,
-      "url": "https://webex.com/v1/voice/calls/sessionId/recordings/file_123.wav"
+      "url": "https://connect.com/v1/voice/calls/sessionId/recordings/file_123.wav"
     }
   ]
 }

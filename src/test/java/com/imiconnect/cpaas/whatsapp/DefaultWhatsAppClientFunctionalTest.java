@@ -1,5 +1,11 @@
 package com.imiconnect.cpaas.whatsapp;
 
+import com.github.tomakehurst.wiremock.client.MappingBuilder;
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import com.imiconnect.cpaas.TestUtils;
 import com.imiconnect.cpaas.core.client.ApacheSyncInternalClient;
 import com.imiconnect.cpaas.core.client.InternalClient;
@@ -10,12 +16,6 @@ import com.imiconnect.cpaas.whatsapp.type.Text;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppMsg;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppMsgStatus;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppSendMsgResponse;
-import com.github.tomakehurst.wiremock.client.MappingBuilder;
-import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import org.apache.hc.core5.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,8 +38,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Tests the full integration of the {@link DefaultWhatsAppClient} within the bounds of the SDK.
- * This is done by starting up a wiremock server to mock the Webex REST API and matching predefined
- * requests and responses found in the test resources folder.
+ * This is done by starting up a wiremock server to mock the Connect REST API and matching
+ * predefined requests and responses found in the test resources folder.
  */
 @WireMockTest
 public class DefaultWhatsAppClientFunctionalTest {

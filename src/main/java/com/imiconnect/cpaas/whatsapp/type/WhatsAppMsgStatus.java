@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.whatsapp.type;
 
-import com.imiconnect.cpaas.core.client.WebexResponse;
+import com.imiconnect.cpaas.core.client.ConnectResponse;
 import com.imiconnect.cpaas.core.type.ErrorResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
@@ -14,7 +14,7 @@ import java.time.Instant;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true) // TODO: can we remove this now with custom deserializer
-public final class WhatsAppMsgStatus extends WebexResponse {
+public final class WhatsAppMsgStatus extends ConnectResponse {
 
   public enum Status {
     QUEUED,

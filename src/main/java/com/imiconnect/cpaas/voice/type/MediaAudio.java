@@ -3,8 +3,8 @@ package com.imiconnect.cpaas.voice.type;
 import lombok.Value;
 
 /**
- * Voice call audio that is created within the webex connect platform prior to being used and is
- * considered local to the webex platform.
+ * Voice call audio that is created within and local to the Connect platform. A media ID is
+ * presented in the GUI which can be used with this class.
  */
 @Value
 public final class MediaAudio implements Audio {

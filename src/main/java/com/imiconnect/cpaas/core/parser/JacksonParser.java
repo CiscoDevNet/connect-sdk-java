@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.core.parser;
 
-import com.imiconnect.cpaas.core.client.WebexClient;
+import com.imiconnect.cpaas.core.client.ConnectClient;
 import com.imiconnect.cpaas.whatsapp.parser.WhatsAppMsgStatusDeserializer;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppMsgStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 /**
  * Implementation of the {@link ObjectParser} based on Jackson that will instantiate a single
- * instance of Jackson's ObjectMapper with a configuration that is used for all {@link WebexClient}
+ * instance of Jackson's ObjectMapper with a configuration that is used for all {@link ConnectClient}
  * types.
  */
 public final class JacksonParser implements ObjectParser {
@@ -47,7 +47,7 @@ public final class JacksonParser implements ObjectParser {
     try {
       return MAPPER.writeValueAsBytes(o);
     } catch (JsonProcessingException e) {
-      throw new WebexParseException("Error serializing object to json", e);
+      throw new ParseException("Error serializing object to json", e);
     }
   }
 
@@ -56,7 +56,7 @@ public final class JacksonParser implements ObjectParser {
     try {
       return MAPPER.readValue(is, clazz);
     } catch (IOException e) {
-      throw new WebexParseException("Error deserializing json to " + clazz.getSimpleName(), e);
+      throw new ParseException("Error deserializing json to " + clazz.getSimpleName(), e);
     }
   }
 }

@@ -1,6 +1,6 @@
 /**
  * Contains common classes related to sending and receiving HTTP messages for all clients that
- * extend from the WebexClient interface.
+ * extend from the {@link com.imiconnect.cpaas.core.client.ConnectClient} interface.
  */
 @NonNullApi
 package com.imiconnect.cpaas.core.client;

@@ -50,7 +50,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Tests the full integration of the {@link DefaultVoiceClient} within the bounds of the SDK. This
- * is done by starting up a wiremock server to mock the Webex REST API and matching predefined
+ * is done by starting up a wiremock server to mock the Connect REST API and matching predefined
  * requests and responses found in the test resources folder.
  */
 @WireMockTest
@@ -186,7 +186,7 @@ public class DefaultVoiceClientFunctionalTest {
                 new Recording(
                     609,
                     URI.create(
-                        "https://webex.com/v1/voice/calls/sessionId/recordings/file_123.wav"))));
+                        "https://connect.com/v1/voice/calls/sessionId/recordings/file_123.wav"))));
 
     assertThat(actual, Matchers.equalTo(expected));
     verify(withCommonHeaders(getRequestedFor(urlEqualTo(CALLS_PATH + "/sessionId/recordings"))));

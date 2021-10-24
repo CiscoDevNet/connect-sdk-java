@@ -20,7 +20,7 @@ public interface Substitution {
   public Type getContentType();
 
   /**
-   * Creates new URL content for a whatsapp template where the base URL is defined within the Webex
+   * Creates new URL content for a whatsapp template where the base URL is defined within the
    * Connect platform, and the suffix is defined here. The suffix is then appended to the to baseUrl
    * prior to sending out the message.
    *

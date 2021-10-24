@@ -10,11 +10,11 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-public abstract class WebexResponse {
+public abstract class ConnectResponse {
 
   private String requestId;
 
-  protected WebexResponse(String requestId) {
+  protected ConnectResponse(String requestId) {
     this.requestId = requestId;
   }
 

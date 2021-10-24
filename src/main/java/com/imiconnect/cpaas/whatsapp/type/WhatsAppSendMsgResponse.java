@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.whatsapp.type;
 
-import com.imiconnect.cpaas.core.client.WebexResponse;
+import com.imiconnect.cpaas.core.client.ConnectResponse;
 import com.imiconnect.cpaas.whatsapp.WhatsAppClient;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,7 +12,7 @@ import java.time.Instant;
 @Value
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public final class WhatsAppSendMsgResponse extends WebexResponse {
+public final class WhatsAppSendMsgResponse extends ConnectResponse {
 
   private final String messageId;
   private final String correlationId;

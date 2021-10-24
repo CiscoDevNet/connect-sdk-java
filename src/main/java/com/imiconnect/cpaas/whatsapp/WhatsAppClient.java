@@ -1,23 +1,23 @@
 package com.imiconnect.cpaas.whatsapp;
 
-import com.imiconnect.cpaas.core.WebexException;
+import com.imiconnect.cpaas.core.ConnectException;
 import com.imiconnect.cpaas.core.client.ApacheSyncInternalClient;
 import com.imiconnect.cpaas.core.client.ClientConfigurer;
-import com.imiconnect.cpaas.core.client.WebexClient;
+import com.imiconnect.cpaas.core.client.ConnectClient;
 import com.imiconnect.cpaas.core.client.HttpResponseException;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppMsg;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppMsgStatus;
 import com.imiconnect.cpaas.whatsapp.type.WhatsAppSendMsgResponse;
 
-/** Interface defining the methods to interact with the Webex Whatsapp API. */
-public interface WhatsAppClient extends WebexClient {
+/** Interface defining the methods to interact with the Connect platform Whatsapp API. */
+public interface WhatsAppClient extends ConnectClient {
 
   /**
    * Sends a whatsapp message.
    *
    * @return The messageId representing the message.
    * @throws HttpResponseException when the service returns a non-successful response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   WhatsAppSendMsgResponse sendMessage(WhatsAppMsg message);
 
@@ -29,7 +29,7 @@ public interface WhatsAppClient extends WebexClient {
    *     is not found.
    * @throws HttpResponseException or its subclasses when the service returns a non-successful
    *     response.
-   * @throws WebexException when any error occurs that is not related to the http response status.
+   * @throws ConnectException when any error occurs that is not related to the http response status.
    */
   WhatsAppMsgStatus getStatus(String messageId);
 

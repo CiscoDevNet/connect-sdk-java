@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.core.client;
 
-/** Collection of headers used to communicate with the webex api. */
+/** Collection of headers used to communicate with the Connect api. */
 interface HttpHeaders {
 
   /** The response header name that defines the request ID. */

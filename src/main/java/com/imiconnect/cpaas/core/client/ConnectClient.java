@@ -1,7 +1,7 @@
 package com.imiconnect.cpaas.core.client;
 
-/** Interface defining the common methods for all webex client types. */
-public interface WebexClient {
+/** Interface defining the common methods for all connect client types. */
+public interface ConnectClient {
 
   /**
    * Refreshes the security token used by an API client. Implementations are thread safe. This would

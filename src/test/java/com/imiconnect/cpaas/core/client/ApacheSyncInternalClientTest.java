@@ -1,7 +1,7 @@
 package com.imiconnect.cpaas.core.client;
 
 import com.imiconnect.cpaas.core.parser.JacksonParser;
-import com.imiconnect.cpaas.core.parser.WebexParseException;
+import com.imiconnect.cpaas.core.parser.ParseException;
 import com.imiconnect.cpaas.core.type.Idempotent;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
@@ -144,7 +144,7 @@ class ApacheSyncInternalClientTest {
         get("/resourceId")
             .willReturn(
                 serviceUnavailable().withBody("<!DOCTYPE html><html><body></body></html>")));
-    assertThrows(WebexParseException.class, () -> client.get("/resourceId", MockResponse.class));
+    assertThrows(ParseException.class, () -> client.get("/resourceId", MockResponse.class));
   }
 
   @Test
@@ -206,7 +206,7 @@ class ApacheSyncInternalClientTest {
   }
 
   /** Simple pojo to extend the response and allow integration testing of serialization. */
-  private static class MockResponse extends WebexResponse {
+  private static class MockResponse extends ConnectResponse {
 
     private final String id;
 

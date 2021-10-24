@@ -1,6 +1,6 @@
 package com.imiconnect.cpaas.core.client;
 
-import com.imiconnect.cpaas.core.WebexException;
+import com.imiconnect.cpaas.core.ConnectException;
 import com.imiconnect.cpaas.core.annotation.Nullable;
 import com.imiconnect.cpaas.core.type.ErrorResponse;
 
@@ -9,9 +9,9 @@ import static java.util.Objects.nonNull;
 /**
  * Exception that is thrown when the request was successfully sent, but the service returned a non-
  * successful http status response. In some cases, a 404 response may not produce this exception.
- * See the webex client interfaces for more information.
+ * See the Connect client interfaces for more information.
  */
-public class HttpResponseException extends WebexException {
+public class HttpResponseException extends ConnectException {
 
   private final String requestId;
   private final int httpStatusCode;
