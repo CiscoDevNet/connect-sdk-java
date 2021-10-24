@@ -65,7 +65,8 @@ public class ApacheSyncInternalClient implements InternalClient {
     }
   }
 
-  public <R extends ConnectResponse> R post(String path, Idempotent request, Class<R> responseType) {
+  public <R extends ConnectResponse> R post(
+      String path, Idempotent request, Class<R> responseType) {
     HttpPost post = new HttpPost(baseUrl + path);
     try {
       byte[] bytes = parser.writeValueAsBytes(request);

@@ -29,8 +29,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * attempting to deserialize it into the {@link WhatsAppMsgStatus} using the jackson version of the
  * {@link ObjectParser}.
  *
- * <p>The string values used in the test methods must match the text that is found in the json
- * files for the tests to be successful.
+ * <p>The string values used in the test methods must match the text that is found in the json files
+ * for the tests to be successful.
  */
 class WhatsAppMsgStatusDeserializerTest {
 
@@ -85,5 +85,4 @@ class WhatsAppMsgStatusDeserializerTest {
         .status(WhatsAppMsgStatus.Status.QUEUED)
         .statusTime(Instant.parse("2021-09-30T16:34:36.873Z"));
   }
-
 }

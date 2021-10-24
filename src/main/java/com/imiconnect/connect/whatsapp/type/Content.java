@@ -19,11 +19,17 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
   @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Text.class, name = "TEXT"),
   @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Audio.class, name = "AUDIO"),
-  @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Contacts.class, name = "CONTACTS"),
-  @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Document.class, name = "DOCUMENT"),
+  @JsonSubTypes.Type(
+      value = com.imiconnect.connect.whatsapp.type.Contacts.class,
+      name = "CONTACTS"),
+  @JsonSubTypes.Type(
+      value = com.imiconnect.connect.whatsapp.type.Document.class,
+      name = "DOCUMENT"),
   @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Image.class, name = "IMAGE"),
   @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Video.class, name = "VIDEO"),
-  @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Location.class, name = "LOCATION"),
+  @JsonSubTypes.Type(
+      value = com.imiconnect.connect.whatsapp.type.Location.class,
+      name = "LOCATION"),
   @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Sticker.class, name = "STICKER"),
   @JsonSubTypes.Type(value = com.imiconnect.connect.whatsapp.type.Template.class, name = "TEMPLATE")
 })

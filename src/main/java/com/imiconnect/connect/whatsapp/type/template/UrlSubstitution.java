@@ -10,13 +10,10 @@ public final class UrlSubstitution implements Substitution {
 
   private final Type contentType = Type.URL;
 
-  /**
-   * This will be appended to URLs that are configured within the Connect platform GUI.
-   */
+  /** This will be appended to URLs that are configured within the Connect platform GUI. */
   private final String suffix;
 
   public UrlSubstitution(String suffix) {
     this.suffix = requireNonNull(suffix, "url suffix can not be null.");
   }
-
 }

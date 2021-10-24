@@ -1,8 +1,8 @@
 package com.imiconnect.connect.voice.type;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.voice.engine.Voice;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Builder;
 import lombok.Value;
 

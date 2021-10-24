@@ -6,8 +6,8 @@ import lombok.Value;
 import static com.imiconnect.connect.core.util.Preconditions.notNullOrBlank;
 
 /**
- * Represents a "quick reply" button that can be added to a whatsapp {@link Template}. There
- * can only be a maximum of 3 for a single message.
+ * Represents a "quick reply" button that can be added to a whatsapp {@link Template}. There can
+ * only be a maximum of 3 for a single message.
  */
 @Value
 public final class QuickReply {

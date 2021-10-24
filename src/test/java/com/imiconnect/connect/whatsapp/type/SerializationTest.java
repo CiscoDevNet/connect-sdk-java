@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.is;
  * test serialization, then attempts to deserialize the string back into an original object where
  * the original and deserialized are then compared for equality.
  */
-//TODO: Expand on these tests and possibly come up with a better way.
+// TODO: Expand on these tests and possibly come up with a better way.
 public class SerializationTest {
 
   private ObjectParser parser = new JacksonParser();

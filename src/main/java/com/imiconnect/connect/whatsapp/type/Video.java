@@ -20,7 +20,7 @@ import static com.imiconnect.connect.core.util.Preconditions.validArgument;
 public final class Video extends MediaContent {
 
   private static final Set<String> ALLOWED_MIME_TYPES =
-    Collections.unmodifiableSet(new HashSet<>(Arrays.asList("video/mp4", "video/3gpp")));
+      Collections.unmodifiableSet(new HashSet<>(Arrays.asList("video/mp4", "video/3gpp")));
 
   private final WhatsAppContentType contentType = WhatsAppContentType.VIDEO;
   private final String caption;
@@ -29,8 +29,8 @@ public final class Video extends MediaContent {
   public Video(URI url, @Nullable String mimeType, @Nullable String caption) {
     super(url, mimeType);
     validArgument(
-      ALLOWED_MIME_TYPES.contains(this.getMimeType()),
-      "Invalid MIME type " + this.getMimeType() + " for whatsapp video.");
+        ALLOWED_MIME_TYPES.contains(this.getMimeType()),
+        "Invalid MIME type " + this.getMimeType() + " for whatsapp video.");
     this.caption = caption;
   }
 

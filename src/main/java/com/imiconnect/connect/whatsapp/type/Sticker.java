@@ -19,7 +19,7 @@ import static com.imiconnect.connect.core.util.Preconditions.validArgument;
 public final class Sticker extends MediaContent {
 
   private static final Set<String> ALLOWED_MIME_TYPES =
-    Collections.unmodifiableSet(new HashSet<>(Collections.singletonList("image/webp")));
+      Collections.unmodifiableSet(new HashSet<>(Collections.singletonList("image/webp")));
 
   private final WhatsAppContentType contentType = WhatsAppContentType.STICKER;
 
@@ -27,8 +27,8 @@ public final class Sticker extends MediaContent {
   private Sticker(URI url, @Nullable String mimeType) {
     super(url, mimeType);
     validArgument(
-      ALLOWED_MIME_TYPES.contains(this.getMimeType()),
-      "Invalid MIME type " + this.getMimeType() + " for whatsapp sticker.");
+        ALLOWED_MIME_TYPES.contains(this.getMimeType()),
+        "Invalid MIME type " + this.getMimeType() + " for whatsapp sticker.");
   }
 
   /**

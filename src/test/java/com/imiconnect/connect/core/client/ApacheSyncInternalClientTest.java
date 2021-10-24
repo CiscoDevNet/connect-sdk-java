@@ -1,11 +1,11 @@
 package com.imiconnect.connect.core.client;
 
-import com.imiconnect.connect.core.parser.JacksonParser;
-import com.imiconnect.connect.core.parser.ParseException;
-import com.imiconnect.connect.core.type.Idempotent;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.imiconnect.connect.core.parser.JacksonParser;
+import com.imiconnect.connect.core.parser.ParseException;
+import com.imiconnect.connect.core.type.Idempotent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -108,7 +108,8 @@ class ApacheSyncInternalClientTest {
                     .withBody("{ \"code\": \"7000\", \"message\": \"Error Message\" }")
                     .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
 
-    assertThrows(ResourceNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
+    assertThrows(
+        ResourceNotFoundException.class, () -> client.get("/messageId", MockResponse.class));
   }
 
   @Test
@@ -134,8 +135,7 @@ class ApacheSyncInternalClientTest {
                     .withBody("{ \"code\": \"7000\", \"message\": \"Auth\" }")
                     .withHeader(HttpHeaders.REQUEST_ID, "requestId")));
 
-    assertThrows(
-        AuthenticationException.class, () -> client.get("/messageId", MockResponse.class));
+    assertThrows(AuthenticationException.class, () -> client.get("/messageId", MockResponse.class));
   }
 
   @Test

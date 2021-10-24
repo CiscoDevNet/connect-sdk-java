@@ -1,8 +1,8 @@
 package com.imiconnect.connect.whatsapp.type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.imiconnect.connect.core.client.ConnectResponse;
 import com.imiconnect.connect.core.type.ErrorResponse;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;

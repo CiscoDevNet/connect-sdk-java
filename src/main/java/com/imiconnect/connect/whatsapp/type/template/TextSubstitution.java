@@ -20,5 +20,4 @@ public final class TextSubstitution implements Substitution, StringWrapper {
   public String get() {
     return this.text;
   }
-
 }

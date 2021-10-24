@@ -34,7 +34,6 @@ class MimeTypeDetectorTest {
   public void shouldHandleUnknownType() {
     String actualType = MimeTypeDetector.guessMimeType("file.unknown");
     assertThat(actualType, is("application/octet-stream"));
-
   }
 
   @Test

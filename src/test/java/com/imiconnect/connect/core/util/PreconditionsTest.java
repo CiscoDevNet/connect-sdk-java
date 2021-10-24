@@ -69,8 +69,8 @@ class PreconditionsTest {
   @ValueSource(strings = "")
   public void shouldThrowWhenStringIsNullOrEmpty(String testValue) {
     IllegalArgumentException e =
-      assertThrows(
-        IllegalArgumentException.class, () -> Preconditions.notNullOrBlank(testValue, "name"));
+        assertThrows(
+            IllegalArgumentException.class, () -> Preconditions.notNullOrBlank(testValue, "name"));
     assertThat(e.getMessage(), containsString("name can not be null or blank"));
   }
 }

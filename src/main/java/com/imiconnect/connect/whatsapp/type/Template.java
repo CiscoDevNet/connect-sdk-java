@@ -55,6 +55,5 @@ public final class Template implements Content {
       this.quickReplies = quickReplies;
       return this;
     }
-
   }
 }

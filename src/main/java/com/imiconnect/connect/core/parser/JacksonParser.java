@@ -1,8 +1,5 @@
 package com.imiconnect.connect.core.parser;
 
-import com.imiconnect.connect.core.client.ConnectClient;
-import com.imiconnect.connect.whatsapp.parser.WhatsAppMsgStatusDeserializer;
-import com.imiconnect.connect.whatsapp.type.WhatsAppMsgStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,14 +7,17 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.imiconnect.connect.core.client.ConnectClient;
+import com.imiconnect.connect.whatsapp.parser.WhatsAppMsgStatusDeserializer;
+import com.imiconnect.connect.whatsapp.type.WhatsAppMsgStatus;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 /**
  * Implementation of the {@link ObjectParser} based on Jackson that will instantiate a single
- * instance of Jackson's ObjectMapper with a configuration that is used for all {@link ConnectClient}
- * types.
+ * instance of Jackson's ObjectMapper with a configuration that is used for all {@link
+ * ConnectClient} types.
  */
 public final class JacksonParser implements ObjectParser {
 

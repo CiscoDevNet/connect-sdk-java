@@ -34,7 +34,6 @@ public interface SmsMessage extends Idempotent {
 
   String getCallbackData();
 
-
   /**
    * Starts building a new message that is based off of a template ID. The content type will
    * automatically be set to {@link SmsContentType#TEMPLATE}.
@@ -91,7 +90,6 @@ public interface SmsMessage extends Idempotent {
     }
     return new SmsMessageRequest.Builder(sb.toString(), SmsContentType.BINARY);
   }
-
 
   /** Defines the optional values that can be set on a sms message. */
   interface Options {

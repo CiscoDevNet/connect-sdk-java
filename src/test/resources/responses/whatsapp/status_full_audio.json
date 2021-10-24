@@ -9,5 +9,8 @@
   "url": "http://example.com/audio.mp3",
   "mimeType": "audio/mpeg",
   "contentType": "AUDIO",
-  "error": { "code": "7000", "message": "Message" }
+  "error": {
+    "code": "7000",
+    "message": "Message"
+  }
 }

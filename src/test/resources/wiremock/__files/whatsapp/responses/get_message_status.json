@@ -9,5 +9,8 @@
   "contentType": "AUDIO",
   "url": "http://example.com/path/to/audio.m4a",
   "mimeType": "audio/mp4",
-  "error": {"code": "7777", "message":"Error"}
+  "error": {
+    "code": "7777",
+    "message": "Error"
+  }
 }

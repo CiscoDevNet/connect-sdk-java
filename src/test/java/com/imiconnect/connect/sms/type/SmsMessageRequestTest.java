@@ -58,5 +58,4 @@ class SmsMessageRequestTest {
         IllegalArgumentException.class,
         () -> SmsMessage.of(sb.toString()).from(PHONE_NUMBER).to(PHONE_NUMBER).build());
   }
-
 }

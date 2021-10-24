@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.is;
  * test serialization, then attempts to deserialize the string back into an original object where
  * the original and deserialized are then compared for equality.
  */
-//TODO: Expand on these tests and possibly come up with a better way.
+// TODO: Expand on these tests and possibly come up with a better way.
 public class ContentSerializationTest {
 
   private ObjectParser parser;
@@ -53,43 +53,42 @@ public class ContentSerializationTest {
 
   private static Contacts getContactContent() {
     Contacts.Contact contact =
-      Contacts.Contact.builder()
-        .address(
-          Contacts.Address.builder()
-            .city("San Jose")
-            .state("CA")
-            .street("300 E Tasman Dr")
-            .zip("95134")
-            .type(WORK)
-            .countryCode("US")
-            .country("USA")
-            .build())
-        .email(Contacts.Email.builder().address("employee@cisco.com").type(WORK).build())
-        .phone(
-          Contacts.ContactNumber.builder()
-            .number("+15550001234")
-            .whatsAppId("id123")
-            .type(Contacts.ContactNumber.Type.WORK)
-            .build())
-        .url(
-          Contacts.Url.builder()
-            .address(URI.create("http://www.connect.com"))
-            .type(WORK)
-            .build())
-        .formattedName("Mr. John Connect Doe Jr.")
-        .firstName("John")
-        .lastName("Doe")
-        .middleName("Connect")
-        .namePrefix("Mr.")
-        .nameSuffix("Jr.")
-        .birthday(LocalDate.now())
-        .company("Cisco Systems")
-        .department("Engineering")
-        .title("Someone")
-        .build();
+        Contacts.Contact.builder()
+            .address(
+                Contacts.Address.builder()
+                    .city("San Jose")
+                    .state("CA")
+                    .street("300 E Tasman Dr")
+                    .zip("95134")
+                    .type(WORK)
+                    .countryCode("US")
+                    .country("USA")
+                    .build())
+            .email(Contacts.Email.builder().address("employee@cisco.com").type(WORK).build())
+            .phone(
+                Contacts.ContactNumber.builder()
+                    .number("+15550001234")
+                    .whatsAppId("id123")
+                    .type(Contacts.ContactNumber.Type.WORK)
+                    .build())
+            .url(
+                Contacts.Url.builder()
+                    .address(URI.create("http://www.connect.com"))
+                    .type(WORK)
+                    .build())
+            .formattedName("Mr. John Connect Doe Jr.")
+            .firstName("John")
+            .lastName("Doe")
+            .middleName("Connect")
+            .namePrefix("Mr.")
+            .nameSuffix("Jr.")
+            .birthday(LocalDate.now())
+            .company("Cisco Systems")
+            .department("Engineering")
+            .title("Someone")
+            .build();
 
     Contacts contactsContent = Contacts.of(contact);
     return contactsContent;
   }
-
 }

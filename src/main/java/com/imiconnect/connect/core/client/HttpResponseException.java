@@ -30,7 +30,7 @@ public class HttpResponseException extends ConnectException {
       return "HTTP status: " + httpStatusCode;
     }
     return String.format("%s - %s", error.getCode(), error.getMessage());
-//    return String.format("%d: %s - %s", httpStatusCode, error.getCode(), error.getMessage());
+    //    return String.format("%d: %s - %s", httpStatusCode, error.getCode(), error.getMessage());
   }
 
   /**

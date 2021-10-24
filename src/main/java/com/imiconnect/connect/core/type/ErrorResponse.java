@@ -12,7 +12,7 @@ public final class ErrorResponse {
   private final String code;
 
   /** A short description of the error. */
-   private final String message;
+  private final String message;
 
   public ErrorResponse(String code, String message) {
     this.code = code;
@@ -21,6 +21,7 @@ public final class ErrorResponse {
 
   /**
    * Get the domain specific error code.
+   *
    * @return The error code.
    */
   public String getCode() {
@@ -29,10 +30,10 @@ public final class ErrorResponse {
 
   /**
    * Get the domain specific error message.
+   *
    * @return The error message.
    */
   public String getMessage() {
     return this.message;
   }
-
 }

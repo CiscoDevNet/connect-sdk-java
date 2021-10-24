@@ -33,14 +33,19 @@ class PhoneNumberTest {
       })
   public void shouldNotAcceptInvalidE164PhoneNumbers(String number) {
     IllegalArgumentException e =
-        assertThrows(IllegalArgumentException.class, () -> com.imiconnect.connect.core.type.PhoneNumber.of(number));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> com.imiconnect.connect.core.type.PhoneNumber.of(number));
 
     assertThat(e.getMessage(), containsString("not a valid E.164 phone number"));
   }
 
   @Test
   public void shouldHandleNullInput() {
-    NullPointerException e = assertThrows(NullPointerException.class, () -> com.imiconnect.connect.core.type.PhoneNumber.of(null));
+    NullPointerException e =
+        assertThrows(
+            NullPointerException.class,
+            () -> com.imiconnect.connect.core.type.PhoneNumber.of(null));
     assertThat(e.getMessage(), containsString("can not be null"));
   }
 }

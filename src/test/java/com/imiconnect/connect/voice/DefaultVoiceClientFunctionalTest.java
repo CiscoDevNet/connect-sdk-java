@@ -1,5 +1,11 @@
 package com.imiconnect.connect.voice;
 
+import com.github.tomakehurst.wiremock.client.MappingBuilder;
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import com.imiconnect.connect.TestUtils;
 import com.imiconnect.connect.core.client.ApacheSyncInternalClient;
 import com.imiconnect.connect.core.client.InternalClient;
@@ -17,12 +23,6 @@ import com.imiconnect.connect.voice.type.PlayAndDrop;
 import com.imiconnect.connect.voice.type.PlayAndDropResponse;
 import com.imiconnect.connect.voice.type.Recording;
 import com.imiconnect.connect.voice.type.StartCallResponse;
-import com.github.tomakehurst.wiremock.client.MappingBuilder;
-import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import com.sun.tools.javac.util.List;
 import org.apache.hc.core5.http.ContentType;
 import org.hamcrest.Matchers;
@@ -106,18 +106,12 @@ public class DefaultVoiceClientFunctionalTest {
 
   private static Stream<Arguments> audioTypes() {
     return Stream.of(
-        Arguments.of(
-            "play_and_drop_url.json",
-            Audio.ofUrl("https://bucket.example.com/audio.mp3")),
+        Arguments.of("play_and_drop_url.json", Audio.ofUrl("https://bucket.example.com/audio.mp3")),
         Arguments.of(
             "play_and_drop_tts.json",
             Audio.ofTtsText(
                 "Hello World!",
-                Voice.azure()
-                    .voice("AriaNeural")
-                    .gender(Gender.FEMALE)
-                    .language("en-US")
-                    .build())),
+                Voice.azure().voice("AriaNeural").gender(Gender.FEMALE).language("en-US").build())),
         Arguments.of("play_and_drop_media.json", Audio.ofMediaId("mediaId")));
   }
 
@@ -206,12 +200,11 @@ public class DefaultVoiceClientFunctionalTest {
 
   // Attach the request response header and content type.
   private void stubWithCommonHeaders(
-    MappingBuilder requestBuilder, ResponseDefinitionBuilder responseBuilder) {
+      MappingBuilder requestBuilder, ResponseDefinitionBuilder responseBuilder) {
     stubFor(
         requestBuilder.willReturn(
             responseBuilder
                 .withHeader("Request-Id", REQUEST_ID)
                 .withHeader("Content-Type", ContentType.APPLICATION_JSON.toString())));
   }
-
 }
