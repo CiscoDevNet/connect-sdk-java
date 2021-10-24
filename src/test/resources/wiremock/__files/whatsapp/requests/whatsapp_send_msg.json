@@ -6,8 +6,8 @@
   "correlationId": "correlationId",
   "contentType": "TEXT",
   "content": "Hello World!",
-  "substitutions" : {
-    "firstName" : "John",
-    "lastName" : "Doe"
+  "substitutions": {
+    "firstName": "John",
+    "lastName": "Doe"
   }
 }

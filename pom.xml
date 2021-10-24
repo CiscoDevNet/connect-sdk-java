@@ -6,12 +6,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.imiconnect</groupId>
-  <artifactId>cpass-sdk-java</artifactId>
+  <artifactId>connect-sdk-java</artifactId>
   <version>0.1-SNAPSHOT</version>
 
   <name>cpass-sdk-java</name>
-  <url>http://www.webex.com</url>
-  <description>Webex CPaaS Java SDK Client Library</description>
+  <url>https://developers.imiconnect.io</url>
+  <description>IMIConnect platform Java SDK client library.</description>
 
   <licenses>
     <license>
@@ -189,7 +189,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.3.1</version>
         <configuration>
-          <doctitle>Webex CPaaS SDK - ${project.version}</doctitle>
+          <doctitle>IMIConnect Platform Java SDK - ${project.version}</doctitle>
         </configuration>
         <executions>
           <execution>
