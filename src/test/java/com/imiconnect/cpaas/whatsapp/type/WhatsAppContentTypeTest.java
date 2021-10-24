@@ -34,8 +34,8 @@ class WhatsAppContentTypeTest {
         Arguments.of("sticker", Sticker.class),
         Arguments.of("TEXT", Text.class),
         Arguments.of("text", Text.class),
-        Arguments.of("TEMPLATE", TemplateContent.class),
-        Arguments.of("template", TemplateContent.class),
+        Arguments.of("TEMPLATE", Template.class),
+        Arguments.of("template", Template.class),
         Arguments.of("VIDEO", Video.class),
         Arguments.of("video", Video.class));
   }

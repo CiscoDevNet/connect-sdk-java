@@ -1,12 +1,14 @@
 package com.imiconnect.cpaas.whatsapp.type;
 
-import com.imiconnect.cpaas.core.type.PhoneNumber;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.imiconnect.cpaas.core.type.PhoneNumber;
 import lombok.Value;
 
 import java.net.URI;
 import java.util.UUID;
+
+import static java.util.Objects.requireNonNull;
 
 /** Default implementation of the {@link WhatsAppMsg}. */
 @Value
@@ -20,13 +22,21 @@ public final class WhatsAppSendMsgRequest implements WhatsAppMsg {
   private final String correlationId;
   @JsonUnwrapped private final Content content;
 
-  /**
-   * Getter for the {@link Content} object that will cast the content to the specific type for
-   * convenience.
-   *
-   * @param <T> The type to cast to.
-   * @return The cast instance of content.
-   */
+  WhatsAppSendMsgRequest(
+      String from,
+      PhoneNumber to,
+      URI callbackUrl,
+      String callbackData,
+      String correlationId,
+      Content content) {
+    this.from = requireNonNull(from, "from number can not be null.");
+    this.to = requireNonNull(to, "to number can not be null.");
+    this.callbackUrl = callbackUrl;
+    this.callbackData = callbackData;
+    this.correlationId = correlationId;
+    this.content = requireNonNull(content, "content can not be null.");
+  }
+
   @JsonIgnore
   @Override
   @SuppressWarnings("unchecked")
