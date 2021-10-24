@@ -1,7 +1,7 @@
 package com.imiconnect.connect.whatsapp.type;
 
 import com.imiconnect.connect.core.annotation.Nullable;
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 import com.imiconnect.connect.core.type.PhoneNumber;
 
 import java.net.URI;
@@ -9,7 +9,7 @@ import java.net.URI;
 import static java.util.Objects.requireNonNull;
 
 /** API to interact with a WhatsApp message request. */
-public interface WhatsAppMsg extends Idempotent {
+public interface WhatsAppMsg extends IdempotentRequest {
 
   public String getFrom();
 

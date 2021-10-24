@@ -1,13 +1,13 @@
 package com.imiconnect.connect.voice.type;
 
 import com.imiconnect.connect.core.annotation.Nullable;
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 import com.imiconnect.connect.core.type.PhoneNumber;
 
 import java.net.URI;
 
 /** Voice call that will play a specified message and then drop the call. */
-public interface PlayAndDrop extends Idempotent {
+public interface PlayAndDrop extends IdempotentRequest {
 
   PhoneNumber getCallerId();
 

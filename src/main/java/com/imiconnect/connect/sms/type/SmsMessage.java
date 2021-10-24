@@ -1,6 +1,6 @@
 package com.imiconnect.connect.sms.type;
 
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 import com.imiconnect.connect.core.type.MessageBuilder;
 import com.imiconnect.connect.core.type.PhoneNumber;
 
@@ -14,7 +14,7 @@ import static com.imiconnect.connect.sms.type.SmsContentType.UNICODE;
 import static java.util.Objects.requireNonNull;
 
 /** API to interact with SMS message requests. */
-public interface SmsMessage extends Idempotent {
+public interface SmsMessage extends IdempotentRequest {
 
   String getFrom();
 

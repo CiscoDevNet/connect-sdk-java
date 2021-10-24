@@ -5,7 +5,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.imiconnect.connect.core.parser.JacksonParser;
 import com.imiconnect.connect.core.parser.ParseException;
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -198,7 +198,8 @@ class ApacheSyncInternalClientTest {
   }
 
   /** Simple mock request object used for testing. */
-  private static class MockPostRequest extends HashMap<String, String> implements Idempotent {
+  private static class MockPostRequest extends HashMap<String, String>
+      implements IdempotentRequest {
     @Override
     public String getIdempotencyKey() {
       return IDEMPOTENCY_KEY;

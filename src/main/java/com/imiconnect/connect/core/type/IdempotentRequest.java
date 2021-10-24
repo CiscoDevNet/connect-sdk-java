@@ -2,9 +2,9 @@ package com.imiconnect.connect.core.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/** Interface defining methods used to determine the idempotency of a particular object. */
+/** Interface defining idempotent http requests that are used with the Connect platform API. */
 @JsonIgnoreProperties({"idempotencyKey"})
-public interface Idempotent {
+public interface IdempotentRequest {
 
   /**
    * Returns an idempotency key that should not change for the life of the implementing object.

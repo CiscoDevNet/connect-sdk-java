@@ -1,14 +1,14 @@
 package com.imiconnect.connect.voice.type;
 
 import com.imiconnect.connect.core.annotation.Nullable;
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 import com.imiconnect.connect.core.type.PhoneNumber;
 import com.imiconnect.connect.voice.callback.action.PlayAction;
 
 import java.net.URI;
 
 /** Definition for a call session. */
-public interface Call extends Idempotent {
+public interface Call extends IdempotentRequest {
 
   PhoneNumber getCallerId();
 

@@ -4,7 +4,7 @@ import com.imiconnect.connect.core.ConnectException;
 import com.imiconnect.connect.core.parser.ObjectParser;
 import com.imiconnect.connect.core.parser.ParseException;
 import com.imiconnect.connect.core.type.ErrorResponse;
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 import org.apache.commons.codec.CharEncoding;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -66,7 +66,7 @@ public class ApacheSyncInternalClient implements InternalClient {
   }
 
   public <R extends ConnectResponse> R post(
-      String path, Idempotent request, Class<R> responseType) {
+      String path, IdempotentRequest request, Class<R> responseType) {
     HttpPost post = new HttpPost(baseUrl + path);
     try {
       byte[] bytes = parser.writeValueAsBytes(request);

@@ -1,7 +1,7 @@
 package com.imiconnect.connect.core.client;
 
 import com.imiconnect.connect.core.ConnectException;
-import com.imiconnect.connect.core.type.Idempotent;
+import com.imiconnect.connect.core.type.IdempotentRequest;
 
 /**
  * Defines the methods that are used to interact with all API services. The implementations of this
@@ -37,6 +37,6 @@ public interface InternalClient extends ConnectClient {
    *     ClientResponseException when communication with the API is successful, but it returned a
    *     non-successful (2xx) response.
    */
-  <R extends ConnectResponse> R post(String path, Idempotent request, Class<R> responseType)
+  <R extends ConnectResponse> R post(String path, IdempotentRequest request, Class<R> responseType)
       throws ConnectException;
 }
