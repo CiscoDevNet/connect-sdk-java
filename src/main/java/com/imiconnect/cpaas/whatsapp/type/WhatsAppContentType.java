@@ -17,7 +17,7 @@ public enum WhatsAppContentType {
   LOCATION(Location.class),
   STICKER(Sticker.class),
   TEXT(Text.class),
-  TEMPLATE(TemplateContent.class),
+  TEMPLATE(Template.class),
   VIDEO(Video.class);
 
   private static final Map<String, Class<?>> CLASS_MAP = initMap();

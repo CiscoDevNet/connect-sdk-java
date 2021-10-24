@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   @JsonSubTypes.Type(value = com.imiconnect.cpaas.whatsapp.type.Video.class, name = "VIDEO"),
   @JsonSubTypes.Type(value = com.imiconnect.cpaas.whatsapp.type.Location.class, name = "LOCATION"),
   @JsonSubTypes.Type(value = com.imiconnect.cpaas.whatsapp.type.Sticker.class, name = "STICKER"),
-  @JsonSubTypes.Type(value = com.imiconnect.cpaas.whatsapp.type.TemplateContent.class, name = "TEMPLATE")
+  @JsonSubTypes.Type(value = com.imiconnect.cpaas.whatsapp.type.Template.class, name = "TEMPLATE")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public interface Content {
