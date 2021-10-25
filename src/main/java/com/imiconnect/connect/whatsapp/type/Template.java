@@ -1,6 +1,5 @@
 package com.imiconnect.connect.whatsapp.type;
 
-import com.imiconnect.connect.core.util.Preconditions;
 import com.imiconnect.connect.whatsapp.type.template.MediaHeader;
 import com.imiconnect.connect.whatsapp.type.template.QuickReply;
 import com.imiconnect.connect.whatsapp.type.template.Substitution;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.imiconnect.connect.core.util.Preconditions.notNullOrBlank;
+import static com.imiconnect.connect.core.util.Preconditions.validArgument;
 
 /** Defines whatsapp {@link Content} representing a templated message. */
 @Value
@@ -32,8 +32,8 @@ public final class Template implements Content {
 
     this.templateId = notNullOrBlank(templateId, "templateId");
     this.mediaHeader = mediaHeader;
-    Preconditions.validArgument(
-        quickReplies != null && quickReplies.size() <= 3,
+    validArgument(
+        quickReplies == null || quickReplies.size() <= 3,
         "A maximum of 3 quick replies can be added to a templated message.");
     this.quickReplies = quickReplies;
     this.substitutions = substitutions;
@@ -45,7 +45,7 @@ public final class Template implements Content {
 
     public Builder quickReply(QuickReply quickReply) {
       if (quickReplies == null) {
-        quickReplies = new ArrayList<>();
+        quickReplies = new ArrayList<>(3);
       }
       quickReplies.add(quickReply);
       return this;
