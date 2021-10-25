@@ -1,6 +1,6 @@
 package com.imiconnect.connect.voice.type;
 
-/** The status of the API request. */
+/** The state of the call session. */
 public enum CallState {
   COMPLETED,
   QUEUED,
