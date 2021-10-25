@@ -1,18 +1,13 @@
-package com.imiconnect.connect.sms.type;
+package com.imiconnect.connect.whatsapp.callback;
 
 import com.imiconnect.connect.core.type.ErrorResponse;
+import com.imiconnect.connect.whatsapp.type.WhatsAppMsgStatus;
 import lombok.Value;
 
 import java.time.Instant;
 
-/**
- * Represents the callback request body that will be sent to the callback if supplied with the send
- * message requests.
- *
- * @see com.imiconnect.connect.sms.SmsClient#sendMessage(SmsMessage)
- */
 @Value
-public class SmsCallback {
+public final class WhatsAppCallback {
 
   /** Message's unique ID. */
   private final String messageId;
@@ -21,7 +16,7 @@ public class SmsCallback {
   private final Instant statusTime;
 
   /** The message status. */
-  private final SmsStatus status;
+  private final WhatsAppMsgStatus.Status status;
 
   /** Additional data that was added to the original send message request. */
   private final String callbackData;
@@ -31,4 +26,5 @@ public class SmsCallback {
 
   /** Error information that will only be populated if the status is FAILED. */
   private final ErrorResponse error;
+
 }

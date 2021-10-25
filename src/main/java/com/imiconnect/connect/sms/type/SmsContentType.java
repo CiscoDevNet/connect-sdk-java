@@ -11,9 +11,6 @@ public enum SmsContentType {
   /** The content is a template ID. */
   TEMPLATE,
 
-  /** Currently unsupported. */
-  FLASH,
-
   /**
    * Binary content which can be used to trigger an arbitrary action on some supported messaging
    * clients. Actual content needs to be represented as a hexadecimal string when sending a request
