@@ -4,7 +4,6 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.imiconnect.connect.core.parser.JacksonParser;
-import com.imiconnect.connect.core.parser.ParseException;
 import com.imiconnect.connect.core.type.IdempotentRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,7 +92,7 @@ class ApacheSyncInternalClientTest {
             HttpResponseException.class, () -> client.get("/messageId", MockResponse.class));
 
     assertThat(e.getErrorCode(), equalTo("7000"));
-    assertThat(e.getHttpStatusCode(), equalTo(statusCode));
+    assertThat(e.getStatusCode(), equalTo(statusCode));
     assertThat(e.getRequestId(), equalTo("requestId"));
     assertThat(e.getMessage(), equalTo("7000 - Error Message"));
   }
@@ -144,7 +143,7 @@ class ApacheSyncInternalClientTest {
         get("/resourceId")
             .willReturn(
                 serviceUnavailable().withBody("<!DOCTYPE html><html><body></body></html>")));
-    assertThrows(ParseException.class, () -> client.get("/resourceId", MockResponse.class));
+    assertThrows(HttpResponseException.class, () -> client.get("/resourceId", MockResponse.class));
   }
 
   @Test
