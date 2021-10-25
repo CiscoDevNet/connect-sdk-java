@@ -2,35 +2,39 @@ package com.imiconnect.connect.core.client;
 
 import com.imiconnect.connect.core.ConnectException;
 import com.imiconnect.connect.core.annotation.Nullable;
-import com.imiconnect.connect.core.type.ErrorResponse;
-
-import static java.util.Objects.nonNull;
 
 /**
  * Exception that is thrown when the request was successfully sent, but the service returned a non-
- * successful http status response. In some cases, a 404 response may not produce this exception.
- * See the Connect client interfaces for more information.
+ * successful http status response.
  */
 public class HttpResponseException extends ConnectException {
 
   private final String requestId;
-  private final int httpStatusCode;
+  private final int statusCode;
   private final String errorCode;
 
   public HttpResponseException(
-      String requestId, int httpStatusCode, @Nullable ErrorResponse errorResponse) {
-    super(constructMessage(httpStatusCode, errorResponse));
+      String requestId, int statusCode, String reason, @Nullable String errorCode) {
+    super(constructMsg(statusCode, reason, errorCode));
     this.requestId = requestId;
-    this.httpStatusCode = httpStatusCode;
-    this.errorCode = nonNull(errorResponse) ? errorResponse.getCode() : null;
+    this.statusCode = statusCode;
+    this.errorCode = errorCode;
   }
 
-  private static String constructMessage(int httpStatusCode, ErrorResponse error) {
-    if (error == null) {
-      return "HTTP status: " + httpStatusCode;
-    }
-    return String.format("%s - %s", error.getCode(), error.getMessage());
-    //    return String.format("%d: %s - %s", httpStatusCode, error.getCode(), error.getMessage());
+  public HttpResponseException(String requestId, int statusCode, String reason) {
+    this(requestId, statusCode, reason, (Throwable) null);
+  }
+
+  public HttpResponseException(String requestId, int statusCode, String reason, Throwable t) {
+    super(constructMsg(statusCode, reason, null), t);
+    this.requestId = requestId;
+    this.statusCode = statusCode;
+    this.errorCode = null;
+  }
+
+  private static String constructMsg(int statusCode, String reason, @Nullable String errorCode) {
+    String code = errorCode == null ? String.valueOf(statusCode) : errorCode;
+    return String.format("%s - %s", code, reason);
   }
 
   /**
@@ -39,7 +43,6 @@ public class HttpResponseException extends ConnectException {
    *
    * @return the request's ID, may be null.
    */
-  @Nullable
   public String getRequestId() {
     return requestId;
   }
@@ -49,12 +52,12 @@ public class HttpResponseException extends ConnectException {
    *
    * @return the http status code.
    */
-  public int getHttpStatusCode() {
-    return httpStatusCode;
+  public int getStatusCode() {
+    return statusCode;
   }
 
   /**
-   * The domain specific error code associated with the error response. See the webex API
+   * The domain specific error code associated with the error response. See the Connect API
    * documentation for more information.
    *
    * @return the error code, may be null.
