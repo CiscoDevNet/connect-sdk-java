@@ -33,17 +33,6 @@ public final class Document extends MediaContent {
    * @return A new instance of {@link Document}.
    */
   public static Document of(String url) {
-    return Document.of(URI.create(url));
-  }
-
-  /**
-   * Convenience method to define new document content at the given url. The mimeType will be
-   * automatically detected. To manually set the mimeType, use the builder.
-   *
-   * @param url The URL where the document can be found.
-   * @return A new instance of {@link Document}.
-   */
-  public static Document of(URI url) {
-    return new Document(url, null, null, null);
+    return new Document(URI.create(url), null, null, null);
   }
 }

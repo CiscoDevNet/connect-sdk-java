@@ -25,8 +25,7 @@ public final class Image extends MediaContent {
   private final WhatsAppContentType contentType = WhatsAppContentType.IMAGE;
   private final String caption;
 
-  @lombok.Builder(builderClassName = "Builder")
-  private Image(URI url, @Nullable String mimeType, @Nullable String caption) {
+  public Image(URI url, @Nullable String mimeType, @Nullable String caption) {
     super(url, mimeType);
     validArgument(
         ALLOWED_MIME_TYPES.contains(this.getMimeType()),
@@ -42,7 +41,7 @@ public final class Image extends MediaContent {
    * @return A new instance of {@link Image}.
    */
   public static Image of(String url) {
-    return Image.of(URI.create(url));
+    return new Image(URI.create(url), null, null);
   }
 
   /**
@@ -50,9 +49,10 @@ public final class Image extends MediaContent {
    * automatically detected. To manually set the mimeType, use the builder.
    *
    * @param url The URL where the image can be found.
+   * @param caption The caption displayed with the image.
    * @return A new instance of {@link Image}.
    */
-  public static Image of(URI url) {
-    return new Image(url, null, null);
+  public static Image of(String url, String caption) {
+    return new Image(URI.create(url), null, caption);
   }
 }

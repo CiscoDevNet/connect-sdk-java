@@ -19,7 +19,6 @@ import static java.util.Objects.requireNonNull;
 public final class Text implements Content {
 
   private final WhatsAppContentType contentType = WhatsAppContentType.TEXT;
-  // TODO: Find out why having the name content causes JsonUnwrapped to not work on status obj.
   private final String content;
   private final Boolean previewUrl;
   private final Map<String, String> substitutions;
