@@ -1,6 +1,6 @@
 package com.imiconnect.connect.core;
 
-import com.imiconnect.connect.core.annotation.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Generic exception that can be thrown from any of the clients when an unresolvable error occurs.

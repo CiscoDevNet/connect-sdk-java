@@ -1,10 +1,10 @@
 package com.imiconnect.connect.whatsapp.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
 
+import javax.annotation.Nullable;
 import java.net.URI;
 
 /** Defines whatsapp {@link Content} that represents a document file. */

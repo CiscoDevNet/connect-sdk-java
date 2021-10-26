@@ -1,7 +1,8 @@
 package com.imiconnect.connect.core.client;
 
 import com.imiconnect.connect.core.ConnectException;
-import com.imiconnect.connect.core.annotation.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * Exception that is thrown when the request was successfully sent, but the service returned a non-

@@ -5,11 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.core.type.ErrorResponse;
 import com.imiconnect.connect.whatsapp.type.Content;
 import com.imiconnect.connect.whatsapp.type.WhatsAppMsgStatus;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.time.Instant;
 

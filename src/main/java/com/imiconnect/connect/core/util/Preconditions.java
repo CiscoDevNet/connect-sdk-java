@@ -1,6 +1,6 @@
 package com.imiconnect.connect.core.util;
 
-import com.imiconnect.connect.core.annotation.Nullable;
+import javax.annotation.Nullable;
 
 /** Convenience methods for validating arguments passed into a method or constructor. */
 public class Preconditions {

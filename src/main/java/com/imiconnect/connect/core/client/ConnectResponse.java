@@ -1,8 +1,9 @@
 package com.imiconnect.connect.core.client;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import javax.annotation.Nullable;
 
 /**
  * Base api response object that contains only the requestId that would come in as a header on the

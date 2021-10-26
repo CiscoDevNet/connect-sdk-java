@@ -44,8 +44,8 @@ public class ContentSerializationTest {
   private static Stream<Arguments> content() {
     return Stream.of(
         Arguments.of(textContent()),
-      Arguments.of(getAudioContent()),
-      Arguments.of(getContactContent()));
+        Arguments.of(getAudioContent()),
+        Arguments.of(getContactContent()));
   }
 
   private static Text textContent() {

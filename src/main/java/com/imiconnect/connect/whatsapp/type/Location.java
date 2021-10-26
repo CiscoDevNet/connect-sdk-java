@@ -1,8 +1,9 @@
 package com.imiconnect.connect.whatsapp.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 /** Defines whatsapp {@link Content} that represents a location. */
 @Value

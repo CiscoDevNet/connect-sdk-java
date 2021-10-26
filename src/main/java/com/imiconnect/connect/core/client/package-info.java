@@ -3,4 +3,3 @@
  * extend from the {@link com.imiconnect.connect.core.client.ConnectClient} interface.
  */
 package com.imiconnect.connect.core.client;
-
