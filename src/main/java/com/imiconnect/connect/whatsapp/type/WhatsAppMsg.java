@@ -47,7 +47,7 @@ public interface WhatsAppMsg extends IdempotentRequest {
    * Creates a new WhatsApp message containing any type of {@link Content}.
    *
    * @param content The content to add to the message.
-   * @return
+   * @return A builder to generate the rest of the message parameters.
    */
   public static MessageSteps.From of(Content content) {
     requireNonNull(content, "content can not be null");

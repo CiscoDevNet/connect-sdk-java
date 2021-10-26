@@ -48,7 +48,7 @@ public class ContentSerializationTest {
   }
 
   private static Audio getAudioContent() {
-    return Audio.builder().url(URI.create("http://example.com/audio.mp3")).build();
+    return Audio.of(URI.create("http://example.com/audio.mp3"));
   }
 
   private static Contacts getContactContent() {
