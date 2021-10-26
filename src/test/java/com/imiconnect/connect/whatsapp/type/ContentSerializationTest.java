@@ -11,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import static com.imiconnect.connect.whatsapp.type.Contacts.ContactType.WORK;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -51,22 +50,21 @@ public class ContentSerializationTest {
   }
 
   private static Contacts getContactContent() {
-    Contacts.Contact contact =
-        Contacts.Contact.builder()
+    Contact contact =
+        Contact.builder()
             .address(
-                Contacts.Address.builder()
+                Address.asWork()
                     .city("San Jose")
                     .state("CA")
                     .street("300 E Tasman Dr")
                     .zip("95134")
-                    .type(WORK)
                     .countryCode("US")
                     .country("USA")
                     .build())
-            .email(Contacts.Email.ofWorkEmail("employee@cisco.com"))
-            .phone(Contacts.ContactNumber.ofPhoneNumber("+15550001234", Contacts.ContactNumber.Type.WORK))
-            .phone(Contacts.ContactNumber.ofWhatsAppId("abc123", Contacts.ContactNumber.Type.IPHONE))
-            .url(Contacts.Url.ofWorkUrl("http://www.connect.com"))
+            .email(Email.ofWorkEmail("employee@cisco.com"))
+            .phone(ContactNumber.ofPhoneNumber("+15550001234", ContactNumber.Type.WORK))
+            .phone(ContactNumber.ofWhatsAppId("abc123", ContactNumber.Type.IPHONE))
+            .url(ContactUrl.ofWorkUrl("http://www.connect.com"))
             .formattedName("Mr. John Connect Doe Jr.")
             .firstName("John")
             .lastName("Doe")
