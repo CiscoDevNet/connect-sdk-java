@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.ByteArrayInputStream;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
@@ -48,7 +47,7 @@ public class ContentSerializationTest {
   }
 
   private static Audio getAudioContent() {
-    return Audio.of(URI.create("http://example.com/audio.mp3"));
+    return Audio.of("http://example.com/audio.mp3");
   }
 
   private static Contacts getContactContent() {
@@ -64,18 +63,10 @@ public class ContentSerializationTest {
                     .countryCode("US")
                     .country("USA")
                     .build())
-            .email(Contacts.Email.builder().address("employee@cisco.com").type(WORK).build())
-            .phone(
-                Contacts.ContactNumber.builder()
-                    .number("+15550001234")
-                    .whatsAppId("id123")
-                    .type(Contacts.ContactNumber.Type.WORK)
-                    .build())
-            .url(
-                Contacts.Url.builder()
-                    .address(URI.create("http://www.connect.com"))
-                    .type(WORK)
-                    .build())
+            .email(Contacts.Email.ofWorkEmail("employee@cisco.com"))
+            .phone(Contacts.ContactNumber.ofPhoneNumber("+15550001234", Contacts.ContactNumber.Type.WORK))
+            .phone(Contacts.ContactNumber.ofWhatsAppId("abc123", Contacts.ContactNumber.Type.IPHONE))
+            .url(Contacts.Url.ofWorkUrl("http://www.connect.com"))
             .formattedName("Mr. John Connect Doe Jr.")
             .firstName("John")
             .lastName("Doe")

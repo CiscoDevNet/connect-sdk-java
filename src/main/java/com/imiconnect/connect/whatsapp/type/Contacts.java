@@ -106,7 +106,6 @@ public final class Contacts implements Content {
 
   /** A phone number that can be added to a WhatsApp {@link Contact}. */
   @Value
-  @lombok.Builder(builderClassName = "Builder")
   public static final class ContactNumber {
 
     /** The type of phone number. */
@@ -118,22 +117,36 @@ public final class Contacts implements Content {
       IPHONE
     }
 
-    private Type type;
-    private String number; // TODO, make this an e164 endpoint object
-    private String whatsAppId;
+    private final Type type;
+    private final String number;
+    private final String whatsAppId;
+
+    public ContactNumber(Type type, String number, String whatsAppId) {
+      this.type = type;
+      this.number = number;
+      this.whatsAppId = whatsAppId;
+    }
+
+    public static ContactNumber ofPhoneNumber(String phoneNumber, Type type) {
+      return new ContactNumber(type, phoneNumber, null);
+    }
+
+    public static ContactNumber ofWhatsAppId(String id, Type type) {
+      return new ContactNumber(type, null, id);
+    }
   }
 
   /** A physical location address that can be added to a WhatsApp {@link Contact}. */
   @Value
   @lombok.Builder(builderClassName = "Builder")
   public static final class Address {
-    private ContactType type;
-    private String street;
-    private String city;
-    private String state;
-    private String zip;
-    private String country;
-    private String countryCode;
+    private final ContactType type;
+    private final String street;
+    private final String city;
+    private final String state;
+    private final String zip;
+    private final String country;
+    private final String countryCode;
 
     /**
      * Formats the string in a human-readable form that is typically used in the US. This can be
@@ -148,18 +161,43 @@ public final class Contacts implements Content {
 
   /** Optional email address that can be added to a WhatsApp {@link Contact}. */
   @Value
-  @lombok.Builder(builderClassName = "Builder")
   public static final class Email {
-    private ContactType type;
-    private String address; // TODO: Add basic email validation?
+    private final ContactType type;
+    private final String address;
+
+    public Email(ContactType type, String address) {
+      this.type = type;
+      this.address = address;
+    }
+
+    public static Email ofWorkEmail(String email) {
+      return new Email(ContactType.WORK, email);
+    }
+
+    public static Email ofHomeEmail(String email) {
+      return new Email(ContactType.HOME, email);
+    }
+
   }
 
   /** Optional URL that can be added to a WhatsApp {@link Contact}. */
   @Value
-  @lombok.Builder(builderClassName = "Builder")
   public static final class Url {
-    private ContactType type;
-    private URI address;
+    private final ContactType type;
+    private final URI address;
+
+    public Url(ContactType type, URI address) {
+      this.type = type;
+      this.address = address;
+    }
+
+    public static Url ofWorkUrl(String url) {
+      return new Url(ContactType.WORK, URI.create(url));
+    }
+
+    public static Url ofHomeUrl(String url) {
+      return new Url(ContactType.HOME, URI.create(url));
+    }
   }
 
   /** The type of WhatsApp {@link Contact}. */

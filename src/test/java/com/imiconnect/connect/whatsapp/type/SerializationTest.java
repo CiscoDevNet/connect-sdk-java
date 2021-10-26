@@ -5,7 +5,6 @@ import com.imiconnect.connect.core.parser.ObjectParser;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.net.URI;
 import java.time.LocalDate;
 
 import static com.imiconnect.connect.whatsapp.type.Contacts.ContactType.WORK;
@@ -58,18 +57,10 @@ public class SerializationTest {
                     .zip("95134")
                     .type(WORK)
                     .build())
-            .email(Contacts.Email.builder().address("employee@cisco.com").type(WORK).build())
-            .phone(
-                Contacts.ContactNumber.builder()
-                    .number("+15550001234")
-                    .whatsAppId("id123")
-                    .type(Contacts.ContactNumber.Type.WORK)
-                    .build())
-            .url(
-                Contacts.Url.builder()
-                    .address(URI.create("http://www.connect.com"))
-                    .type(WORK)
-                    .build())
+            .email(Contacts.Email.ofWorkEmail("employee@cisco.com"))
+            .phone(Contacts.ContactNumber.ofPhoneNumber("+15550001234", Contacts.ContactNumber.Type.WORK))
+            .phone(Contacts.ContactNumber.ofWhatsAppId("abc123", Contacts.ContactNumber.Type.IPHONE))
+            .url(Contacts.Url.ofWorkUrl("http://www.connect.com"))
             .formattedName("Mr. John Connect Doe Jr.")
             .firstName("John")
             .lastName("Doe")
