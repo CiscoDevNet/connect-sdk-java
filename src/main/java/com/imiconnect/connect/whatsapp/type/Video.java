@@ -25,7 +25,6 @@ public final class Video extends MediaContent {
   private final WhatsAppContentType contentType = WhatsAppContentType.VIDEO;
   private final String caption;
 
-  @lombok.Builder(builderClassName = "Builder")
   public Video(URI url, @Nullable String mimeType, @Nullable String caption) {
     super(url, mimeType);
     validArgument(
@@ -41,16 +40,17 @@ public final class Video extends MediaContent {
    * @return A new instance of {@link Video}.
    */
   public static Video of(String url) {
-    return Video.of(URI.create(url));
+    return new Video(URI.create(url), null, null);
   }
 
   /**
    * Convenience method to define new video content at the given url.
    *
    * @param url The URL where the video can be found.
+   * @param caption The caption displayed with the video.
    * @return A new instance of {@link Video}.
    */
-  public static Video of(URI url) {
-    return new Video(url, null, null);
+  public static Video of(String url, String caption) {
+    return new Video(URI.create(url), null, caption);
   }
 }

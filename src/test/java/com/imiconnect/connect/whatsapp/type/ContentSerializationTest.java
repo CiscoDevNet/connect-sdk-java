@@ -8,11 +8,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.ByteArrayInputStream;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import static com.imiconnect.connect.whatsapp.type.Contacts.ContactType.WORK;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -44,38 +42,36 @@ public class ContentSerializationTest {
   }
 
   private static Stream<Arguments> content() {
-    return Stream.of(Arguments.of(getAudioContent()), Arguments.of(getContactContent()));
+    return Stream.of(
+        Arguments.of(textContent()),
+      Arguments.of(getAudioContent()),
+      Arguments.of(getContactContent()));
+  }
+
+  private static Text textContent() {
+    return Text.builder().content("textmessage").previewUrl(false).build();
   }
 
   private static Audio getAudioContent() {
-    return Audio.builder().url(URI.create("http://example.com/audio.mp3")).build();
+    return Audio.of("http://example.com/audio.mp3");
   }
 
   private static Contacts getContactContent() {
-    Contacts.Contact contact =
-        Contacts.Contact.builder()
+    Contact contact =
+        Contact.builder()
             .address(
-                Contacts.Address.builder()
+                Address.asWork()
                     .city("San Jose")
                     .state("CA")
                     .street("300 E Tasman Dr")
                     .zip("95134")
-                    .type(WORK)
                     .countryCode("US")
                     .country("USA")
                     .build())
-            .email(Contacts.Email.builder().address("employee@cisco.com").type(WORK).build())
-            .phone(
-                Contacts.ContactNumber.builder()
-                    .number("+15550001234")
-                    .whatsAppId("id123")
-                    .type(Contacts.ContactNumber.Type.WORK)
-                    .build())
-            .url(
-                Contacts.Url.builder()
-                    .address(URI.create("http://www.connect.com"))
-                    .type(WORK)
-                    .build())
+            .email(Email.ofWorkEmail("employee@cisco.com"))
+            .phone(ContactNumber.ofPhoneNumber("+15550001234", ContactNumber.Type.WORK))
+            .phone(ContactNumber.ofWhatsAppId("abc123", ContactNumber.Type.IPHONE))
+            .url(ContactUrl.ofWorkUrl("http://www.connect.com"))
             .formattedName("Mr. John Connect Doe Jr.")
             .firstName("John")
             .lastName("Doe")

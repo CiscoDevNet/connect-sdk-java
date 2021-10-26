@@ -23,8 +23,7 @@ public final class Sticker extends MediaContent {
 
   private final WhatsAppContentType contentType = WhatsAppContentType.STICKER;
 
-  @lombok.Builder(builderClassName = "Builder")
-  private Sticker(URI url, @Nullable String mimeType) {
+  public Sticker(URI url, @Nullable String mimeType) {
     super(url, mimeType);
     validArgument(
         ALLOWED_MIME_TYPES.contains(this.getMimeType()),
@@ -39,17 +38,6 @@ public final class Sticker extends MediaContent {
    * @return A new instance of {@link Sticker}.
    */
   public static Sticker of(String url) {
-    return Sticker.of(URI.create(url));
-  }
-
-  /**
-   * Convenience method to define new sticker content at the given url. The mimeType will be
-   * automatically detected. To manually set the mimeType, use the builder.
-   *
-   * @param url The URL where the sticker can be found.
-   * @return A new instance of {@link Sticker}.
-   */
-  public static Sticker of(URI url) {
-    return new Sticker(url, null);
+    return new Sticker(URI.create(url), null);
   }
 }

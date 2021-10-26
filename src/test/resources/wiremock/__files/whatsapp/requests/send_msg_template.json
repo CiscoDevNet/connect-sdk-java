@@ -1,0 +1,48 @@
+{
+  "from": "a_123456789",
+  "to": "+15559994321",
+  "callbackUrl": "https://webhook.example.com",
+  "callbackData": "customerID123|1234|new_sale",
+  "correlationId": "correlationId",
+  "contentType": "TEMPLATE",
+  "templateId": "templateId",
+  "mediaHeader": {
+    "contentType": "IMAGE",
+    "url": "https://images.example.com/image.jpg",
+    "filename": "filename"
+  },
+  "quickReplies": [
+    {
+      "buttonText": "button1",
+      "payload": "postback payload1"
+    },
+    {
+      "buttonText": "button2",
+      "payload": "postback payload2"
+    },
+    {
+      "buttonText": "button3",
+      "payload": "postback payload3"
+    }
+  ],
+  "substitutions": {
+    "textVar": "text substitution value",
+    "currencyVar": {
+      "contentType": "CURRENCY",
+      "code": "USD",
+      "amount1000": 100030
+    },
+    "staticDateTime": {
+      "contentType": "DATETIME",
+      "isoString": "2021-10-22T16:09:03.218"
+    },
+    "localizedDateTime": {
+      "contentType": "DATETIME",
+      "isoString": "2021-10-22T16:09:03.218Z"
+    },
+    "urlSuffixVar": {
+      "contentType": "URL",
+      "suffix": "/firstName=John&lastName=Doe"
+    }
+  }
+}

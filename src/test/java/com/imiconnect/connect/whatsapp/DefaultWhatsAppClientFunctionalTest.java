@@ -12,17 +12,21 @@ import com.imiconnect.connect.core.client.InternalClient;
 import com.imiconnect.connect.core.parser.JacksonParser;
 import com.imiconnect.connect.core.type.ErrorResponse;
 import com.imiconnect.connect.whatsapp.type.Audio;
+import com.imiconnect.connect.whatsapp.type.Template;
 import com.imiconnect.connect.whatsapp.type.Text;
 import com.imiconnect.connect.whatsapp.type.WhatsAppMsg;
 import com.imiconnect.connect.whatsapp.type.WhatsAppMsgStatus;
 import com.imiconnect.connect.whatsapp.type.WhatsAppSendMsgResponse;
+import com.imiconnect.connect.whatsapp.type.template.MediaHeader;
+import com.imiconnect.connect.whatsapp.type.template.QuickReply;
+import com.imiconnect.connect.whatsapp.type.template.Substitution;
 import org.apache.hc.core5.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.net.URI;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
@@ -75,11 +79,12 @@ public class DefaultWhatsAppClientFunctionalTest {
             .substitution("firstName", "John")
             .substitution("lastName", "Doe")
             .build();
+
     WhatsAppMsg request =
         WhatsAppMsg.of(text)
             .from(FROM)
             .to(TO)
-            .callbackUrl(URI.create("https://webhook.example.com"))
+            .callbackUrl("https://webhook.example.com")
             .callbackData("customerID123|1234|new_sale")
             .correlationId("correlationId")
             .build();
@@ -91,7 +96,61 @@ public class DefaultWhatsAppClientFunctionalTest {
 
     assertThat(actual, Matchers.equalTo(expected));
 
-    String expectedRequest = TestUtils.getFile(REQUESTS_PATH + "whatsapp_send_msg.json");
+    String expectedRequest = TestUtils.getFile(REQUESTS_PATH + "send_msg.json");
+    verify(
+        withCommonPostHeaders(
+            postRequestedFor(urlEqualTo(MESSAGES_PATH))
+                .withRequestBody(equalToJson(expectedRequest))));
+  }
+
+  @Test
+  public void shouldSendWhatsTemplateMessage() {
+    String jsonResponse = TestUtils.getFile(RESPONSES_PATH + "post_response.json");
+    stubWithCommonHeaders(post(MESSAGES_PATH), aResponse().withStatus(202).withBody(jsonResponse));
+
+    Template template =
+        Template.builder()
+            .templateId("templateId")
+            .quickReply(QuickReply.of("button1", "postback payload1"))
+            .quickReply(QuickReply.of("button2", "postback payload2"))
+            .quickReply(QuickReply.of("button3", "postback payload3"))
+            .mediaHeader(MediaHeader.ofImage("https://images.example.com/image.jpg", "filename"))
+            .substitution("textVar", Substitution.ofText("text substitution value"))
+            .substitution("currencyVar", Substitution.ofCurrency("USD", 100030))
+            .substitution(
+                "staticDateTime",
+                Substitution.ofDateTime(LocalDateTime.parse("2021-10-22T16:09:03.218")))
+            .substitution(
+                "localizedDateTime",
+                Substitution.ofLocalizedDateTime(Instant.parse("2021-10-22T16:09:03.218Z")))
+            .substitution("urlSuffixVar", Substitution.ofUrlSuffix("/firstName=John&lastName=Doe"))
+            .build();
+
+    client.sendMessage(WhatsAppMsg.of(template)
+        .from(FROM)
+        .to(TO)
+        .callbackUrl("https://webhook.example.com")
+        .callbackData("customerID123|1234|new_sale")
+        .correlationId("correlationId")
+        .build());
+
+    WhatsAppMsg request =
+        WhatsAppMsg.of(template)
+            .from(FROM)
+            .to(TO)
+            .callbackUrl("https://webhook.example.com")
+            .callbackData("customerID123|1234|new_sale")
+            .correlationId("correlationId")
+            .build();
+
+    WhatsAppSendMsgResponse actual = client.sendMessage(request);
+    WhatsAppSendMsgResponse expected =
+        new WhatsAppSendMsgResponse(
+            "requestId", "messageId", "correlationId", Instant.parse("2021-07-29T13:45:33.404Z"));
+
+    assertThat(actual, Matchers.equalTo(expected));
+
+    String expectedRequest = TestUtils.getFile(REQUESTS_PATH + "send_msg_template.json");
     verify(
         withCommonPostHeaders(
             postRequestedFor(urlEqualTo(MESSAGES_PATH))
