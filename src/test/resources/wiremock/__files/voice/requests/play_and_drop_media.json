@@ -1,0 +1,10 @@
+{
+  "callerId": "+15550001234",
+  "dialedNumber": "+15559994321",
+  "callbackUrl": "https://webhook.example.com",
+  "correlationId": "correlationId",
+  "audio": {
+    "type": "MEDIA",
+    "mediaId": "mediaId"
+  }
+}

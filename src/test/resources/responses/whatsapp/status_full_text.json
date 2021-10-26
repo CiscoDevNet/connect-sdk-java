@@ -1,0 +1,15 @@
+{
+  "messageId": "messageId",
+  "acceptedTime": "2021-09-30T16:34:36.873Z",
+  "from": "+15550001234",
+  "to": "+15559994321",
+  "correlationId": "correlationId",
+  "status": "QUEUED",
+  "statusTime": "2021-09-30T16:34:36.873Z",
+  "content": "text message",
+  "contentType": "TEXT",
+  "error": {
+    "code": "7000",
+    "message": "Message"
+  }
+}

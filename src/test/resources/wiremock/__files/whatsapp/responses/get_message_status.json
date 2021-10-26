@@ -1,0 +1,16 @@
+{
+  "messageId": "messageId",
+  "acceptedTime": "2021-07-29T13:45:33.404Z",
+  "from": "a_123456789",
+  "to": "+19545551212",
+  "correlationId": "correlationId",
+  "status": "QUEUED",
+  "statusTime": "2021-07-29T13:45:33.404Z",
+  "contentType": "AUDIO",
+  "url": "http://example.com/path/to/audio.m4a",
+  "mimeType": "audio/mp4",
+  "error": {
+    "code": "7777",
+    "message": "Error"
+  }
+}

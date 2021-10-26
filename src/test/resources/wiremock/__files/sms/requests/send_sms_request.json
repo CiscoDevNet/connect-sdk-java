@@ -1,0 +1,14 @@
+{
+  "from": "34343",
+  "to": "+15559994321",
+  "content": "Hello world!",
+  "contentType": "TEXT",
+  "substitutions": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "correlationId": "correlationId",
+  "dltTemplateId": "dltTemplateId",
+  "callbackUrl": "https://webhook.example.com",
+  "callbackData": "customerID123|1234|new_sale"
+}

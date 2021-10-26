@@ -1,0 +1,13 @@
+{
+  "from": "a_123456789",
+  "to": "+15559994321",
+  "callbackUrl": "https://webhook.example.com",
+  "callbackData": "customerID123|1234|new_sale",
+  "correlationId": "correlationId",
+  "contentType": "TEXT",
+  "content": "Hello World!",
+  "substitutions": {
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
