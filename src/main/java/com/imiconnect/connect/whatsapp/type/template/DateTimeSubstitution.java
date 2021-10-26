@@ -1,8 +1,8 @@
 package com.imiconnect.connect.whatsapp.type.template;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import lombok.Value;
 
+import javax.annotation.Nullable;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.Temporal;

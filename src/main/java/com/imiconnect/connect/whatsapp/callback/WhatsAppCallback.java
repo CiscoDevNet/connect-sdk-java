@@ -26,5 +26,4 @@ public final class WhatsAppCallback {
 
   /** Error information that will only be populated if the status is FAILED. */
   private final ErrorResponse error;
-
 }

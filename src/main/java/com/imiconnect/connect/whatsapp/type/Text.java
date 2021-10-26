@@ -1,9 +1,9 @@
 package com.imiconnect.connect.whatsapp.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import lombok.Singular;
 import lombok.Value;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 
 import static com.imiconnect.connect.core.util.Preconditions.validArgument;

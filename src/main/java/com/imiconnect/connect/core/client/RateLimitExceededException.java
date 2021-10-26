@@ -1,6 +1,6 @@
 package com.imiconnect.connect.core.client;
 
-import com.imiconnect.connect.core.annotation.Nullable;
+import javax.annotation.Nullable;
 
 /** Thrown when the rate limit associated with an account has been reached for a given period. */
 public class RateLimitExceededException extends HttpClientErrorException {

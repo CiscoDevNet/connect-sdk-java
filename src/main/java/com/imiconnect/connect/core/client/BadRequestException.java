@@ -1,6 +1,6 @@
 package com.imiconnect.connect.core.client;
 
-import com.imiconnect.connect.core.annotation.Nullable;
+import javax.annotation.Nullable;
 
 /** Exception to be thrown when the API returns a 400 Bad request. */
 public class BadRequestException extends HttpClientErrorException {

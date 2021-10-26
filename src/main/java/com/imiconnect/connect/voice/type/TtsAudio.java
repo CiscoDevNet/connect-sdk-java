@@ -1,10 +1,11 @@
 package com.imiconnect.connect.voice.type;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.voice.engine.Voice;
 import lombok.Builder;
 import lombok.Value;
+
+import javax.annotation.Nullable;
 
 import static com.imiconnect.connect.core.util.Preconditions.notNullOrBlank;
 

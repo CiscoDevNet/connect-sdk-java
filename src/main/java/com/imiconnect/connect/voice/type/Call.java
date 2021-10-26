@@ -1,10 +1,10 @@
 package com.imiconnect.connect.voice.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.core.type.IdempotentRequest;
 import com.imiconnect.connect.core.type.PhoneNumber;
 import com.imiconnect.connect.voice.callback.action.PlayAction;
 
+import javax.annotation.Nullable;
 import java.net.URI;
 
 /** Definition for a call session. */

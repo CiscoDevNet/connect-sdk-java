@@ -126,13 +126,14 @@ public class DefaultWhatsAppClientFunctionalTest {
             .substitution("urlSuffixVar", Substitution.ofUrlSuffix("/firstName=John&lastName=Doe"))
             .build();
 
-    client.sendMessage(WhatsAppMsg.of(template)
-        .from(FROM)
-        .to(TO)
-        .callbackUrl("https://webhook.example.com")
-        .callbackData("customerID123|1234|new_sale")
-        .correlationId("correlationId")
-        .build());
+    client.sendMessage(
+        WhatsAppMsg.of(template)
+            .from(FROM)
+            .to(TO)
+            .callbackUrl("https://webhook.example.com")
+            .callbackData("customerID123|1234|new_sale")
+            .correlationId("correlationId")
+            .build());
 
     WhatsAppMsg request =
         WhatsAppMsg.of(template)

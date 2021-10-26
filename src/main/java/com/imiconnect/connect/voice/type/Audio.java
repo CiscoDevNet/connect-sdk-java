@@ -1,8 +1,8 @@
 package com.imiconnect.connect.voice.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.voice.engine.Voice;
 
+import javax.annotation.Nullable;
 import java.net.URI;
 
 /** Definition for the types of audio files that can be played in a voice message. */

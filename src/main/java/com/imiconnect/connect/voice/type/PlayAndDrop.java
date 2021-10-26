@@ -1,9 +1,9 @@
 package com.imiconnect.connect.voice.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.core.type.IdempotentRequest;
 import com.imiconnect.connect.core.type.PhoneNumber;
 
+import javax.annotation.Nullable;
 import java.net.URI;
 
 /** Voice call that will play a specified message and then drop the call. */

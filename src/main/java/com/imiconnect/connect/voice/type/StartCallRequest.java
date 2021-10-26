@@ -1,9 +1,9 @@
 package com.imiconnect.connect.voice.type;
 
-import com.imiconnect.connect.core.annotation.Nullable;
 import com.imiconnect.connect.core.type.PhoneNumber;
 import lombok.Value;
 
+import javax.annotation.Nullable;
 import java.net.URI;
 import java.util.UUID;
 
