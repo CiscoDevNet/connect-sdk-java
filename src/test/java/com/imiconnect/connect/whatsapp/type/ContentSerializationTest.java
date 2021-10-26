@@ -42,7 +42,14 @@ public class ContentSerializationTest {
   }
 
   private static Stream<Arguments> content() {
-    return Stream.of(Arguments.of(getAudioContent()), Arguments.of(getContactContent()));
+    return Stream.of(
+        Arguments.of(textContent()),
+      Arguments.of(getAudioContent()),
+      Arguments.of(getContactContent()));
+  }
+
+  private static Text textContent() {
+    return Text.builder().content("textmessage").previewUrl(false).build();
   }
 
   private static Audio getAudioContent() {
