@@ -43,6 +43,10 @@ public interface WhatsAppMsg extends IdempotentRequest {
     return new WhatsAppSendMsgRequest.Builder().content(Text.of(textMessage));
   }
 
+  public static MessageSteps.From of(String textMessage) {
+    return new WhatsAppSendMsgRequest.Builder().content(Text.of(textMessage));
+  }
+
   /**
    * Creates a new WhatsApp message containing any type of {@link Content}.
    *
